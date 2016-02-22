@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane prefHeight="300.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="etiquetaLogin" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="14.0" prefHeight="17.0" prefWidth="47.0" text="Login">
+               <font>
+                  <Font name="Calibri" size="12.0" />
+               </font></Label>
+            <PasswordField fx:id="txtContraseña" layoutX="213.0" layoutY="150.0" promptText="Contraseña" />
+            <TextField fx:id="txtUsuario" layoutX="213.0" layoutY="107.0" promptText="Usuario" />
+            <Label layoutX="134.0" layoutY="111.0" text="Usuario" />
+            <Label layoutX="134.0" layoutY="154.0" text="Contraseña" />
+            <Button fx:id="botonEntrar" layoutX="262.0" layoutY="202.0" mnemonicParsing="false" onAction="#botonEntrarAction" text="Entrar" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
