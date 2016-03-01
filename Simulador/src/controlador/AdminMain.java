@@ -17,7 +17,7 @@ public class AdminMain {
 		    Connection conn = DriverManager.getConnection(url,"simulador","simulador");
 		    
 		    Controlador controla = new Controlador(conn);
- 			AdminWindow ventana = new AdminWindow(controla);
+ 			//AdminWindow ventana = new AdminWindow(controla);
 		}
 		catch(SQLException e){
 			e.printStackTrace();
