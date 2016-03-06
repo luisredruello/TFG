@@ -1,7 +1,9 @@
 package vista;
 
+import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -24,6 +26,11 @@ import javafx.scene.control.TextField;
 		@FXML
 		private PasswordField txtContraseña;
 		
+		@FXML
+		private Button botonEntrar;
+		
+		private UserMain userMain;
+		
 		@FXML //los métodos de SceneBuilder también se marcan con etiqueta
 		private void botonEntrarAction (ActionEvent event){
 			
@@ -34,5 +41,11 @@ import javafx.scene.control.TextField;
 				etiquetaLogin.setText("Usuario o contraseña erróneo");
 			}
 				
+		}
+
+		public void setMainApp(UserMain userMain) {
+			// TODO Auto-generated method stub
+			this.userMain = userMain;
+			
 		}
 }

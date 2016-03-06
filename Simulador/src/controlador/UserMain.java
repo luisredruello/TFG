@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import logica.Usuario;
+import vista.ControladorLoginUsuario;
 
 public class UserMain extends Application {
 
@@ -26,15 +27,6 @@ public class UserMain extends Application {
 		 initRootLayout();
 
 		 showLoginView();
-		 
-		 /*Text text = new Text(10, 40, "Hello World!");
-	        text.setFont(new Font(40));
-	        Scene scene = new Scene(new Group(text));
-
-	        stage.setTitle("Welcome to JavaFX!"); 
-	        stage.setScene(scene); 
-	        stage.sizeToScene(); 
-	        stage.show();*/ 
 			
 	}
 	
@@ -64,7 +56,7 @@ public class UserMain extends Application {
 		 try {
 	         //  Cargas el layout principal  del archivo fxml
 	         FXMLLoader loader = new FXMLLoader();
-	         loader.setLocation(UserMain.class.getResource("vista/RootLayout.fxml"));
+	         loader.setLocation(UserMain.class.getResource("/vista/RootLayout.fxml"));
 	         rootLayout = (BorderPane) loader.load();
 	            
 	         // Show the scene containing the root layout.
@@ -83,15 +75,15 @@ public class UserMain extends Application {
 		 try {
 	         // Load person overview.
 	         FXMLLoader loader = new FXMLLoader();
-	         loader.setLocation(UserMain.class.getResource("vista/LoginUsuario.fxml"));
-	         AnchorPane personOverview = (AnchorPane) loader.load();
+	         loader.setLocation(UserMain.class.getResource("/vista/LoginUsuario.fxml"));
+	         AnchorPane loginOverview = (AnchorPane) loader.load();
 
 	         // Set person overview into the center of root layout.
-	         rootLayout.setCenter(personOverview);
+	         rootLayout.setCenter(loginOverview);
 
 	         // Give the controller access to the main app.
-	         /*PersonOverviewController controller = loader.getController();
-	            controller.setMainApp(this);*/
+	         ControladorLoginUsuario controller = loader.getController();
+	            controller.setMainApp(this);
 
 	     } catch (IOException e) {
 	          e.printStackTrace();
