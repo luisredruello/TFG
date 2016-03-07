@@ -6,21 +6,21 @@ import javafx.beans.property.StringProperty;
 public class Usuario {
 
 	 private final StringProperty nombre;
-	 private final StringProperty contraseña;
+	 private final StringProperty pass;
+	 private final boolean esAdmin;
 	
 	
 	    /**
 	     * Default constructor.
 	     */
 	    public Usuario() {
-	        this(null, null);
+	        this(null, null, false);
 	    }
 
-	    public Usuario(String nombre, String contraseña) {
+	    public Usuario(String nombre, String contraseña, boolean type) {
 	        this.nombre = new SimpleStringProperty(nombre);
-	        this.contraseña = new SimpleStringProperty(contraseña);
-	        
-	        //habría que añadir el tipo de usuario? --- de momento lo distingo en dos clases distintas
+	        this.pass = new SimpleStringProperty(contraseña);
+	        this.esAdmin = type;
 	    }
 
 	    public String getNombre() {
@@ -36,16 +36,22 @@ public class Usuario {
 	    }
 
 	    public String getContraseña() {
-	        return contraseña.get();
+	        return pass.get();
 	    }
 
 	    public void setContraseña(String contraseña) {
-	        this.contraseña.set(contraseña);
+	        this.pass.set(contraseña);
 	    }
 
 	    public StringProperty contraseñaProperty() {
-	        return contraseña;
+	        return pass;
 	    }
+
+		public boolean isEsAdmin() {
+			return esAdmin;
+		}
+	    
+	    
 
 
 

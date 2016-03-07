@@ -38,7 +38,7 @@ public class UserMain extends Application {
 	
 	 public UserMain() {
 	        // datos de prueba que luego van a estar en la base de datos
-		 datosUsuario.add(new Usuario("Hans", "00001"));
+		 /*datosUsuario.add(new Usuario("Hans", "00001"));
 		 datosUsuario.add(new Usuario("Ruth", "00002"));
 		 datosUsuario.add(new Usuario("Heinz", "00003"));
 		 datosUsuario.add(new Usuario("Cornelia", "00004"));
@@ -46,7 +46,7 @@ public class UserMain extends Application {
 		 datosUsuario.add(new Usuario("Lydia", "00006"));
 		 datosUsuario.add(new Usuario("Anna", "00007"));
 		 datosUsuario.add(new Usuario("Stefan", "00008"));
-		 datosUsuario.add(new Usuario("Martin", "00009"));
+		 datosUsuario.add(new Usuario("Martin", "00009"));*/
 	    }
 	
 	 /**
