@@ -13,5 +13,9 @@ public class Controlador {
 	public Controlador(Connection c){
 		
 	}
+	
+	public Controlador(){
+		//Contructor vacio de LUiiiiiiii
+	}
 
 }
