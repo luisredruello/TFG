@@ -5,6 +5,8 @@ import javax.sql.DataSource;
 
 
 public class Controlador {
+	
+	private boolean probando;
 
 	public Controlador(DataSource ds){ //acceso a base de datos/servidor web
 		
@@ -15,7 +17,8 @@ public class Controlador {
 	}
 	
 	public Controlador(){
-		//Contructor vacio de LUiiiiiiii
+		//Segunda prueba
+		this.probando = true;
 	}
 
 }
