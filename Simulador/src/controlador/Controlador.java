@@ -4,6 +4,7 @@ import java.sql.Connection;
 import javax.sql.DataSource;
 
 boolean probando = false;
+boolean probando2 = false;
 
 public class Controlador {
 	
@@ -24,6 +25,6 @@ public class Controlador {
 
 	public boolean getPrueba(){
 		
-		return probando;
+		return probando; //PRUEBA 2.0
 	}
 }
