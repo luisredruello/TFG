@@ -3,6 +3,7 @@ package controlador;
 import java.sql.Connection;
 import javax.sql.DataSource;
 
+boolean probando = false;
 
 public class Controlador {
 	
@@ -21,4 +22,8 @@ public class Controlador {
 		this.probando = true;
 	}
 
+	public boolean getPrueba(){
+		
+		return probando;
+	}
 }
