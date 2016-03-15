@@ -48,4 +48,11 @@ import javafx.scene.control.TextField;
 			this.userMain = userMain;
 			
 		}
+		
+		public interface ControlledScreen { // tengo que indiciar que esta es la ventana principal
+
+		     //This method will allow the injection of the Parent ScreenPane
+		     public void setScreenParent(ScreensController screenPage);
+		     //cada controlador tiene que implementar este método para poder asociar cuál es la interfaz "padre" a cada pantalla
+		  } 
 }
