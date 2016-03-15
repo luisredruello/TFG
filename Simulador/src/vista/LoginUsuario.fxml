@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.ControladorLoginUsuario">
    <children>
-      <Button id="botonEntrar" fx:id="botonEntrar" layoutX="268.0" layoutY="294.0" mnemonicParsing="false" onAction="#botonEntrarAction" text="Entrar" />
+      <Button id="botonEntrar" fx:id="botonEntrar" layoutX="268.0" layoutY="294.0" mnemonicParsing="false" onAction="#botonEntrarAction" prefHeight="25.0" prefWidth="83.0" text="Entrar" />
       <TextField fx:id="txtUsuario" layoutX="294.0" layoutY="134.0" promptText="Usuario" />
       <Label layoutX="193.0" layoutY="138.0" text="Usuario" />
       <Label layoutX="184.0" layoutY="204.0" text="Contraseña" />

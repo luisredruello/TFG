@@ -32,7 +32,7 @@ import javafx.scene.control.TextField;
 		private UserMain userMain;
 		
 		@FXML //los métodos de SceneBuilder también se marcan con etiqueta
-		private void botonEntrarAction (ActionEvent event){
+		private void botonEntrarAction (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
 			
 			if (txtUsuario.getText().equals("UsuarioPrueba")&& txtContraseña.getText().equals("ContraseñaPrueba")){
 				etiquetaLogin.setText("Bienvenido" + txtUsuario.getText());
