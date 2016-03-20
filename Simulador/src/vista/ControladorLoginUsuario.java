@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.Controlador;
 import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import logica.Usuario;
 
 /**
  * Esta clase es un controlador, pero de la vista, es decir, hace de unión entre la vista de eclipse
@@ -31,15 +33,18 @@ import javafx.scene.control.TextField;
 		
 		private UserMain userMain;
 		
+		
 		@FXML //los métodos de SceneBuilder también se marcan con etiqueta
 		private void botonEntrarAction (ActionEvent event){
 			
-			if (txtUsuario.getText().equals("UsuarioPrueba")&& txtContraseña.getText().equals("ContraseñaPrueba")){
+			/*if (txtUsuario.getText().equals("UsuarioPrueba")&& txtContraseña.getText().equals("ContraseñaPrueba")){
 				etiquetaLogin.setText("Bienvenido" + txtUsuario.getText());
 			}
 			else {
 				etiquetaLogin.setText("Usuario o contraseña erróneo");
-			}
+			}*/
+			Usuario user = null;
+			user=this.userMain.getControlador().validaUsuario(txtUsuario.getText(),txtContraseña.getText());
 				
 		}
 

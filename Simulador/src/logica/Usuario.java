@@ -1,11 +1,15 @@
 package logica;
 
+import java.sql.Date;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Usuario {
 
-	 private final StringProperty nombre;
+	private final StringProperty DNI;
+	private final Date fecha;
+	private final StringProperty nombre;
 	 private final StringProperty pass;
 	 private final boolean esAdmin;
 	
@@ -14,16 +18,29 @@ public class Usuario {
 	     * Default constructor.
 	     */
 	    public Usuario() {
-	        this(null, null, false);
+	        this(null, null, null, null, 0);
 	    }
 
-	    public Usuario(String nombre, String contraseña, boolean type) {
+	    public Usuario(String dni, Date f,String nombre, String contraseña, int type) {
 	        this.nombre = new SimpleStringProperty(nombre);
 	        this.pass = new SimpleStringProperty(contraseña);
-	        this.esAdmin = type;
+	        this.fecha = f;
+	        this.DNI = new SimpleStringProperty(dni);
+	        if (type==0){
+	        	esAdmin=false;
+	        }
+	        else esAdmin=true;
 	    }
 
-	    public String getNombre() {
+	    public StringProperty getDNI() {
+			return DNI;
+		}
+
+		public Date getFecha() {
+			return fecha;
+		}
+
+		public String getNombre() {
 	        return nombre.get();
 	    }
 
