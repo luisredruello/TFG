@@ -35,10 +35,10 @@ public class Controlador {
 		String query = null;
 		try{
 			this.connection = DBConnection.getConnection();
-			query = "select DNI,Fecha,Nombre_Completo,Tipo,Pass from USUARIO where DNI=? and Pass=?";
+			query = "select DNI,Fecha,Nombre_Completo,Tipo,Pass from USUARIO where DNI=? and PASS=?";
 			pst = this.connection.prepareStatement(query);
-			pst.setObject(1, user);
-			pst.setObject(2, pass);
+			pst.setString(1, user);
+			pst.setString(2, pass);
 			rs = pst.executeQuery();
 			if (rs.next()){
 				String dni = rs.getString("DNI");

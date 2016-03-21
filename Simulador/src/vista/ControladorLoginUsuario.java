@@ -4,6 +4,8 @@ import controlador.Controlador;
 import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -36,15 +38,20 @@ import logica.Usuario;
 		
 		@FXML //los métodos de SceneBuilder también se marcan con etiqueta
 		private void botonEntrarAction (ActionEvent event){
-			
-			/*if (txtUsuario.getText().equals("UsuarioPrueba")&& txtContraseña.getText().equals("ContraseñaPrueba")){
-				etiquetaLogin.setText("Bienvenido" + txtUsuario.getText());
-			}
-			else {
-				etiquetaLogin.setText("Usuario o contraseña erróneo");
-			}*/
 			Usuario user = null;
 			user=this.userMain.getControlador().validaUsuario(txtUsuario.getText(),txtContraseña.getText());
+			
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Saludo Inicial");
+			if (user!=null){
+				alert.setContentText("Bienvenido "+user.getNombre());
+				alert.showAndWait();
+			}
+			else {
+				alert.setHeaderText("Error");
+				alert.setContentText("No existe el usuario "+txtUsuario.getText());
+				alert.showAndWait();
+			}
 				
 		}
 
