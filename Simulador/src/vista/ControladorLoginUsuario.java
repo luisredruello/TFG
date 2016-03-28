@@ -1,6 +1,5 @@
 package vista;
 
-import controlador.Controlador;
 import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

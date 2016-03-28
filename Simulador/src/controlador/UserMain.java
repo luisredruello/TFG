@@ -2,8 +2,6 @@ package controlador;
 
 
 import java.io.IOException;
-
-import database.DBConnection;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +25,7 @@ public class UserMain extends Application {
 		 this.primaryStage = primaryStage;
 		 this.primaryStage.setTitle("Simulador");
 		 
-		 this.controlador = new Controlador(DBConnection.getConnection());
+		 this.controlador = new Controlador();
 
 		 initRootLayout();
 
