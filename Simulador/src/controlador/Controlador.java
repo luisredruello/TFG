@@ -1,30 +1,51 @@
 package controlador;
 
-import java.sql.Connection;
+import java.io.InputStream;
 import javax.sql.DataSource;
-
-boolean probando = false;
-boolean probando2 = false;
+import database.DAO;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import logica.Usuario;
 
 public class Controlador {
 	
-	private boolean probando;
+	//private Connection connection;
+	private DAO database;
+	private Stage stage;
 
 	public Controlador(DataSource ds){ //acceso a base de datos/servidor web
-		
-	}
-	
-	public Controlador(Connection c){
-		
+		this.database = new DAO();
 	}
 	
 	public Controlador(){
-		//Segunda prueba
-		this.probando = true;
+		this.database = new DAO();
 	}
-
-	public boolean getPrueba(){
-		
-		return probando; //PRUEBA 2.0
+	
+	public Usuario validaUsuario(String name,String pass){
+		Usuario user = null;
+		user = this.database.getUser(name,pass);
+		return user;
 	}
+	
+	public Initializable replaceSceneContent(String fxml) throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        InputStream in = Controlador.class.getResourceAsStream(fxml);
+        loader.setBuilderFactory(new JavaFXBuilderFactory());
+        loader.setLocation(Controlador.class.getResource(fxml));
+        AnchorPane page;
+        try {
+            page = (AnchorPane) loader.load(in);
+        } finally {
+            in.close();
+        } 
+        Scene scene = new Scene(page, 800, 600);
+        stage.setScene(scene);
+        stage.sizeToScene();
+        return (Initializable) loader.getController();
+    }
+	
 }

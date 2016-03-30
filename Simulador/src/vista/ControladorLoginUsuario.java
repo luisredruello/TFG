@@ -3,10 +3,13 @@ package vista;
 import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import logica.Usuario;
 
 /**
  * Esta clase es un controlador, pero de la vista, es decir, hace de unión entre la vista de eclipse
@@ -31,14 +34,22 @@ import javafx.scene.control.TextField;
 		
 		private UserMain userMain;
 		
+		
 		@FXML //los métodos de SceneBuilder también se marcan con etiqueta
-		private void botonEntrarAction (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
+		private void botonEntrarAction (ActionEvent event){
+			Usuario user = null;
+			user=this.userMain.getControlador().validaUsuario(txtUsuario.getText(),txtContraseña.getText());
 			
-			if (txtUsuario.getText().equals("UsuarioPrueba")&& txtContraseña.getText().equals("ContraseñaPrueba")){
-				etiquetaLogin.setText("Bienvenido" + txtUsuario.getText());
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Saludo Inicial");
+			if (user!=null){
+				alert.setContentText("Bienvenido "+user.getNombre());
+				alert.showAndWait();
 			}
 			else {
-				etiquetaLogin.setText("Usuario o contraseña erróneo");
+				alert.setHeaderText("Error");
+				alert.setContentText("No existe el usuario "+txtUsuario.getText());
+				alert.showAndWait();
 			}
 				
 		}
@@ -48,6 +59,4 @@ import javafx.scene.control.TextField;
 			this.userMain = userMain;
 			
 		}
-		
-		
 }

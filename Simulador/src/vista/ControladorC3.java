@@ -1,6 +1,10 @@
 package vista;
 
-import vista.ControladorEscogeCertificacion.ControlledScreen;
+import java.util.ResourceBundle;
+
+import javax.print.DocFlavor.URL;
+
+//import vista.ControladorEscogeCertificacion.ControlledScreen;
 import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 
-public class ControladorC3 Initializable, ControlledScreen{
+public class ControladorC3 implements Initializable, ControlledScreen{
 	
 	@FXML 
 	private Label etiquetaBienvenidaC3; // tengo dudas de si hay que poner aquí los Label y de si se pueden usar los mismos nombres de variables
@@ -24,6 +28,7 @@ public class ControladorC3 Initializable, ControlledScreen{
 	private Button botonC3Practica;
 	
 	
+	ScreensController myController;// para moverme por las pantallas
 	
 
 		//private UserMain userMain;   no me acuerdo bien si realmente es necesario en todas las ventanas o sólo en algunas
@@ -71,7 +76,7 @@ public class ControladorC3 Initializable, ControlledScreen{
 	
 	@FXML
 	   private void goToMain(ActionEvent event){
-	     myController.setScreen(ScreensFramework.MAIN_SCREEN);
+	     //myController.setScreen(ScreensFramework.MAIN_SCREEN);
 	   } 
 
 }

@@ -1,6 +1,10 @@
 package vista;
 
-import vista.ControladorEscogeCertificacion.ControlledScreen;
+import java.util.ResourceBundle;
+
+import javax.print.DocFlavor.URL;
+
+//import vista.ControladorEscogeCertificacion.ControlledScreen;
 import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,6 +65,6 @@ public class ControladorC1 implements Initializable, ControlledScreen {
 	
 	@FXML
 	   private void goToMain(ActionEvent event){
-	     myController.setScreen(ScreensFramework.MAIN_SCREEN);
+	    // myController.setScreen(ScreensFramework.MAIN_SCREEN);
 	   } 
 }

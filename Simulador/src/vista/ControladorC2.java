@@ -1,6 +1,10 @@
 package vista;
 
-import vista.ControladorEscogeCertificacion.ControlledScreen;
+import java.util.ResourceBundle;
+
+import javax.print.DocFlavor.URL;
+
+//import vista.ControladorEscogeCertificacion.ControlledScreen;
 import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 
-public class ControladorC2 Initializable, ControlledScreen{
+public class ControladorC2 implements Initializable, ControlledScreen{
 	
 	
 	@FXML 
@@ -25,6 +29,7 @@ public class ControladorC2 Initializable, ControlledScreen{
 	private Button botonC2Practica;
 	
 	
+	ScreensController myController;// para moverme por las pantallas
 	
 
 		//private UserMain userMain;   no me acuerdo bien si realmente es necesario en todas las ventanas o sólo en algunas
@@ -73,7 +78,8 @@ public class ControladorC2 Initializable, ControlledScreen{
 	
 	@FXML
 	   private void goToMain(ActionEvent event){
-	     myController.setScreen(ScreensFramework.MAIN_SCREEN);
+	     
+		//myController.setScreen(ScreensFramework.MAIN_SCREEN);
 	   } 
 
 }

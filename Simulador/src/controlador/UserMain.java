@@ -18,15 +18,18 @@ public class UserMain extends Application {
 	
 	 private Stage primaryStage;  //escenario, es el primer marco
 	 private BorderPane rootLayout;
+	 private Controlador controlador;
 	 
 	 @Override
 	 public void start(Stage primaryStage) throws Exception {
 		 this.primaryStage = primaryStage;
 		 this.primaryStage.setTitle("Simulador");
+		 
+		 this.controlador = new Controlador();
 
 		 initRootLayout();
 
-		 showLoginView();
+		 showLoginView(this.controlador);
 			
 	}
 	
@@ -71,7 +74,7 @@ public class UserMain extends Application {
 	 
 
 	   //si hubiera otro escenario dentro del root layout
-	 public void showLoginView() {
+	 public void showLoginView(Controlador c) {
 		 try {
 	         // Load person overview.
 	         FXMLLoader loader = new FXMLLoader();
@@ -95,8 +98,16 @@ public class UserMain extends Application {
 		return primaryStage;
 	}
 
+	public Controlador getControlador() {
+		return controlador;
+	}
+
+	public void setControlador(Controlador controlador) {
+		this.controlador = controlador;
+	}
+
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
 		Application.launch(args);
 	}
 

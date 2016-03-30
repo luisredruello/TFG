@@ -1,5 +1,20 @@
 package vista;
 
+import java.util.HashMap;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
+
 public class ScreensController extends StackPane{ //aquí guardo todas las interfaces
 
 	
@@ -42,7 +57,6 @@ public class ScreensController extends StackPane{ //aquí guardo todas las interf
 
 		               new EventHandler() {
 
-		                 @Override
 		                 public void handle(ActionEvent t) {
 		                   //remove displayed screen
 		                   getChildren().remove(0);
@@ -55,6 +69,12 @@ public class ScreensController extends StackPane{ //aquí guardo todas las interf
 		                              new KeyValue(opacity, 1.0)));
 		                   fadeIn.play();
 		                 }
+
+						@Override
+						public void handle(Event event) {
+							// TODO Auto-generated method stub
+							
+						}
 		               }, new KeyValue(opacity, 0.0)));
 		         fade.play();
 		       } else {
@@ -73,5 +93,5 @@ public class ScreensController extends StackPane{ //aquí guardo todas las interf
 		         System.out.println("screen hasn't been loaded!\n");
 		         return false;
 		   }
-		   
+		 }	   
 }
