@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.ControladorLoginUsuario">
+   <children>
+      <Button id="botonEntrar" fx:id="botonC1" layoutX="206.0" layoutY="188.0" mnemonicParsing="false" onAction="#botonC1Action" prefHeight="30.0" prefWidth="147.0" text="Certificación1" />
+      <Label layoutX="52.0" layoutY="38.0" prefHeight="77.0" prefWidth="390.0" text="Bienvenido a la aplicación">
+         <font>
+            <Font size="30.0" />
+         </font></Label>
+      <Label layoutX="105.0" layoutY="132.0" text="Escoja una certificación">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Button id="botonEntrar" fx:id="botonC2" layoutX="208.0" layoutY="239.0" mnemonicParsing="false" onAction="#botonC2Action" prefHeight="30.0" prefWidth="147.0" text="Certificación2" />
+      <Button id="botonEntrar" fx:id="botonC3" layoutX="208.0" layoutY="294.0" mnemonicParsing="false" onAction="#botonC3Action" prefHeight="36.0" prefWidth="147.0" text="Certificación3" />
+   </children>
+</AnchorPane>
