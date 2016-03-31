@@ -17,46 +17,53 @@ import logica.Usuario;
  * Cualquier método conectado con @FXML es accesible desde SceneBuilder
  */
 
-	public class ControladorLoginUsuario {
+public class ControladorLoginUsuario {
 
-		@FXML //aquí van los code-id que he asignado en SceneBuilder
+	@FXML //aquí van los code-id que he asignado en SceneBuilder
 			  // una etiqueta FXML por cada elemento de la interfaz
-		private Label etiquetaLogin;
+	private Label etiquetaLogin;
 		
-		@FXML
-		private TextField txtUsuario;
+	@FXML
+	private TextField txtUsuario;
 		
-		@FXML
-		private PasswordField txtContraseña;
+	@FXML
+	private PasswordField txtContraseña;
 		
-		@FXML
-		private Button botonEntrar;
+	@FXML
+	private Button botonEntrar;
 		
-		private UserMain userMain;
+	private UserMain userMain;
 		
 		
-		@FXML //los métodos de SceneBuilder también se marcan con etiqueta
-		private void botonEntrarAction (ActionEvent event){
-			Usuario user = null;
-			user=this.userMain.getControlador().validaUsuario(txtUsuario.getText(),txtContraseña.getText());
+	@FXML //los métodos de SceneBuilder también se marcan con etiqueta
+	private void botonEntrarAction (ActionEvent event){
+		Usuario user = null;
+		user=this.userMain.getControlador()
+				.validaUsuario(txtUsuario.getText(),txtContraseña.getText());
 			
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Saludo Inicial");
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Mensaje Entrada");
+		try{
 			if (user!=null){
-				alert.setContentText("Bienvenido "+user.getNombre());
-				alert.showAndWait();
+				ControladorEscogeCertificacion c1 = (ControladorEscogeCertificacion) this.userMain
+						.getControlador()
+						.replaceSceneContent("/vista/EscogeCertificacion.fxml");
+				c1.setApp(this.userMain);
 			}
 			else {
 				alert.setHeaderText("Error");
 				alert.setContentText("No existe el usuario "+txtUsuario.getText());
 				alert.showAndWait();
 			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 				
-		}
+	}
 
-		public void setMainApp(UserMain userMain) {
-			// TODO Auto-generated method stub
-			this.userMain = userMain;
-			
-		}
+	public void setMainApp(UserMain userMain) {
+		// TODO Auto-generated method stub
+		this.userMain = userMain;
+	}
 }

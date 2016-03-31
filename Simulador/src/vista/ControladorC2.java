@@ -41,6 +41,7 @@ public class ControladorC2 implements Initializable, ControlledScreen{
 			
 	}
 	
+	@FXML
 	private void botonC2PracticaAction (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
 		
 		//accedo a otra pantalla

@@ -1,13 +1,16 @@
 package vista;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.fxml.Initializable;
 
 
-public class ControladorEscogeCertificacion {
+public class ControladorEscogeCertificacion implements Initializable {
 
 	
 	@FXML 
@@ -35,15 +38,28 @@ public class ControladorEscogeCertificacion {
 			
 	}
 	
+	@FXML
 	private void botonC2Action (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
 		
 		//accedo a otra pantalla
 			
 	}
-
+	
+	@FXML
 	private void botonC3Action (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
 	
 	//accedo a otra pantalla
+		
+	}
+
+	public void setApp(UserMain userMain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
 		
 	}
 	

@@ -66,5 +66,11 @@ public class ControladorC1 implements Initializable, ControlledScreen {
 	@FXML
 	   private void goToMain(ActionEvent event){
 	    // myController.setScreen(ScreensFramework.MAIN_SCREEN);
-	   } 
+	   }
+
+
+	public void setApp(UserMain userMain) {
+		// TODO Auto-generated method stub
+		
+	} 
 }

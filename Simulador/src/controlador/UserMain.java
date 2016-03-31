@@ -3,15 +3,15 @@ package controlador;
 
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import logica.Usuario;
 import vista.ControladorLoginUsuario;
+/*import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import logica.Usuario;*/
 
 public class UserMain extends Application {
 
@@ -25,7 +25,7 @@ public class UserMain extends Application {
 		 this.primaryStage = primaryStage;
 		 this.primaryStage.setTitle("Simulador");
 		 
-		 this.controlador = new Controlador();
+		 this.controlador = new Controlador(this.primaryStage);
 
 		 initRootLayout();
 
@@ -36,7 +36,7 @@ public class UserMain extends Application {
 	 /**
      * usamos datos que son una lista de Usuarios.
      */
-    private ObservableList<Usuario> datosUsuario = FXCollections.observableArrayList();
+    //private ObservableList<Usuario> datosUsuario = FXCollections.observableArrayList();
 
 	
 	 public UserMain() {

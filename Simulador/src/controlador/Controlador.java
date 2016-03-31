@@ -1,11 +1,9 @@
 package controlador;
 
-import java.io.InputStream;
 import javax.sql.DataSource;
 import database.DAO;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -21,8 +19,9 @@ public class Controlador {
 		this.database = new DAO();
 	}
 	
-	public Controlador(){
+	public Controlador(Stage s){
 		this.database = new DAO();
+		this.stage = s;
 	}
 	
 	public Usuario validaUsuario(String name,String pass){
@@ -33,16 +32,10 @@ public class Controlador {
 	
 	public Initializable replaceSceneContent(String fxml) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        InputStream in = Controlador.class.getResourceAsStream(fxml);
-        loader.setBuilderFactory(new JavaFXBuilderFactory());
         loader.setLocation(Controlador.class.getResource(fxml));
-        AnchorPane page;
-        try {
-            page = (AnchorPane) loader.load(in);
-        } finally {
-            in.close();
-        } 
-        Scene scene = new Scene(page, 800, 600);
+        AnchorPane page = (AnchorPane) loader.load();
+        
+        Scene scene = new Scene(page, 560, 360);
         stage.setScene(scene);
         stage.sizeToScene();
         return (Initializable) loader.getController();
