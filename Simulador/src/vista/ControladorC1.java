@@ -59,13 +59,13 @@ public class ControladorC1 implements Initializable, ControlledScreen {
          // TODO
      } 
 	
-	public void setScreenParent(ScreensController ControladorEscogeCertificacion){  //le paso por parámetro el controlador de la interfaz padre
-        myController = ControladorEscogeCertificacion;
+	public void setScreenParent(ScreensController ScreenParent){  //le paso por parámetro el controlador de la interfaz padre
+        myController = ScreenParent;
      } 
 	
 	@FXML
 	   private void goToMain(ActionEvent event){
-	    // myController.setScreen(ScreensFramework.MAIN_SCREEN);
+	     myController.setScreen(ScreensFramework.MAIN_SCREEN);
 	   }
 
 

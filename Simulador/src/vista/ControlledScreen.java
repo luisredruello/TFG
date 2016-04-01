@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 import javax.print.DocFlavor.URL;
 
-public interface ControlledScreen {
+public interface ControlledScreen { //cada controlador de la interfaz es un controller screen?
 	
 	  //This method will allow the injection of the Parent ScreenPane
     public void setScreenParent(ScreensController screenPage);

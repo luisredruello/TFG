@@ -10,9 +10,11 @@ import javafx.scene.control.Label;
 import javafx.fxml.Initializable;
 
 
-public class ControladorEscogeCertificacion implements Initializable {
+public class ControladorEscogeCertificacion implements Initializable { //esta clase puede hacer lo de ScreensController?
 
 	
+	public static final String MAIN_SCREEN = null; //revisar esto
+
 	@FXML 
 	private Label etiquetaEncabezado; // tengo dudas de si hay que poner aquí los Label
 	

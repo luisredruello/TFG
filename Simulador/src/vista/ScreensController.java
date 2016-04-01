@@ -18,7 +18,7 @@ import javafx.util.Duration;
 public class ScreensController extends StackPane{ //aquí guardo todas las interfaces
 
 	
-	private HashMap<String, Node> screens = new HashMap<>(); // agrupo las interfaces en un hasmap con el id de la pantalla y su raíz
+	private HashMap<String, Node> screens = new HashMap<>(); // agrupo las interfaces en un hashmap con el id de la pantalla y su raíz
 
 
 
@@ -93,5 +93,15 @@ public class ScreensController extends StackPane{ //aquí guardo todas las interf
 		         System.out.println("screen hasn't been loaded!\n");
 		         return false;
 		   }
-		 }	   
+		 }	
+		 
+		 public boolean unloadScreen(String name) {  //para borrar la pantalla de nuestro hashmap
+		     if(screens.remove(name) == null) {
+		       System.out.println("Screen didn't exist");
+		       return false;
+		     } else {
+		       return true;
+		     }
+		   }
+
 }
