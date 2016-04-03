@@ -26,7 +26,7 @@ public class ScreensFramework extends Application{ // es la clase que arranca la
       mainContainer.loadScreen(ScreensFramework.C3_SCREEN, ScreensFramework.C3_SCREEN_FXML);
 
       mainContainer.setScreen(ScreensFramework.MAIN_SCREEN);
-
+      
       Group root = new Group();
       root.getChildren().addAll(mainContainer);
       Scene scene = new Scene(root);

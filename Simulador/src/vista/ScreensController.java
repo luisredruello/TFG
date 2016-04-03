@@ -23,17 +23,16 @@ public class ScreensController extends StackPane{ //aquí guardo todas las interf
 
 
 	 public void addScreen(String name, Node screen) {  //métodos para adicionar, cargar y mostar la pantalla adecuada
-	       screens.put(name, screen);
+	       screens.put(name, screen);  //cuál es el tipo Node?
 	   } 
 
+	 //hay que añadir pantallas con addScreen en ScreensFramework?
 	 
 		public boolean loadScreen(String name, String resource) {
 		     try {
-		       FXMLLoader myLoader = new
-		               FXMLLoader(getClass().getResource(resource));
+		       FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
 		       Parent loadScreen = (Parent) myLoader.load();
-		       ControlledScreen myScreenControler =
-		              ((ControlledScreen) myLoader.getController());
+		       ControlledScreen myScreenControler = ((ControlledScreen) myLoader.getController());
 		       myScreenControler.setScreenParent(this);
 		       addScreen(name, loadScreen);
 		       return true;
@@ -51,11 +50,8 @@ public class ScreensController extends StackPane{ //aquí guardo todas las interf
 		       //Is there is more than one screen
 		       if(!getChildren().isEmpty()){
 		         Timeline fade = new Timeline(
-		           new KeyFrame(Duration.ZERO,
-		                        new KeyValue(opacity,1.0)),
-		           new KeyFrame(new Duration(1000),
-
-		               new EventHandler() {
+		           new KeyFrame(Duration.ZERO, new KeyValue(opacity,1.0)),
+		           new KeyFrame(new Duration(1000), new EventHandler() {
 
 		                 public void handle(ActionEvent t) {
 		                   //remove displayed screen
@@ -63,10 +59,8 @@ public class ScreensController extends StackPane{ //aquí guardo todas las interf
 		                   //add new screen
 		                   getChildren().add(0, screens.get(name));
 		                   Timeline fadeIn = new Timeline(
-		                       new KeyFrame(Duration.ZERO,
-		                              new KeyValue(opacity, 0.0)),
-		                       new KeyFrame(new Duration(800),
-		                              new KeyValue(opacity, 1.0)));
+		                       new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
+		                       new KeyFrame(new Duration(800), new KeyValue(opacity, 1.0)));
 		                   fadeIn.play();
 		                 }
 
@@ -82,10 +76,8 @@ public class ScreensController extends StackPane{ //aquí guardo todas las interf
 		         setOpacity(0.0);
 		         getChildren().add(screens.get(name));
 		         Timeline fadeIn = new Timeline(
-		             new KeyFrame(Duration.ZERO,
-		                          new KeyValue(opacity, 0.0)),
-		             new KeyFrame(new Duration(2500),
-		                          new KeyValue(opacity, 1.0)));
+		             new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
+		             new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));
 		         fadeIn.play();
 		       }
 		       return true;
