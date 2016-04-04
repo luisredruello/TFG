@@ -31,13 +31,28 @@ public class ControladorEscogeCertificacion implements Initializable { //esta cl
 	@FXML
 	private Button botonC3;
 
-		//private UserMain userMain;   no me acuerdo bien si realmente es necesario en todas las ventanas o sólo en algunas
+	// private UserMain user;   no me acuerdo bien si realmente es necesario en todas las ventanas o sólo en algunas
 	
 	@FXML //los métodos de SceneBuilder también se marcan con etiqueta
 	private void botonC1Action (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
 		
-		//accedo a otra pantalla
-			
+//		try{
+//			
+//			if (user!=null){
+//				ControladorEscogeCertificacion c1 = (ControladorEscogeCertificacion) this.userMain
+//						.getControlador()
+//						.replaceSceneContent("/vista/C1.fxml");
+//				c1.setApp(this.userMain);
+//			}
+//			else {
+//				alert.setHeaderText("Error");
+//				alert.setContentText("No existe el usuario "+txtUsuario.getText());
+//				alert.showAndWait();
+//			}
+//		}
+//		catch(Exception e){
+//			e.printStackTrace();
+//		}
 	}
 	
 	@FXML

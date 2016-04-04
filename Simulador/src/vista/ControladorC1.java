@@ -8,6 +8,7 @@ import javax.print.DocFlavor.URL;
 import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -70,6 +71,13 @@ public class ControladorC1 implements Initializable, ControlledScreen {
 
 
 	public void setApp(UserMain userMain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void initialize(java.net.URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
 	} 
