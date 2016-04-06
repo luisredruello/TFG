@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 
 import javax.print.DocFlavor.URL;
 
+import controlador.Controlador;
 //import vista.ControladorEscogeCertificacion.ControlledScreen;
 import controlador.UserMain;
 import javafx.event.ActionEvent;
@@ -21,7 +22,9 @@ public class ControladorC2 implements Initializable, ControlledScreen{
 	
 	@FXML 
 	private Label eligeC2;
-
+	
+	@FXML
+	private Button atras;
 
 	@FXML
 	private Button botonC2Teoria;
@@ -29,12 +32,17 @@ public class ControladorC2 implements Initializable, ControlledScreen{
 	@FXML
 	private Button botonC2Practica;
 	
-	
+	private Controlador control;
 	ScreensController myController;// para moverme por las pantallas
 	
 
 		//private UserMain userMain;   no me acuerdo bien si realmente es necesario en todas las ventanas o sólo en algunas
 	
+	
+	public void setControl(Controlador control) {
+		this.control = control;
+	}
+
 	@FXML //los métodos de SceneBuilder también se marcan con etiqueta
 	private void botonC2TeoriaAction (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
 		
@@ -48,8 +56,18 @@ public class ControladorC2 implements Initializable, ControlledScreen{
 		//accedo a otra pantalla
 			
 	}
-
 	
+	@FXML
+	private void goToCertification (ActionEvent event){
+		try{
+			ControladorEscogeCertificacion cEC = (ControladorEscogeCertificacion) this.control
+					.replaceSceneContent("/vista/EscogeCertificacion.fxml");
+			cEC.setControl(control);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}		
+	}
 	
 	
 //	public class Screen1Controller implements Initializable, ControlledScreen { // con este método cada controlador tiene la referencia de su padre

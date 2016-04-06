@@ -1,7 +1,6 @@
 package vista;
 
 import java.util.HashMap;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;

@@ -49,6 +49,8 @@ public class ControladorLoginUsuario {
 						.getControlador()
 						.replaceSceneContent("/vista/EscogeCertificacion.fxml");
 				c1.setApp(this.userMain);
+				c1.setControl(this.userMain.getControlador());
+				c1.setUsuario(user);
 			}
 			else {
 				alert.setHeaderText("Error");

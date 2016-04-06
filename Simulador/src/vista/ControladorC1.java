@@ -1,9 +1,8 @@
 package vista;
 
 import java.util.ResourceBundle;
-
 import javax.print.DocFlavor.URL;
-
+import controlador.Controlador;
 //import vista.ControladorEscogeCertificacion.ControlledScreen;
 import controlador.UserMain;
 import javafx.event.ActionEvent;
@@ -20,10 +19,14 @@ public class ControladorC1 implements Initializable, ControlledScreen {
 	
 	@FXML 
 	private Label eligeC1;
-
+	
+	@FXML
+	private Button atras;
 
 	@FXML
 	private Button botonC1Teoria;
+	
+	private Controlador control;
 	
 	ScreensController myController;// para moverme por las pantallas
 	
@@ -35,6 +38,18 @@ public class ControladorC1 implements Initializable, ControlledScreen {
 		
 		//accedo a otra pantalla
 			
+	}
+	
+	@FXML
+	private void goToCertification (ActionEvent event){
+		try{
+			ControladorEscogeCertificacion cEC = (ControladorEscogeCertificacion) this.control
+					.replaceSceneContent("/vista/EscogeCertificacion.fxml");
+			cEC.setControl(control);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}		
 	}
 	
 	
@@ -75,6 +90,10 @@ public class ControladorC1 implements Initializable, ControlledScreen {
 		
 	}
 
+
+	public void setControl(Controlador control) {
+		this.control = control;
+	}
 
 	@Override
 	public void initialize(java.net.URL location, ResourceBundle resources) {

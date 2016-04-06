@@ -2,11 +2,13 @@ package vista;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import controlador.Controlador;
 import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import logica.Usuario;
 import javafx.fxml.Initializable;
 
 
@@ -14,6 +16,8 @@ public class ControladorEscogeCertificacion implements Initializable { //esta cl
 
 	
 	public static final String MAIN_SCREEN = null; //revisar esto
+	private Usuario usuario;
+	private Controlador control;
 
 	@FXML 
 	private Label etiquetaEncabezado; // tengo dudas de si hay que poner aquí los Label
@@ -35,43 +39,52 @@ public class ControladorEscogeCertificacion implements Initializable { //esta cl
 	
 	@FXML //los métodos de SceneBuilder también se marcan con etiqueta
 	private void botonC1Action (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
-		
-//		try{
-//			
-//			if (user!=null){
-//				ControladorEscogeCertificacion c1 = (ControladorEscogeCertificacion) this.userMain
-//						.getControlador()
-//						.replaceSceneContent("/vista/C1.fxml");
-//				c1.setApp(this.userMain);
-//			}
-//			else {
-//				alert.setHeaderText("Error");
-//				alert.setContentText("No existe el usuario "+txtUsuario.getText());
-//				alert.showAndWait();
-//			}
-//		}
-//		catch(Exception e){
-//			e.printStackTrace();
-//		}
+		try{
+			ControladorC1 c1 = (ControladorC1) this.control.replaceSceneContent("/vista/C1.fxml");
+			c1.setControl(control);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
 	private void botonC2Action (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
-		
-		//accedo a otra pantalla
+	
+		try{
+			ControladorC2 c2 = (ControladorC2) this.control.replaceSceneContent("/vista/C2.fxml");
+			c2.setControl(control);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 			
 	}
 	
 	@FXML
 	private void botonC3Action (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
-	
-	//accedo a otra pantalla
+		
+		try{
+			ControladorC3 c3 = (ControladorC3) this.control.replaceSceneContent("/vista/C3.fxml");
+			c3.setControl(control);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 		
 	}
 
 	public void setApp(UserMain userMain) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public void setControl(Controlador control) {
+		this.control = control;
 	}
 
 	@Override
