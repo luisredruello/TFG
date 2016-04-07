@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.ControladorEscogeAdministrador">
+   <children>
+      <Button id="botonEntrar" fx:id="botonAdministrarUsuarios" layoutX="86.0" layoutY="200.0" mnemonicParsing="false" onAction="#botonAdministrarUsuariosAction" prefHeight="30.0" prefWidth="147.0" text="Administrar Usuarios" />
+      <Label alignment="CENTER" layoutX="72.0" layoutY="39.0" prefHeight="77.0" prefWidth="390.0" text="Perfil Administrador" textAlignment="CENTER">
+         <font>
+            <Font size="30.0" />
+         </font></Label>
+      <Label layoutX="227.0" layoutY="132.0" prefHeight="30.0" prefWidth="188.0" text="Escoja una acción">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Button id="botonEntrar" fx:id="botonAdministrarGalerias" layoutX="342.0" layoutY="200.0" mnemonicParsing="false" onAction="#botonAdministrarGaleriasAction" prefHeight="30.0" prefWidth="147.0" text="Administrar Galerías" />
+      <Button id="botonEntrar" fx:id="botonAdministrarExamenes" layoutX="86.0" layoutY="282.0" mnemonicParsing="false" onAction="#botonAdministrarExamenesAction" prefHeight="36.0" prefWidth="147.0" text="Administrar Exámenes" />
+      <Button id="botonEntrar" fx:id="botonAjustes" layoutX="342.0" layoutY="285.0" mnemonicParsing="false" onAction="#botonAjustesAction" prefHeight="30.0" prefWidth="147.0" text="Ajustes" />
+   </children>
+</AnchorPane>

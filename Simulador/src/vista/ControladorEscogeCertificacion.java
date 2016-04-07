@@ -37,6 +37,9 @@ public class ControladorEscogeCertificacion implements Initializable { //esta cl
 
 	// private UserMain user;   no me acuerdo bien si realmente es necesario en todas las ventanas o sólo en algunas
 	
+	
+	
+	
 	@FXML //los métodos de SceneBuilder también se marcan con etiqueta
 	private void botonC1Action (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
 		try{

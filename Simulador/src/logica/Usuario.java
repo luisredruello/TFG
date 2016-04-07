@@ -10,8 +10,8 @@ public class Usuario {
 	private final StringProperty DNI;
 	private final Date fecha;
 	private final StringProperty nombre;
-	 private final StringProperty pass;
-	 private final boolean esAdmin;
+	private final StringProperty pass;
+	private final int tipo;
 	
 	
 	    /**
@@ -26,10 +26,7 @@ public class Usuario {
 	        this.pass = new SimpleStringProperty(contraseña);
 	        this.fecha = f;
 	        this.DNI = new SimpleStringProperty(dni);
-	        if (type==0){
-	        	esAdmin=false;
-	        }
-	        else esAdmin=true;
+	        this.tipo = type;
 	    }
 
 	    public StringProperty getDNI() {
@@ -64,8 +61,8 @@ public class Usuario {
 	        return pass;
 	    }
 
-		public boolean isEsAdmin() {
-			return esAdmin;
+		public int getType() {
+			return tipo;
 		}
 	    
 	    

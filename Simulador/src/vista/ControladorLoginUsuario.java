@@ -44,13 +44,22 @@ public class ControladorLoginUsuario {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Mensaje Entrada");
 		try{
-			if (user!=null){
+			if (user!=null && user.getType()==0){
 				ControladorEscogeCertificacion c1 = (ControladorEscogeCertificacion) this.userMain
 						.getControlador()
 						.replaceSceneContent("/vista/EscogeCertificacion.fxml");
 				c1.setApp(this.userMain);
 				c1.setControl(this.userMain.getControlador());
 				c1.setUsuario(user);
+			}
+			else if (user!=null && user.getType()==1){
+				ControladorEscogeAdministrador c2 = (ControladorEscogeAdministrador) this.userMain
+						.getControlador()
+						.replaceSceneContent("/vista/EscogeAdministrador.fxml");
+				//c2.setApp(this.userMain);
+				c2.setControl(this.userMain.getControlador());
+				c2.setUsuario(user);
+				
 			}
 			else {
 				alert.setHeaderText("Error");
