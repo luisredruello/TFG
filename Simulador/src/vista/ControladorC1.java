@@ -36,7 +36,13 @@ public class ControladorC1 implements Initializable, ControlledScreen {
 	@FXML //los métodos de SceneBuilder también se marcan con etiqueta
 	private void botonC1TeoriaAction (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
 		
-		//accedo a otra pantalla
+		try{
+			ControladorTeoria ct = (ControladorTeoria) this.control.replaceSceneContent("/vista/Teoria.fxml");
+			ct.setControl(control);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 			
 	}
 	
