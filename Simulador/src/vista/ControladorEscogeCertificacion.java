@@ -27,7 +27,7 @@ public class ControladorEscogeCertificacion implements Initializable { //esta cl
 
 
 	@FXML
-	private Button botonC1;
+	private Button botonC1;  
 	
 	@FXML
 	private Button botonC2;
