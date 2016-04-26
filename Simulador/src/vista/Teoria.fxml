@@ -6,9 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
-<!-- 
-<?import javafx.collections.FXCollections*?>
- -->
+<?import javafx.collections.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.ControladorTeoria">
    <children>
@@ -21,17 +19,14 @@
             <Font size="20.0" />
          </font></Label>
       <Button fx:id="botonTeoria" layoutX="401.0" layoutY="200.0" mnemonicParsing="false" onAction="#botonTeoriaAction" prefHeight="25.0" prefWidth="61.0" text="Ir" />
-      <ComboBox fx:id="eligeModulo" layoutX="91.0" layoutY="200.0" prefWidth="150.0" promptText="Teoria" >
-      	<!--
-      	<items>
-      	  
+      <ComboBox fx:id="eligeModulo" layoutX="91.0" layoutY="200.0" prefWidth="150.0" promptText="Teoria">
+      	<items>      	  
       		<FXCollections fx:factory="observableArrayList">
-      			<String fx:value="Option1"/>
-      			<String fx:value="Option2"/>
-      			<String fx:value="Option3"/>
+      			<String fx:value="Option1" />
+      			<String fx:value="Option2" />
+      			<String fx:value="Option3" />
       		</FXCollections>
       	</items>
-      	-->
       </ComboBox>
    </children>
 </AnchorPane>

@@ -30,35 +30,31 @@ public class ControladorTeoria implements Initializable, ControlledScreen {
 	
 	private Controlador control;
 	
-	String address = " ";
+	private String address = " ";
 	
-
-	final ComboBox emailComboBox = new ComboBox();
+	@FXML
+	private ComboBox<String> eligeModulo;
 	
 	private void recargaCombo () {
-		emailComboBox.getItems().addAll(
+		eligeModulo.getItems().clear();
+		eligeModulo.getItems().addAll(
 	            "Modulo 1",
 	            "Modulo 2",
 	            "Modulo 3",
 	            "Modulo 4",
 	            "Modulo 5"  
 	        );
-	        emailComboBox.setPromptText("Elige un módulo");
-	        emailComboBox.setEditable(true);        
-	        emailComboBox.valueProperty().addListener(new ChangeListener<String>() {
+		eligeModulo.setPromptText("Elige un módulo");
+		/*eligeModulo.setEditable(true);        
+		eligeModulo.valueProperty().addListener(new ChangeListener<String>() {
 	        	@Override 
 	            public void changed(ObservableValue ov, String t, String t1) {                
 	                address = t1;                
 	            }   
 	        });
-	        
-	      
-	     
-	        
-	       
+	      */  
 	}
-	
-	
+		
 	
 	@FXML
 	private void botonTeoriaAction (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
@@ -66,26 +62,24 @@ public class ControladorTeoria implements Initializable, ControlledScreen {
 		 botonTeoria.setOnAction(new EventHandler<ActionEvent>() {
 	            @Override
 	            public void handle(ActionEvent e) {
-	                if (emailComboBox.getValue() != null && 
-	                    !emailComboBox.getValue().toString().isEmpty()){
+	                if (eligeModulo.getValue() != null && 
+	                    !eligeModulo.getValue().toString().isEmpty()){
 	                	
-	                	if (emailComboBox.getValue() == ("Modulo 1")){
+	                	if (eligeModulo.getValue() == ("Modulo 1")){
 	                		cargaPdf ("C:\\Modulo1.pdf");
 	                	}
-	                	else if (emailComboBox.getValue() == ("Modulo 2")){
+	                	else if (eligeModulo.getValue() == ("Modulo 2")){
 	                		cargaPdf ("C:\\Modulo2.pdf");
 	                	}
-	                	else if (emailComboBox.getValue() == ("Modulo 3")){
+	                	else if (eligeModulo.getValue() == ("Modulo 3")){
 	                		cargaPdf ("C:\\Modulo3.pdf");
 	                	}
-	                	else if (emailComboBox.getValue() == ("Modulo 4")){
+	                	else if (eligeModulo.getValue() == ("Modulo 4")){
 	                		cargaPdf ("C:\\Modulo4.pdf");
 	                	}
-	                	else if (emailComboBox.getValue() == ("Modulo 5")){
+	                	else if (eligeModulo.getValue() == ("Modulo 5")){
 	                		cargaPdf ("C:\\Modulo5.pdf");
 	                	}
-	                			
-	            	
 	                }
 	                else {
 	                    
@@ -95,11 +89,8 @@ public class ControladorTeoria implements Initializable, ControlledScreen {
 					
 	}
 	
-private void cargaPdf (String url) {
-    	
-    	try {
-
-    		
+	private void cargaPdf (String url) {
+       	try {
 			File pdfFile = new File(url);
 			if (pdfFile.exists()) {
 
@@ -129,26 +120,29 @@ private void cargaPdf (String url) {
 		
 	}
 
+	@FXML
+	public void initialize() {
+		// TODO Auto-generated method stub
+		recargaCombo();
+	}
+	
+
+	public void setControl(Controlador control) {		
+			this.control = control;		
+	}
+
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO Auto-generated method stub
-		
+		recargaCombo();
 	}
+
 
 	@Override
 	public void initialize(java.net.URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	public void setControl(Controlador control) {
-		
-			this.control = control;
-		
-		
+		recargaCombo();
 	}
 
 }
