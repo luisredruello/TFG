@@ -26,6 +26,9 @@ public class ControladorC1 implements Initializable, ControlledScreen {
 	@FXML
 	private Button botonC1Teoria;
 	
+	@FXML
+	private Button botonC1Examen;
+	
 	private Controlador control;
 	
 	ScreensController myController;// para moverme por las pantallas
@@ -44,6 +47,11 @@ public class ControladorC1 implements Initializable, ControlledScreen {
 			e.printStackTrace();
 		}
 			
+	}
+	
+	@FXML //los métodos de SceneBuilder también se marcan con etiqueta
+	private void botonC1ExamenAction (ActionEvent event){
+		
 	}
 	
 	@FXML
