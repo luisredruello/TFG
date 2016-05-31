@@ -1,0 +1,40 @@
+package server;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+
+import logica.Usuario;
+
+public class Server {
+	
+	public Server(){
+		
+	}
+	
+	public Usuario getUsuario(String name,String pass){
+		Usuario user = new Usuario();
+		String uri = 
+			    "http://localhost:8080/Service/rest/user/"+name; //Service es el root context, posible modificacion
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+				 
+			JAXBContext jc = JAXBContext.newInstance(Usuario.class);
+			InputStream xml = connection.getInputStream();
+			user = (Usuario) jc.createUnmarshaller().unmarshal(xml);
+			
+			connection.disconnect();
+		}
+		catch(IOException | JAXBException e){//MalformedURLException
+			e.printStackTrace();
+		}
+		return user;
+	}
+
+}

@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import logica.Usuario;
+import server.Server;
 
 public class Controlador {
 	
@@ -18,6 +19,8 @@ public class Controlador {
 	private Stage stage;
 	private BorderPane menuOpciones;
 	private LinkedList<Scene> escenas;
+	
+	private Server server;
 
 	public Controlador(DataSource ds){ //acceso a base de datos/servidor web
 		this.database = new DAO();
@@ -27,12 +30,14 @@ public class Controlador {
 		this.database = new DAO();
 		this.stage = s;
 		this.menuOpciones=border;
+		this.server = new Server();
 		//this.escenas = new LinkedList<Scene>();
 	}
 	
 	public Usuario validaUsuario(String name,String pass){
 		Usuario user = null;
-		user = this.database.getUser(name,pass);
+		//user = this.database.getUser(name,pass);
+		user = this.server.getUsuario(name, pass);
 		return user;
 	}
 	
