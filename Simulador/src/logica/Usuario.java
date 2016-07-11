@@ -1,10 +1,11 @@
 package logica;
 
 import java.sql.Date;
-
+import javax.xml.bind.annotation.XmlRootElement;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+@XmlRootElement(name="usuario")
 public class Usuario {
 
 	private final StringProperty DNI;

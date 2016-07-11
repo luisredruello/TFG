@@ -3,6 +3,7 @@ package controlador;
 import java.util.LinkedList;
 import javax.sql.DataSource;
 import database.DAO;
+import database.Server;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -10,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import logica.Usuario;
-import server.Server;
 
 public class Controlador {
 	

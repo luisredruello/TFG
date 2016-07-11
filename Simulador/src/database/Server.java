@@ -1,4 +1,4 @@
-package server;
+package database;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +18,7 @@ public class Server {
 	public Usuario getUsuario(String name,String pass){
 		Usuario user = new Usuario();
 		String uri = 
-			    "http://localhost:8080/Service/rest/user/"+name; //Service es el root context, posible modificacion
+			    "http://localhost:8888/Servidor/services/user/"+name+"-"+pass;
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
