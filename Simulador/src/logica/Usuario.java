@@ -2,35 +2,33 @@ package logica;
 
 import java.sql.Date;
 import javax.xml.bind.annotation.XmlRootElement;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 @XmlRootElement(name="usuario")
 public class Usuario {
 
-	private final StringProperty DNI;
-	private final Date fecha;
-	private final StringProperty nombre;
-	private final StringProperty pass;
-	private final int tipo;
+	private String DNI;
+	private Date fecha;
+	private String nombre;
+	private String pass;
+	private int tipo;
 	
 	
 	    /**
 	     * Default constructor.
 	     */
 	    public Usuario() {
-	        this(null, null, null, null, 0);
+	        //this(null, null, null, null, 0);
 	    }
 
 	    public Usuario(String dni, Date f,String nombre, String contraseña, int type) {
-	        this.nombre = new SimpleStringProperty(nombre);
-	        this.pass = new SimpleStringProperty(contraseña);
+	        this.nombre = nombre;
+	        this.pass = contraseña;
 	        this.fecha = f;
-	        this.DNI = new SimpleStringProperty(dni);
+	        this.DNI = dni;
 	        this.tipo = type;
 	    }
 
-	    public StringProperty getDNI() {
+	    public String getDNI() {
 			return DNI;
 		}
 
@@ -39,36 +37,31 @@ public class Usuario {
 		}
 
 		public String getNombre() {
-	        return nombre.get();
+	        return nombre;
 	    }
 
 	    public void setNombre(String nombre) {
-	        this.nombre.set(nombre);
+	        this.nombre = nombre;
 	    }
 
-	    public StringProperty nombreProperty() {
+	    public String nombreProperty() {
 	        return nombre;
 	    }
 
 	    public String getContraseña() {
-	        return pass.get();
+	        return pass;
 	    }
 
 	    public void setContraseña(String contraseña) {
-	        this.pass.set(contraseña);
+	        this.pass=contraseña;
 	    }
 
-	    public StringProperty contraseñaProperty() {
+	    public String contraseñaProperty() {
 	        return pass;
 	    }
 
 		public int getType() {
 			return tipo;
 		}
-	    
-	    
-
-
-
 
 }

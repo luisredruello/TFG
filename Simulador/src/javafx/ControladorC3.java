@@ -1,4 +1,4 @@
-package vista;
+package javafx;
 
 import java.util.ResourceBundle;
 
@@ -14,23 +14,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 
-public class ControladorC2 implements Initializable, ControlledScreen{
-	
-	
-	@FXML 
-	private Label etiquetaBienvenidaC2; // tengo dudas de si hay que poner aquí los Label y de si se pueden usar los mismos nombres de variables
+public class ControladorC3 implements Initializable, ControlledScreen{
 	
 	@FXML 
-	private Label eligeC2;
+	private Label etiquetaBienvenidaC3; // tengo dudas de si hay que poner aquí los Label y de si se pueden usar los mismos nombres de variables
 	
-	@FXML
-	private Button atras;
+	@FXML 
+	private Label eligeC3;
 
 	@FXML
-	private Button botonC2Teoria;
+	private Button atras;
 	
 	@FXML
-	private Button botonC2Practica;
+	private Button botonC3Teoria;
+	
+	@FXML
+	private Button botonC3Practica;
 	
 	private Controlador control;
 	ScreensController myController;// para moverme por las pantallas
@@ -38,20 +37,19 @@ public class ControladorC2 implements Initializable, ControlledScreen{
 
 		//private UserMain userMain;   no me acuerdo bien si realmente es necesario en todas las ventanas o sólo en algunas
 	
-	
 	public void setControl(Controlador control) {
 		this.control = control;
 	}
 
 	@FXML //los métodos de SceneBuilder también se marcan con etiqueta
-	private void botonC2TeoriaAction (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
+	private void botonC3TeoriaAction (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
 		
 		//accedo a otra pantalla
 			
 	}
 	
 	@FXML
-	private void botonC2PracticaAction (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
+	private void botonC3PracticaAction (ActionEvent event){  //AQUÍ HABRÁ QUE ACCEDER A LA BASE DE DATOS
 		
 		//accedo a otra pantalla
 			
@@ -67,9 +65,9 @@ public class ControladorC2 implements Initializable, ControlledScreen{
 		catch(Exception e){
 			e.printStackTrace();
 		}		
-	}
+	}	
 	
-	
+//	
 //	public class Screen1Controller implements Initializable, ControlledScreen { // con este método cada controlador tiene la referencia de su padre
 //
 //		ScreensController myController;
@@ -86,7 +84,6 @@ public class ControladorC2 implements Initializable, ControlledScreen{
 //			//any required method here
 //	}
 
-	
 	 @Override
      public void initialize(URL url, ResourceBundle rb) {
          // TODO
@@ -98,8 +95,7 @@ public class ControladorC2 implements Initializable, ControlledScreen{
 	
 	@FXML
 	   private void goToMain(ActionEvent event){
-	     
-		myController.setScreen(ScreensFramework.MAIN_SCREEN);
+	     myController.setScreen(ScreensFramework.MAIN_SCREEN);
 	   }
 
 	@Override

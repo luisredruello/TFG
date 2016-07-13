@@ -9,13 +9,13 @@ import javax.xml.bind.JAXBException;
 
 import logica.Usuario;
 
-public class Server {
+public class DBServer implements DBInterface{
 	
-	public Server(){
+	public DBServer(){
 		
 	}
 	
-	public Usuario getUsuario(String name,String pass){
+	public Usuario getUser(String name,String pass){
 		Usuario user = new Usuario();
 		String uri = 
 			    "http://localhost:8888/Servidor/services/user/"+name+"-"+pass;

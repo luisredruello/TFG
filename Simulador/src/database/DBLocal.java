@@ -8,11 +8,11 @@ import java.sql.SQLException;
 
 import logica.Usuario;
 
-public class DAO {
+public class DBLocal implements DBInterface{
 	
 	private Connection connection;
 	
-	public DAO(){
+	public DBLocal(){
 		
 	}
 	

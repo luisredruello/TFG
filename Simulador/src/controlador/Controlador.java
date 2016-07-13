@@ -1,9 +1,8 @@
 package controlador;
 
 import java.util.LinkedList;
-import javax.sql.DataSource;
-import database.DAO;
-import database.Server;
+import database.DBLocal;
+import database.DBServer;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -15,29 +14,29 @@ import logica.Usuario;
 public class Controlador {
 	
 	//private Connection connection;
-	private DAO database;
+	private DBLocal database;
 	private Stage stage;
 	private BorderPane menuOpciones;
-	private LinkedList<Scene> escenas;
-	
-	private Server server;
+	private LinkedList<Scene> escenas;	
+	private DBServer server;
 
-	public Controlador(DataSource ds){ //acceso a base de datos/servidor web
-		this.database = new DAO();
+	public Controlador(){ //acceso a base de datos/servidor web
+		this.database = new DBLocal();
+		this.server = new DBServer();
 	}
 	
 	public Controlador(Stage s,BorderPane border){
-		this.database = new DAO();
+		this.database = new DBLocal();
 		this.stage = s;
 		this.menuOpciones=border;
-		this.server = new Server();
+		this.server = new DBServer();
 		//this.escenas = new LinkedList<Scene>();
 	}
 	
 	public Usuario validaUsuario(String name,String pass){
 		Usuario user = null;
 		//user = this.database.getUser(name,pass);
-		user = this.server.getUsuario(name, pass);
+		user = this.server.getUser(name, pass);
 		return user;
 	}
 	

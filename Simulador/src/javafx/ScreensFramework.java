@@ -1,4 +1,4 @@
-package vista;
+package javafx;
 
 import javafx.application.Application;
 import javafx.scene.Group;

@@ -1,4 +1,4 @@
-package vista;
+package javafx;
 
 import controlador.UserMain;
 import javafx.event.ActionEvent;
