@@ -1,14 +1,15 @@
 package logica;
 
-import java.sql.Date;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name="usuario")
-public class Usuario {
-
-	private String DNI;
-	private Date fecha;
-	private String nombre;
+@XmlType(propOrder = { "dni", "nombre_completo", "fecha", "tipo", "pass" })
+public class Usuario {	
+	
+	private String dni;
+	private String fecha;
+	private String nombre_completo;
 	private String pass;
 	private int tipo;
 	
@@ -20,48 +21,54 @@ public class Usuario {
 	        //this(null, null, null, null, 0);
 	    }
 
-	    public Usuario(String dni, Date f,String nombre, String contraseña, int type) {
-	        this.nombre = nombre;
+	    public Usuario(String doc, String f,String name, String contraseña, int type) {
+	        this.nombre_completo = name;
 	        this.pass = contraseña;
 	        this.fecha = f;
-	        this.DNI = dni;
+	        this.dni = doc;
 	        this.tipo = type;
 	    }
 
-	    public String getDNI() {
-			return DNI;
+		public String getDni() {
+			return dni;
 		}
 
-		public Date getFecha() {
+		public void setDni(String dni) {
+			this.dni = dni;
+		}
+
+		public String getFecha() {
 			return fecha;
 		}
 
-		public String getNombre() {
-	        return nombre;
-	    }
+		public void setFecha(String fecha) {
+			this.fecha = fecha;
+		}
 
-	    public void setNombre(String nombre) {
-	        this.nombre = nombre;
-	    }
+		public String getNombre_completo() {
+			return nombre_completo;
+		}
 
-	    public String nombreProperty() {
-	        return nombre;
-	    }
+		public void setNombre_completo(String nombre_completo) {
+			this.nombre_completo = nombre_completo;
+		}
 
-	    public String getContraseña() {
-	        return pass;
-	    }
+		public String getPass() {
+			return pass;
+		}
 
-	    public void setContraseña(String contraseña) {
-	        this.pass=contraseña;
-	    }
+		public void setPass(String pass) {
+			this.pass = pass;
+		}
 
-	    public String contraseñaProperty() {
-	        return pass;
-	    }
-
-		public int getType() {
+		public int getTipo() {
 			return tipo;
 		}
+
+		public void setTipo(int tipo) {
+			this.tipo = tipo;
+		}
+	    
+	    
 
 }

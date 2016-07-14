@@ -12,6 +12,10 @@ import logica.Usuario;
 
 public class AdminWindow extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame login;
 	private Controlador control;
 	private Usuario admin;
@@ -35,7 +39,7 @@ public class AdminWindow extends JFrame{
 		panel1.setLayout(new BorderLayout());
 		//initSerie(panel1);
 		
-		panel.addTab("Series", panel1);
+		panel.addTab("Menú Usuarios", panel1);
 		
 		this.add(panel);
 		this.setVisible(true);

@@ -65,25 +65,7 @@ public class ControladorC1 implements Initializable, ControlledScreen {
 			e.printStackTrace();
 		}		
 	}
-	
-	
-//	public class Screen1Controller implements Initializable, ControlledScreen { // con este método cada controlador tiene la referencia de su padre
-//
-//		
-//
-//		@Override
-//			public void initialize(URL url, ResourceBundle rb) {
-//				// TODO
-//			}
-//
-//			public void setScreenParent(ScreensController screenParent){
-//				myController = screenParent;
-//			}
-//
-//			//any required method here
-//	}
-
-	
+		
 	 @Override
      public void initialize(URL url, ResourceBundle rb) {
          // TODO

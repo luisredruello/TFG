@@ -1,7 +1,6 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,7 +31,7 @@ public class DBLocal implements DBInterface{
 				String dni = rs.getString("DNI");
 				String name = rs.getString("Nombre_Completo");
 				String p = rs.getString("Pass");
-				Date f = rs.getDate("Fecha");
+				String f = rs.getDate("Fecha").toString();
 				int tipo = rs.getInt("Tipo");
 				result = new Usuario(dni,f,name,p,tipo);
 			}			

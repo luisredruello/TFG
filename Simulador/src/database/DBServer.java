@@ -27,7 +27,12 @@ public class DBServer implements DBInterface{
 				 
 			JAXBContext jc = JAXBContext.newInstance(Usuario.class);
 			InputStream xml = connection.getInputStream();
+			
 			user = (Usuario) jc.createUnmarshaller().unmarshal(xml);
+			
+			//Imprimimos el usuario
+			/*System.out.println("El usuario es: ");
+			jc.createMarshaller().marshal(user, System.out);*/
 			
 			connection.disconnect();
 		}

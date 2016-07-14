@@ -36,7 +36,7 @@ public class UserWindow extends JFrame{
 	}
 	
 	private void initWindow(){
-		this.setTitle("Bienvenido "+this.user.getNombre());
+		this.setTitle("Bienvenido "+this.user.getNombre_completo());
 		this.setLayout(new BorderLayout());
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -83,24 +83,15 @@ public class UserWindow extends JFrame{
 		panelUsuario.setBorder(new TitledBorder("Datos Usuario"));
 		panelUsuario.setLayout(new BorderLayout());
 		
-		//imagen del usuario
-		/*this.icono = new JButton();
-		if (usuario.getFoto() != null)	icono.setIcon(new ImageIcon(usuario.getFoto()));*/
-		
-		/*modificaDatosUsuario(icono);
-		JPanel bloqueFoto = new JPanel();
-		bloqueFoto.add(icono);*/
-		
 		JPanel bloqueSup = new JPanel();				
-		JLabel nick = new JLabel("Nick: " + this.user.getNombre());
-		String dni = this.user.getDNI();
-		JLabel carnet = new JLabel(dni);
+		JLabel nick = new JLabel("Nombre: " + this.user.getNombre_completo());
+		String dni = this.user.getDni();
+		JLabel carnet = new JLabel("DNI: "+dni);
 		
 		bloqueSup.add(nick);
 		bloqueSup.add(carnet);
 		
 		panelUsuario.add(bloqueSup,BorderLayout.NORTH);
-		//panelUsuario.add(bloqueFoto,BorderLayout.CENTER);*/
 	}
 	
 	private void cerrarSesion(JButton s,final JFrame p){

@@ -100,7 +100,7 @@ public class LoginWindow extends JFrame{
 					if (us!=null) {						
 						v.setVisible(false);
 						//Miramos si el usuario es de tipo Administrador o Alumno
-						if (us.getType()==0){
+						if (us.getTipo()==0){
 							ventanaAlumno = new UserWindow(v,us,control);
 						}
 						else{

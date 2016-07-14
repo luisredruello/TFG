@@ -44,7 +44,7 @@ public class ControladorLoginUsuario {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Mensaje Entrada");
 		try{
-			if (user!=null && user.getType()==0){
+			if (user!=null && user.getTipo()==0){
 				ControladorEscogeCertificacion c1 = (ControladorEscogeCertificacion) this.userMain
 						.getControlador()
 						.replaceSceneContent("/vista/EscogeCertificacion.fxml");
@@ -52,7 +52,7 @@ public class ControladorLoginUsuario {
 				c1.setControl(this.userMain.getControlador());
 				c1.setUsuario(user);
 			}
-			else if (user!=null && user.getType()==1){
+			else if (user!=null && user.getTipo()==1){
 				ControladorEscogeAdministrador c2 = (ControladorEscogeAdministrador) this.userMain
 						.getControlador()
 						.replaceSceneContent("/vista/EscogeAdministrador.fxml");
