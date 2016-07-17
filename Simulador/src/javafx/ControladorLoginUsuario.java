@@ -1,6 +1,6 @@
 package javafx;
 
-import controlador.UserMain;
+//import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -32,9 +32,9 @@ public class ControladorLoginUsuario {
 	@FXML
 	private Button botonEntrar;
 		
-	private UserMain userMain;
+	//private UserMain userMain;
 		
-		
+	/*	
 	@FXML //los métodos de SceneBuilder también se marcan con etiqueta
 	private void botonEntrarAction (ActionEvent event){
 		Usuario user = null;
@@ -71,10 +71,9 @@ public class ControladorLoginUsuario {
 			e.printStackTrace();
 		}
 				
-	}
+	}*/
 
-	public void setMainApp(UserMain userMain) {
-		// TODO Auto-generated method stub
+	/*public void setMainApp(UserMain userMain) {
 		this.userMain = userMain;
-	}
+	}*/
 }

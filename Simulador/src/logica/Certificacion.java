@@ -9,6 +9,22 @@ public class Certificacion {
 		this.nivel = nivel;
 		this.limite = limite;
 	}
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
+
+	public int getLimite() {
+		return limite;
+	}
+
+	public void setLimite(int limite) {
+		this.limite = limite;
+	}
 	
 	
 

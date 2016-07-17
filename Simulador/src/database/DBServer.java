@@ -16,7 +16,7 @@ public class DBServer implements DBInterface{
 	}
 	
 	public Usuario getUser(String name,String pass){
-		Usuario user = new Usuario();
+		Usuario user = null;
 		String uri = 
 			    "http://localhost:8888/Servidor/services/user/"+name+"-"+pass;
 		try{

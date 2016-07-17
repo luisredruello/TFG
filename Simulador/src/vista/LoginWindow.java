@@ -110,7 +110,7 @@ public class LoginWindow extends JFrame{
 						user.setText(null);
 						password.setText(null);
 					}
-					else JOptionPane.showMessageDialog(log, "Usuario Incorrecto");
+					else JOptionPane.showMessageDialog(log, "No existe el usuario");
 				}
 				else JOptionPane.showMessageDialog(log, "Datos Vacíos");
 			}

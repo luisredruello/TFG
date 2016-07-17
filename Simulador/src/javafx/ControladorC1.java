@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 import javax.print.DocFlavor.URL;
 import controlador.Controlador;
 //import vista.ControladorEscogeCertificacion.ControlledScreen;
-import controlador.UserMain;
+//import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -81,10 +81,9 @@ public class ControladorC1 implements Initializable, ControlledScreen {
 	   }
 
 
-	public void setApp(UserMain userMain) {
-		// TODO Auto-generated method stub
+	/*public void setApp(UserMain userMain) {
 		
-	}
+	}*/
 
 
 	public void setControl(Controlador control) {

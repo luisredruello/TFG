@@ -3,13 +3,13 @@ package javafx;
 import java.net.URL;
 import java.util.ResourceBundle;
 import controlador.Controlador;
-import controlador.UserMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import logica.Usuario;
 import javafx.fxml.Initializable;
+//import controlador.UserMain;
 
 
 public class ControladorEscogeCertificacion implements Initializable { //esta clase puede hacer lo de ScreensController?
@@ -77,10 +77,9 @@ public class ControladorEscogeCertificacion implements Initializable { //esta cl
 		
 	}
 
-	public void setApp(UserMain userMain) {
-		// TODO Auto-generated method stub
+	/*public void setApp(UserMain userMain) {
 		
-	}
+	}*/
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
