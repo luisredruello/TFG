@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -65,11 +66,13 @@ public class AdminWindow extends JFrame{
 		JPanel panelInfo = new JPanel();
 		panelInfo.add(new JLabel("Lista de usuarios del Sistema"));
 		
-		p.add(panelInfo,BorderLayout.NORTH);
-		
+		p.add(panelInfo,BorderLayout.NORTH);		
 		
 		//Panel central del menú usuarios
-		this.comboUsuarios = new JComboBox<Usuario>();
+		Usuario[] usuariosCombo = llenaLista();
+		
+		if (usuariosCombo!=null) this.comboUsuarios = new JComboBox<Usuario>(usuariosCombo);
+		else this.comboUsuarios = new JComboBox<Usuario>();
 		
 		//initUsuariosSistema(this.comboUsuarios);
 		
@@ -81,6 +84,22 @@ public class AdminWindow extends JFrame{
 		
 		//Debajo deberían ir las opciones
 		
+	}
+	
+	private Usuario[] llenaLista() {
+		// TODO Auto-generated method stub
+		List<Usuario> aux = this.control.dameListaUsuarios();
+		if (aux != null){
+			Usuario[] resul = new Usuario[aux.size()];
+			Iterator<Usuario> it = aux.iterator();
+			int i=0;
+			while(it.hasNext()){
+				resul[i] = it.next();
+				i++;
+			}
+			return resul;
+		}
+		else return null;
 	}
 	
 	

@@ -1,6 +1,4 @@
-/vista/
-/server/
 /controlador/
-/logica/
 /database/
-/javafx/
+/logica/
+/vista/

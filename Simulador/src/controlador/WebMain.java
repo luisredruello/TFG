@@ -1,14 +1,12 @@
 package controlador;
 
-
-
 import java.awt.Desktop;
 import java.io.File;
 
 //Cross platform solution to view a PDF file
 public class WebMain {
 
-	public static void main(String[] args) {
+	public void readPDF() {
 
 	  try {
 

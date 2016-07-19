@@ -26,6 +26,8 @@ public class Certificacion {
 		this.limite = limite;
 	}
 	
-	
+	public String toString(){
+		return Integer.toString(this.nivel);
+	}
 
 }

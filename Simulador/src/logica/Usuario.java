@@ -17,9 +17,7 @@ public class Usuario {
 	    /**
 	     * Default constructor.
 	     */
-	    public Usuario() {
-	        //this(null, null, null, null, 0);
-	    }
+	    public Usuario() {}
 
 	    public Usuario(String doc, String f,String name, String contraseña, int type) {
 	        this.nombre_completo = name;
@@ -69,6 +67,8 @@ public class Usuario {
 			this.tipo = tipo;
 		}
 	    
-	    
+	    public String toString(){
+	    	return this.nombre_completo;
+	    }
 
 }
