@@ -105,7 +105,10 @@ public class AdminWindow extends JFrame{
 	
 	private void initPanelCertificados(JComponent p){
 		//Panel superior
-		this.comboCertificados = new JComboBox<Certificacion>();
+		Certificacion[] certificadosCombo = llenaCertificados();
+		
+		if (certificadosCombo!=null) this.comboCertificados = new JComboBox<Certificacion>(certificadosCombo); 
+		else this.comboCertificados = new JComboBox<Certificacion>();
 		
 		JPanel panelInfo = new JPanel();
 		panelInfo.add(new JLabel("Certificados: "));
@@ -128,6 +131,22 @@ public class AdminWindow extends JFrame{
 		panelCertificados.add("Menú Examen Teórico", panel4);
 		
 		p.add(panelCertificados, BorderLayout.CENTER);
+	}
+	
+	private Certificacion[] llenaCertificados() {
+		// TODO Auto-generated method stub
+		List<Certificacion> aux = this.control.getListaCertificados();
+		if (aux != null){
+			Certificacion[] resul = new Certificacion[aux.size()];
+			Iterator<Certificacion> it = aux.iterator();
+			int i=0;
+			while(it.hasNext()){
+				resul[i] = it.next();
+				i++;
+			}
+			return resul;
+		}
+		else return null;
 	}
 
 }

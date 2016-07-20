@@ -9,8 +9,7 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
-import logica.Usuario;
-import logica.Usuarios;
+import logica.*;
 
 public class DBServer implements DBInterface{
 	
@@ -63,6 +62,29 @@ public class DBServer implements DBInterface{
 			e.printStackTrace();
 		}
 		return users.getUsuarios();
+	}
+
+	@Override
+	public List<Certificacion> getCertificados() {
+		Certificaciones cert = null;
+		String uri = "http://localhost:8888/Servidor/services/certificados";
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+				 
+			JAXBContext jc = JAXBContext.newInstance(Certificaciones.class);
+			InputStream xml = connection.getInputStream();
+			
+			cert = (Certificaciones) jc.createUnmarshaller().unmarshal(xml);
+			
+			connection.disconnect();
+		}
+		catch(IOException | JAXBException e){
+			e.printStackTrace();
+		}
+		return cert.getCertificados();
 	}
 
 }

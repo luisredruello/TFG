@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import logica.Certificacion;
 import logica.Usuario;
 
 public class DBLocal implements DBInterface{
@@ -68,6 +69,37 @@ public class DBLocal implements DBInterface{
 				String f = rs.getDate("Fecha").toString();
 				int tipo = rs.getInt("Tipo");
 				resul.add(new Usuario(dni,f,name,p,tipo));
+			}
+			return resul;
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (con != null) con.close();
+			} catch (Exception e) {}
+		}
+		return null;
+	}
+
+	@Override
+	public List<Certificacion> getCertificados() {
+		Connection con        = null;
+		PreparedStatement pst = null;
+		ResultSet rs          = null;
+		List<Certificacion> resul = new LinkedList<Certificacion>();
+		try{
+			con = DBConnection.getConnection();
+			String sql = "SELECT * FROM certificacion";
+			pst = con.prepareStatement(sql);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				int t = rs.getInt("Nivel");
+				int l = rs.getInt("Limite");
+				resul.add(new Certificacion(t,l));
 			}
 			return resul;
 		}

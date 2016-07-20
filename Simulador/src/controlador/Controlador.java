@@ -5,6 +5,7 @@ import database.DBLocal;
 import database.DBServer;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import logica.Certificacion;
 import logica.Usuario;
 
 public class Controlador {
@@ -25,14 +26,19 @@ public class Controlador {
 	
 	public Usuario validaUsuario(String name,String pass){
 		Usuario user = null;
-		//user = this.database.getUser(name,pass);
-		user = this.server.getUser(name, pass);
+		user = this.database.getUser(name,pass);
+		//user = this.server.getUser(name, pass);
 		return user;
 	}
 	
 	public List<Usuario> dameListaUsuarios(){
-		//return this.database.getUserList();
-		return this.server.getUserList();
+		return this.database.getUserList();
+		//return this.server.getUserList();
+	}
+	
+	public List<Certificacion> getListaCertificados(){
+		//return this.database.getCertificados();
+		return this.server.getCertificados();
 	}
 	
 }
