@@ -1,8 +1,8 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -36,19 +36,20 @@ public class AdminWindow extends JFrame{
 		this.control=control;
 		this.login=v;
 		this.admin=us;
-		this.listaUsuarios = new LinkedList<Usuario>();
+		this.listaUsuarios = null;
+		this.listaCertificados = null;
 		initWindow();
 	}
 	
 	private void initWindow(){
-		this.setTitle("Ventana Administrador");		
+		this.setTitle("Bienvenido Administrador "+this.admin.getNombre_completo());		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(200,150,500,250);
 		
 		JTabbedPane panel = new JTabbedPane();
 		
 		JComponent panel1 = new JPanel();
-		panel1.setLayout(new BorderLayout());
+		panel1.setLayout(new GridLayout(3,1));
 		initUsuarios(panel1);
 		
 		JComponent panel2 = new JPanel();
@@ -67,7 +68,7 @@ public class AdminWindow extends JFrame{
 		JPanel panelInfo = new JPanel();
 		panelInfo.add(new JLabel("Lista de usuarios del Sistema"));
 		
-		p.add(panelInfo,BorderLayout.NORTH);		
+		p.add(panelInfo);		
 		
 		//Panel central del menú usuarios
 		Usuario[] usuariosCombo = llenaLista();
@@ -81,7 +82,7 @@ public class AdminWindow extends JFrame{
 		p1.add(new JLabel("Lista de Usuarios: "));
 		p1.add(this.comboUsuarios);
 		
-		p.add(p1,BorderLayout.CENTER);
+		p.add(p1);
 		
 		//Opciones de usuario
 		JPanel panelOpcionesUsuario = new JPanel();
@@ -104,7 +105,7 @@ public class AdminWindow extends JFrame{
 		
 		panelOpcionesUsuario.add(botonUpdateUser);
 		
-		p.add(panelOpcionesUsuario, BorderLayout.SOUTH);
+		p.add(panelOpcionesUsuario);
 		
 	}
 	
@@ -125,10 +126,10 @@ public class AdminWindow extends JFrame{
 
 	private Usuario[] llenaLista() {
 		// TODO Auto-generated method stub
-		List<Usuario> aux = this.control.dameListaUsuarios();
-		if (aux != null){
-			Usuario[] resul = new Usuario[aux.size()];
-			Iterator<Usuario> it = aux.iterator();
+		this.listaUsuarios = this.control.dameListaUsuarios();
+		if (listaUsuarios != null){
+			Usuario[] resul = new Usuario[listaUsuarios.size()];
+			Iterator<Usuario> it = listaUsuarios.iterator();
 			int i=0;
 			while(it.hasNext()){
 				resul[i] = it.next();
@@ -172,10 +173,10 @@ public class AdminWindow extends JFrame{
 	
 	private Certificacion[] llenaCertificados() {
 		// TODO Auto-generated method stub
-		List<Certificacion> aux = this.control.getListaCertificados();
-		if (aux != null){
-			Certificacion[] resul = new Certificacion[aux.size()];
-			Iterator<Certificacion> it = aux.iterator();
+		this.listaCertificados = this.control.getListaCertificados();
+		if (listaCertificados != null){
+			Certificacion[] resul = new Certificacion[listaCertificados.size()];
+			Iterator<Certificacion> it = listaCertificados.iterator();
 			int i=0;
 			while(it.hasNext()){
 				resul[i] = it.next();
