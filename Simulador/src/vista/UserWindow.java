@@ -73,8 +73,8 @@ public class UserWindow extends JFrame{
 				
 		//initMisSeries(panel2);
 
-		cuadro.addTab("Panel 1", panel1);
-		cuadro.addTab("Panel 2", panel2);
+		cuadro.addTab("Teoría", panel1);
+		cuadro.addTab("Práctica", panel2);
 		
 	}
 

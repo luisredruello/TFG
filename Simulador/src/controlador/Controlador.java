@@ -37,8 +37,8 @@ public class Controlador {
 	}
 	
 	public List<Certificacion> getListaCertificados(){
-		//return this.database.getCertificados();
-		return this.server.getCertificados();
+		return this.database.getCertificados();
+		//return this.server.getCertificados();
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -82,10 +83,46 @@ public class AdminWindow extends JFrame{
 		
 		p.add(p1,BorderLayout.CENTER);
 		
-		//Debajo deberían ir las opciones
+		//Opciones de usuario
+		JPanel panelOpcionesUsuario = new JPanel();
+		
+		//Agregar usuario
+		JButton botonAddUser = new JButton("Agregar");
+		agregaUsuario(botonAddUser);
+		
+		panelOpcionesUsuario.add(botonAddUser);
+		
+		//Borrar usuario
+		JButton botonDeleteUser = new JButton("Borrar");
+		borraUsuario(botonDeleteUser,this.comboUsuarios);
+		
+		panelOpcionesUsuario.add(botonDeleteUser);
+		
+		//Actualizar usuario
+		JButton botonUpdateUser = new JButton("Actualizar");
+		updateUsuario(botonUpdateUser,this.comboUsuarios);
+		
+		panelOpcionesUsuario.add(botonUpdateUser);
+		
+		p.add(panelOpcionesUsuario, BorderLayout.SOUTH);
 		
 	}
 	
+	private void updateUsuario(JButton botonUpdateUser, JComboBox<Usuario> comboUsuarios2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void borraUsuario(JButton botonDeleteUser, JComboBox<Usuario> comboUsuarios2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void agregaUsuario(JButton botonAddUser) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private Usuario[] llenaLista() {
 		// TODO Auto-generated method stub
 		List<Usuario> aux = this.control.dameListaUsuarios();
