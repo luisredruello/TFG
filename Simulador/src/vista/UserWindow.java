@@ -28,7 +28,6 @@ public class UserWindow extends JFrame{
 	private Controlador control;
 
 	public UserWindow(JFrame v, Usuario us, Controlador control) {
-		// TODO Auto-generated constructor stub
 		this.login=v;
 		this.user=us;
 		this.control=control;
@@ -58,7 +57,6 @@ public class UserWindow extends JFrame{
 	}
 	
 	private void initTabePane() {
-		// TODO Auto-generated method stub
 		cuadro = new JTabbedPane();
 		
 		//Cuadro de busqueda de series
@@ -99,7 +97,6 @@ public class UserWindow extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				p.dispose();
 				login.setVisible(true);
 			}

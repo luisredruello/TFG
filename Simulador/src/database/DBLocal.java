@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import logica.Certificacion;
+import logica.ExamenPractico;
+import logica.ExamenTeorico;
 import logica.Usuario;
 
 public class DBLocal implements DBInterface{
@@ -98,8 +100,7 @@ public class DBLocal implements DBInterface{
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				int t = rs.getInt("Nivel");
-				int l = rs.getInt("Limite");
-				resul.add(new Certificacion(t,l));
+				resul.add(new Certificacion(t));
 			}
 			return resul;
 		}
@@ -114,6 +115,68 @@ public class DBLocal implements DBInterface{
 			} catch (Exception e) {}
 		}
 		return null;
+	}
+
+	@Override
+	public ExamenPractico getExamenPractico(int level) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ExamenPractico result	= null;
+		String query = null;
+		try{
+			this.connection = DBConnection.getConnection();
+			query = "select Id_Examen from EXAMEN_PRACTICO where Nivel=?";
+			pst = this.connection.prepareStatement(query);
+			pst.setInt(1, level);
+			rs = pst.executeQuery();
+			if (rs.next()){
+				int id = rs.getInt("Id_Examen");
+				result = new ExamenPractico(id,level,50);
+			}			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (this.connection != null) this.connection.close();
+			} catch (Exception e) {}
+		}
+		return result;
+	}
+
+	@Override
+	public ExamenTeorico getExamenTeorico(int level) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ExamenTeorico result	= null;
+		String query = null;
+		try{
+			this.connection = DBConnection.getConnection();
+			query = "select Id_Examen,Nombre,Descripcion,Tiempo_Examen,numPreguntas from EXAMEN_TEORICO where Nivel=?";
+			pst = this.connection.prepareStatement(query);
+			pst.setInt(1, level);
+			rs = pst.executeQuery();
+			if (rs.next()){
+				int id = rs.getInt("Id_Examen");
+				String name = rs.getString("Nombre");
+				String d = rs.getString("Descripcion");
+				int tiempo = rs.getInt("Tiempo_Examen");
+				int num = rs.getInt("numPreguntas");
+				result = new ExamenTeorico(id,level,name,d,tiempo,num);
+			}			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (this.connection != null) this.connection.close();
+			} catch (Exception e) {}
+		}
+		return result;
 	}
 
 }

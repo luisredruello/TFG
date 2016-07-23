@@ -87,4 +87,16 @@ public class DBServer implements DBInterface{
 		return cert.getCertificados();
 	}
 
+	@Override
+	public ExamenPractico getExamenPractico(int level) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ExamenTeorico getExamenTeorico(int level) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

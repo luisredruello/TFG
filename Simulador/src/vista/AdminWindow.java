@@ -1,7 +1,8 @@
 package vista;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,8 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import controlador.Controlador;
-import logica.Certificacion;
-import logica.Usuario;
+import logica.*;
 
 public class AdminWindow extends JFrame{
 	
@@ -28,16 +28,12 @@ public class AdminWindow extends JFrame{
 	private Usuario admin;
 	private List<Usuario> listaUsuarios;
 	private JComboBox<Usuario> comboUsuarios;
-	private List<Certificacion> listaCertificados;
-	private JComboBox<Certificacion> comboCertificados;
 
 	public AdminWindow(JFrame v, Usuario us, Controlador control) {
-		// TODO Auto-generated constructor stub
 		this.control=control;
 		this.login=v;
 		this.admin=us;
 		this.listaUsuarios = null;
-		this.listaCertificados = null;
 		initWindow();
 	}
 	
@@ -52,9 +48,7 @@ public class AdminWindow extends JFrame{
 		panel1.setLayout(new GridLayout(3,1));
 		initUsuarios(panel1);
 		
-		JComponent panel2 = new JPanel();
-		panel2.setLayout(new BorderLayout());
-		initPanelCertificados(panel2);		
+		JComponent panel2 = new PanelCertificados(this.control);
 		
 		panel.addTab("Menú Usuarios", panel1);
 		panel.addTab("Menú Certificados", panel2);
@@ -125,58 +119,10 @@ public class AdminWindow extends JFrame{
 	}
 
 	private Usuario[] llenaLista() {
-		// TODO Auto-generated method stub
 		this.listaUsuarios = this.control.dameListaUsuarios();
 		if (listaUsuarios != null){
 			Usuario[] resul = new Usuario[listaUsuarios.size()];
 			Iterator<Usuario> it = listaUsuarios.iterator();
-			int i=0;
-			while(it.hasNext()){
-				resul[i] = it.next();
-				i++;
-			}
-			return resul;
-		}
-		else return null;
-	}
-	
-	
-	private void initPanelCertificados(JComponent p){
-		//Panel superior
-		Certificacion[] certificadosCombo = llenaCertificados();
-		
-		if (certificadosCombo!=null) this.comboCertificados = new JComboBox<Certificacion>(certificadosCombo); 
-		else this.comboCertificados = new JComboBox<Certificacion>();
-		
-		JPanel panelInfo = new JPanel();
-		panelInfo.add(new JLabel("Certificados: "));
-		panelInfo.add(comboCertificados);
-		
-		
-		p.add(panelInfo,BorderLayout.NORTH);
-		
-		JTabbedPane panelCertificados = new JTabbedPane();
-		
-		JComponent panel3 = new JPanel();
-		panel3.setLayout(new BorderLayout());
-		//initExamenPractioc(panel3);
-		
-		JComponent panel4 = new JPanel();
-		panel4.setLayout(new BorderLayout());
-		//initExamenTeorico(panel4);
-		
-		panelCertificados.add("Menú Examen Práctico", panel3);
-		panelCertificados.add("Menú Examen Teórico", panel4);
-		
-		p.add(panelCertificados, BorderLayout.CENTER);
-	}
-	
-	private Certificacion[] llenaCertificados() {
-		// TODO Auto-generated method stub
-		this.listaCertificados = this.control.getListaCertificados();
-		if (listaCertificados != null){
-			Certificacion[] resul = new Certificacion[listaCertificados.size()];
-			Iterator<Certificacion> it = listaCertificados.iterator();
 			int i=0;
 			while(it.hasNext()){
 				resul[i] = it.next();

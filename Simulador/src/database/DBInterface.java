@@ -11,5 +11,9 @@ public interface DBInterface {
 	public List<Usuario> getUserList();
 	
 	public List<Certificacion> getCertificados();
+	
+	public ExamenPractico getExamenPractico(int level);
+	
+	public ExamenTeorico getExamenTeorico(int level);
 
 }

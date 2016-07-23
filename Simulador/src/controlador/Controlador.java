@@ -5,8 +5,7 @@ import database.DBLocal;
 import database.DBServer;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import logica.Certificacion;
-import logica.Usuario;
+import logica.*;
 
 public class Controlador {
 	
@@ -39,6 +38,14 @@ public class Controlador {
 	public List<Certificacion> getListaCertificados(){
 		return this.database.getCertificados();
 		//return this.server.getCertificados();
+	}
+	
+	public ExamenPractico getExamenPractico(int l){
+		return this.database.getExamenPractico(l);
+	}
+	
+	public ExamenTeorico getExamenTeorico(int l){
+		return this.database.getExamenTeorico(l);
 	}
 	
 }

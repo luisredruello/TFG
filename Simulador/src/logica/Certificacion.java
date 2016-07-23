@@ -3,15 +3,17 @@ package logica;
 public class Certificacion {
 	
 	private int nivel;
-	private int limite;
+	private ExamenTeorico teorico;
+	private ExamenPractico practico;
 	
 	public Certificacion(){
 		
 	};
 	
-	public Certificacion(int nivel, int limite) {
+	public Certificacion(int nivel) {
 		this.nivel = nivel;
-		this.limite = limite;
+		this.teorico = null;
+		this.practico = null;
 	}
 
 	public int getNivel() {
@@ -21,17 +23,31 @@ public class Certificacion {
 	public void setNivel(int nivel) {
 		this.nivel = nivel;
 	}
-
-	public int getLimite() {
-		return limite;
+	
+	public ExamenTeorico getTeorico() {
+		return teorico;
 	}
 
-	public void setLimite(int limite) {
-		this.limite = limite;
+	public void setTeorico(ExamenTeorico teorico) {
+		this.teorico = teorico;
+	}
+
+	public ExamenPractico getPractico() {
+		return practico;
+	}
+
+	public void setPractico(ExamenPractico practico) {
+		this.practico = practico;
 	}
 	
+	public String pintaExamenPractico(){
+		if (this.practico==null) return "No hay Exámenes Prácticos para esta Certificación";
+		else return this.practico.toString();
+	}
+	
+
 	public String toString(){
-		return Integer.toString(this.nivel);
+		return "C"+Integer.toString(this.nivel);
 	}
 
 }
