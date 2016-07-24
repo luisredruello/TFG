@@ -70,8 +70,6 @@ public class AdminWindow extends JFrame{
 		if (usuariosCombo!=null) this.comboUsuarios = new JComboBox<Usuario>(usuariosCombo);
 		else this.comboUsuarios = new JComboBox<Usuario>();
 		
-		//initUsuariosSistema(this.comboUsuarios);
-		
 		JPanel p1 = new JPanel();
 		p1.add(new JLabel("Lista de Usuarios: "));
 		p1.add(this.comboUsuarios);
@@ -114,7 +112,15 @@ public class AdminWindow extends JFrame{
 	}
 
 	private void agregaUsuario(JButton botonAddUser) {
-		// TODO Auto-generated method stub
+		botonAddUser.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaNuevoUsuario v = new VentanaNuevoUsuario(control,comboUsuarios);
+				
+			}
+			
+		});
 		
 	}
 

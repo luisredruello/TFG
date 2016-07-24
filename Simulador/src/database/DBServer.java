@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Date;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -63,6 +64,12 @@ public class DBServer implements DBInterface{
 		}
 		return users.getUsuarios();
 	}
+	
+	@Override
+	public int insertaUsuario(String name, String dni, String pass, Date f) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public List<Certificacion> getCertificados() {
@@ -98,5 +105,7 @@ public class DBServer implements DBInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }

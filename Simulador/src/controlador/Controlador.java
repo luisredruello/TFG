@@ -1,5 +1,9 @@
 package controlador;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import database.DBLocal;
 import database.DBServer;
@@ -28,6 +32,23 @@ public class Controlador {
 		user = this.database.getUser(name,pass);
 		//user = this.server.getUser(name, pass);
 		return user;
+	}
+	
+	public int insertaUsuario(String nombre, String dni, String pass){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		String fecha = dateFormat.format(cal.getTime());
+		java.util.Date date = null;
+		
+		try{
+			date = dateFormat.parse(fecha);			
+		}
+		catch(ParseException p){
+			p.printStackTrace();
+		}
+		
+		java.sql.Date fechaInsert = new java.sql.Date(date.getTime());
+		return this.database.insertaUsuario(nombre, dni, pass, fechaInsert);
 	}
 	
 	public List<Usuario> dameListaUsuarios(){
