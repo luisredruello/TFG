@@ -1,7 +1,12 @@
 package logica;
 
-public class ExamenTeorico extends Examen{
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="examen_teorico")
+public class ExamenTeorico{
 	
+	private int id_examen;
+	private int nivel;
 	private String nombre;
 	private String descripcion;
 	private int tiempo_examen;
@@ -12,11 +17,12 @@ public class ExamenTeorico extends Examen{
 	}
 	
 	public ExamenTeorico(int id, int n, String name, String desc, int t, int preg){
-		super(id,n);
+		this.id_examen=id;
 		this.nombre=name;
 		this.descripcion=desc;
 		this.tiempo_examen=t;
 		this.numPreguntas=preg;
+		this.nivel=n;
 	}
 
 	public String getNombre() {
@@ -49,6 +55,22 @@ public class ExamenTeorico extends Examen{
 
 	public void setNumPreguntas(int numPreguntas) {
 		this.numPreguntas = numPreguntas;
+	}
+
+	public int getId_examen() {
+		return id_examen;
+	}
+
+	public void setId_examen(int id_examen) {
+		this.id_examen = id_examen;
+	}
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
 	}
 	
 	

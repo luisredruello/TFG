@@ -29,8 +29,8 @@ public class Controlador {
 	
 	public Usuario validaUsuario(String name,String pass){
 		Usuario user = null;
-		user = this.database.getUser(name,pass);
-		//user = this.server.getUser(name, pass);
+		//user = this.database.getUser(name,pass);
+		user = this.server.getUser(name, pass);
 		return user;
 	}
 	
@@ -48,25 +48,28 @@ public class Controlador {
 		}
 		
 		java.sql.Date fechaInsert = new java.sql.Date(date.getTime());
-		return this.database.insertaUsuario(nombre, dni, pass, fechaInsert);
+		//return this.database.insertaUsuario(nombre, dni, pass, fechaInsert);
+		return this.server.insertaUsuario(nombre, dni, pass, fechaInsert);
 	}
 	
 	public List<Usuario> dameListaUsuarios(){
-		return this.database.getUserList();
-		//return this.server.getUserList();
+		//return this.database.getUserList();
+		return this.server.getUserList();
 	}
 	
 	public List<Certificacion> getListaCertificados(){
-		return this.database.getCertificados();
-		//return this.server.getCertificados();
+		//return this.database.getCertificados();
+		return this.server.getCertificados();
 	}
 	
 	public ExamenPractico getExamenPractico(int l){
-		return this.database.getExamenPractico(l);
+		//return this.database.getExamenPractico(l);
+		return this.server.getExamenPractico(l);
 	}
 	
 	public ExamenTeorico getExamenTeorico(int l){
-		return this.database.getExamenTeorico(l);
+		//return this.database.getExamenTeorico(l);
+		return this.server.getExamenTeorico(l);
 	}
 	
 }

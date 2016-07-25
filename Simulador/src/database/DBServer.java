@@ -18,6 +18,10 @@ public class DBServer implements DBInterface{
 		
 	}
 	
+	/**
+	 * USUARIO
+	 */
+	
 	public Usuario getUser(String name,String pass){
 		Usuario user = null;
 		String uri = 
@@ -59,7 +63,7 @@ public class DBServer implements DBInterface{
 			
 			connection.disconnect();
 		}
-		catch(IOException | JAXBException e){//MalformedURLException
+		catch(IOException | JAXBException e){
 			e.printStackTrace();
 		}
 		return users.getUsuarios();
@@ -67,9 +71,29 @@ public class DBServer implements DBInterface{
 	
 	@Override
 	public int insertaUsuario(String name, String dni, String pass, Date f) {
-		// TODO Auto-generated method stub
-		return 0;
+		int exito = 0;
+		int code = 0;
+		String uri = 
+			    "http://localhost:8888/Servidor/services/user/"+name+"-"+dni+"-"+pass;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Accept", "application/xml");
+			
+			code = connection.getResponseCode();
+			exito = (code==200)?1:0;
+			
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return exito;
 	}
+	
+	/**
+	 * CERTIFICACIONES
+	 */
 
 	@Override
 	public List<Certificacion> getCertificados() {
@@ -93,17 +117,55 @@ public class DBServer implements DBInterface{
 		}
 		return cert.getCertificados();
 	}
+	
+	/**
+	 * EXAMENES
+	 */
 
 	@Override
 	public ExamenPractico getExamenPractico(int level) {
-		// TODO Auto-generated method stub
-		return null;
+		ExamenPractico practico = null;
+		String uri = "http://localhost:8888/Servidor/services/examen/practico/"+level;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+				 
+			JAXBContext jc = JAXBContext.newInstance(ExamenPractico.class);
+			InputStream xml = connection.getInputStream();
+			
+			practico = (ExamenPractico) jc.createUnmarshaller().unmarshal(xml);
+			
+			connection.disconnect();
+		}
+		catch(IOException | JAXBException e){
+			e.printStackTrace();
+		}
+		return practico;
 	}
 
 	@Override
 	public ExamenTeorico getExamenTeorico(int level) {
-		// TODO Auto-generated method stub
-		return null;
+		ExamenTeorico teorico = null;
+		String uri = "http://localhost:8888/Servidor/services/examen/teorico/"+level;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+				 
+			JAXBContext jc = JAXBContext.newInstance(ExamenTeorico.class);
+			InputStream xml = connection.getInputStream();
+			
+			teorico = (ExamenTeorico) jc.createUnmarshaller().unmarshal(xml);
+			
+			connection.disconnect();
+		}
+		catch(IOException | JAXBException e){
+			e.printStackTrace();
+		}
+		return teorico;
 	}
 
 	

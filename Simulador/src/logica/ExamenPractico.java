@@ -1,15 +1,20 @@
 package logica;
 
-public class ExamenPractico extends Examen{
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="examen_practico")
+public class ExamenPractico{
 	
+	private int id_examen;
+	private int nivel;
 	private int numImagenes;
 	
 	public ExamenPractico (){
-		super();
 	}
 	
 	public ExamenPractico(int id, int n, int num){
-		super(id, n);
+		this.id_examen=id;
+		this.nivel=n;
 		this.numImagenes=num;
 	}
 
@@ -21,8 +26,24 @@ public class ExamenPractico extends Examen{
 		this.numImagenes = numImagenes;
 	}
 	
+	public int getId_examen() {
+		return id_examen;
+	}
+
+	public void setId_examen(int id_examen) {
+		this.id_examen = id_examen;
+	}
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
+
 	public String toString(){
-		return "Exámen Práctico "+Integer.toString(super.getId_examen());
+		return "Exámen Práctico "+Integer.toString(this.id_examen);
 	}
 
 }
