@@ -4,13 +4,13 @@ import java.awt.Desktop;
 import java.io.File;
 
 //Cross platform solution to view a PDF file
-public class WebMain {
+public class PDFReader {
 
-	public void readPDF() {
+	public static void readPDF(String path) {//C:\\Memoria.pdf
 
 	  try {
 
-		File pdfFile = new File("C:\\Memoria.pdf");
+		File pdfFile = new File(path);
 		if (pdfFile.exists()) {
 
 			if (Desktop.isDesktopSupported()) {
