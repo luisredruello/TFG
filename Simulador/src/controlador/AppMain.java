@@ -1,6 +1,6 @@
 package controlador;
 
-import vista.LoginWindow;;;
+import vista.LoginWindow;
 
 public class AppMain {
 

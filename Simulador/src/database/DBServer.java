@@ -2,17 +2,20 @@ package database;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Date;
 import java.util.List;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
 import logica.*;
 
 public class DBServer implements DBInterface{
+	
+	
+	private static final String URLPATH = "http://localhost:8888/Servidor/services/";
 	
 	public DBServer(){
 		
@@ -25,12 +28,25 @@ public class DBServer implements DBInterface{
 	public Usuario getUser(String name,String pass){
 		Usuario user = null;
 		String uri = 
-			    "http://localhost:8888/Servidor/services/user/"+name+"-"+pass;
+				//URLPATH+"user/"+name+"-"+pass;
+				URLPATH+"user/get";
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
-			connection.setRequestProperty("Accept", "application/xml");
+			connection.setDoOutput(true);
+			//connection.setRequestProperty("Accept", "application/xml");
+			
+			StringBuffer queryParam = new StringBuffer();
+	        queryParam.append("nombre=");
+	        queryParam.append(name);
+	        queryParam.append("&");
+	        queryParam.append("pass=");
+	        queryParam.append(pass);
+	        
+	        OutputStream output = connection.getOutputStream();
+	        output.write(queryParam.toString().getBytes());
+	        output.flush();
 				 
 			JAXBContext jc = JAXBContext.newInstance(Usuario.class);
 			InputStream xml = connection.getInputStream();
@@ -49,7 +65,7 @@ public class DBServer implements DBInterface{
 	public List<Usuario> getUserList() {
 		Usuarios users = null;
 		String uri = 
-			    "http://localhost:8888/Servidor/services/user/users";
+				URLPATH+"user/users";
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -71,24 +87,36 @@ public class DBServer implements DBInterface{
 	
 	@Override
 	public int insertaUsuario(String name, String dni, String pass, Date f) {
-		int exito = 0;
 		int code = 0;
 		String uri = 
-			    "http://localhost:8888/Servidor/services/user/"+name+"-"+dni+"-"+pass;
+				URLPATH+"user/add";
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
-			connection.setRequestProperty("Accept", "application/xml");
+			connection.setDoOutput(true);
 			
-			code = connection.getResponseCode();
-			exito = (code==200)?1:0;
+			StringBuffer queryParam = new StringBuffer();
+	        queryParam.append("nombre=");
+	        queryParam.append(name);
+	        queryParam.append("&");
+	        queryParam.append("dni=");
+	        queryParam.append(dni);
+	        queryParam.append("&");
+	        queryParam.append("pass=");
+	        queryParam.append(pass);
+	        
+	        OutputStream output = connection.getOutputStream();
+	        output.write(queryParam.toString().getBytes());
+	        output.flush();
+			
+			code = (connection.getResponseCode()==200)?1:0;
 			
 		}
 		catch(IOException e){
 			e.printStackTrace();
 		}
-		return exito;
+		return code;
 	}
 	
 	/**
@@ -98,7 +126,7 @@ public class DBServer implements DBInterface{
 	@Override
 	public List<Certificacion> getCertificados() {
 		Certificaciones cert = null;
-		String uri = "http://localhost:8888/Servidor/services/certificados";
+		String uri = URLPATH+"certificados";
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -125,7 +153,7 @@ public class DBServer implements DBInterface{
 	@Override
 	public ExamenPractico getExamenPractico(int level) {
 		ExamenPractico practico = null;
-		String uri = "http://localhost:8888/Servidor/services/examen/practico/"+level;
+		String uri = URLPATH+"examen/practico/"+level;
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -139,8 +167,11 @@ public class DBServer implements DBInterface{
 			
 			connection.disconnect();
 		}
-		catch(IOException | JAXBException e){
+		catch(JAXBException e){
 			e.printStackTrace();
+		}
+		catch(IOException i){
+			System.err.println("Esta certificación no tiene examen práctico");
 		}
 		return practico;
 	}
@@ -148,7 +179,7 @@ public class DBServer implements DBInterface{
 	@Override
 	public ExamenTeorico getExamenTeorico(int level) {
 		ExamenTeorico teorico = null;
-		String uri = "http://localhost:8888/Servidor/services/examen/teorico/"+level;
+		String uri = URLPATH+"examen/teorico/"+level;
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();

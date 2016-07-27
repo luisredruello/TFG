@@ -62,7 +62,7 @@ public class LoginWindow extends JFrame{
 		c.gridy = 0;
 		login.add(user,c);
 		
-		JLabel p1 = new JLabel("Contraseña");
+		JLabel p1 = new JLabel("Password");
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 1;

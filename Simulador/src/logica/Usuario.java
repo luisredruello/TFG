@@ -19,9 +19,9 @@ public class Usuario {
 	     */
 	    public Usuario() {}
 
-	    public Usuario(String doc, String f,String name, String contraseña, int type) {
+	    public Usuario(String doc, String f,String name, String contra, int type) {
 	        this.nombre_completo = name;
-	        this.pass = contraseña;
+	        this.pass = contra;
 	        this.fecha = f;
 	        this.dni = doc;
 	        this.tipo = type;
