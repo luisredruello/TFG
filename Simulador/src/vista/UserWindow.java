@@ -15,9 +15,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
 
 import controlador.Controlador;
-import controlador.PDFReader;
 import logica.Certificacion;
 import logica.Usuario;
+import pdf.PDFReader;
 
 public class UserWindow extends JFrame{
 
@@ -144,7 +144,8 @@ public class UserWindow extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				PDFReader.readPDF("C:\\FAC029172.pdf");
+				String pdf = control.getTeoria();
+				PDFReader.readPDF(pdf);
 				
 			}
 			

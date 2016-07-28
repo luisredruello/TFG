@@ -34,7 +34,6 @@ public class PanelCertificados extends JPanel{
 	}
 
 	private void initCertificados() {
-		// TODO Auto-generated method stub
 		this.setLayout(new BorderLayout());
 		
 		//Panel superior

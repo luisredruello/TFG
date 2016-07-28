@@ -19,10 +19,10 @@ public class Controlador {
 		this.server = new DBServer();
 	}
 	
-	public Usuario validaUsuario(String name,String pass){
+	public Usuario validaUsuario(String dni,String pass){
 		Usuario user = null;
-		//user = this.database.getUser(name,pass);
-		user = this.server.getUser(name, pass);
+		//user = this.database.getUser(dni,pass);
+		user = this.server.getUser(dni, pass);
 		return user;
 	}
 	
@@ -62,6 +62,10 @@ public class Controlador {
 	public ExamenTeorico getExamenTeorico(int l){
 		//return this.database.getExamenTeorico(l);
 		return this.server.getExamenTeorico(l);
+	}
+	
+	public String getTeoria(){
+		return this.server.getModuloTeorico();
 	}
 	
 }

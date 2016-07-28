@@ -18,5 +18,7 @@ public interface DBInterface {
 	public ExamenPractico getExamenPractico(int level);
 	
 	public ExamenTeorico getExamenTeorico(int level);
+	
+	public String getModuloTeorico();
 
 }

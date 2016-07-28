@@ -209,6 +209,12 @@ public class DBLocal implements DBInterface{
 		return result;
 	}
 
+	@Override
+	public String getModuloTeorico() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

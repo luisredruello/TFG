@@ -1,16 +1,24 @@
 package database;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
+import org.apache.commons.io.IOUtils;
+
 import logica.*;
+import pdf.PDFReader;
 
 public class DBServer implements DBInterface{
 	
@@ -25,21 +33,20 @@ public class DBServer implements DBInterface{
 	 * USUARIO
 	 */
 	
-	public Usuario getUser(String name,String pass){
+	public Usuario getUser(String dni,String pass){
 		Usuario user = null;
 		String uri = 
-				//URLPATH+"user/"+name+"-"+pass;
 				URLPATH+"user/get";
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setDoOutput(true);
-			//connection.setRequestProperty("Accept", "application/xml");
+			connection.setRequestProperty("Accept", "application/xml");
 			
 			StringBuffer queryParam = new StringBuffer();
-	        queryParam.append("nombre=");
-	        queryParam.append(name);
+	        queryParam.append("dni=");
+	        queryParam.append(dni);
 	        queryParam.append("&");
 	        queryParam.append("pass=");
 	        queryParam.append(pass);
@@ -197,6 +204,44 @@ public class DBServer implements DBInterface{
 			e.printStackTrace();
 		}
 		return teorico;
+	}
+	
+	/**
+	 * Devuelve un modulo teórico desde el Web Service
+	 */
+
+	@Override
+	public String getModuloTeorico() {
+		String uri = URLPATH+"teoria/download/1/1";
+		String fileName = "pdf/teoria1.pdf";
+        String filePath = null;
+        byte[] fileBytes = null;
+		try{
+			filePath = PDFReader.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()
+					+ fileName;
+			
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			
+			InputStream textBase64 = connection.getInputStream();
+			
+			fileBytes = IOUtils.toByteArray(textBase64);
+			
+			FileOutputStream fos = new FileOutputStream(filePath);
+            BufferedOutputStream outputStream = new BufferedOutputStream(fos);
+            outputStream.write(fileBytes);
+            outputStream.close();
+			
+			connection.disconnect();
+		}
+		catch(URISyntaxException u){
+			u.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return filePath;
 	}
 
 	
