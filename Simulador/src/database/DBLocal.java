@@ -210,7 +210,7 @@ public class DBLocal implements DBInterface{
 	}
 
 	@Override
-	public String getModuloTeorico() {
+	public String getModuloTeorico(int nivel, int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

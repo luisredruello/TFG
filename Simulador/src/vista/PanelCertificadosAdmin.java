@@ -16,7 +16,7 @@ import controlador.Controlador;
 import logica.Certificacion;
 import logica.ExamenTeorico;
 
-public class PanelCertificados extends JPanel{
+public class PanelCertificadosAdmin extends JPanel{
 
 	/**
 	 * 
@@ -27,7 +27,7 @@ public class PanelCertificados extends JPanel{
 	private List<Certificacion> listaCertificados;
 	private Controlador control;
 	
-	public PanelCertificados(Controlador c){
+	public PanelCertificadosAdmin(Controlador c){
 		this.listaCertificados = null;
 		this.control = c;
 		initCertificados();

@@ -1,8 +1,6 @@
 package database;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -211,9 +209,9 @@ public class DBServer implements DBInterface{
 	 */
 
 	@Override
-	public String getModuloTeorico() {
-		String uri = URLPATH+"teoria/download/1/1";
-		String fileName = "pdf/teoria1.pdf";
+	public String getModuloTeorico(int nivel, int id) {
+		String uri = URLPATH+"teoria/"+nivel+"/"+id;
+		String fileName = "pdf/c"+nivel+"/teoria"+id+".pdf";
         String filePath = null;
         byte[] fileBytes = null;
 		try{
@@ -239,7 +237,7 @@ public class DBServer implements DBInterface{
 			u.printStackTrace();
 		}
 		catch(IOException e){
-			e.printStackTrace();
+			System.err.println("No existe el modulo en el Servidor");
 		}
 		return filePath;
 	}

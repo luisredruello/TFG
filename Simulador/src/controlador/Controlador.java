@@ -64,8 +64,8 @@ public class Controlador {
 		return this.server.getExamenTeorico(l);
 	}
 	
-	public String getTeoria(){
-		return this.server.getModuloTeorico();
+	public String getTeoria(int nivel, int modulo){
+		return this.server.getModuloTeorico(nivel,modulo);
 	}
 	
 }

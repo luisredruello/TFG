@@ -48,7 +48,7 @@ public class AdminWindow extends JFrame{
 		panel1.setLayout(new GridLayout(3,1));
 		initUsuarios(panel1);
 		
-		JComponent panel2 = new PanelCertificados(this.control);
+		JComponent panel2 = new PanelCertificadosAdmin(this.control);
 		
 		panel.addTab("Menú Usuarios", panel1);
 		panel.addTab("Menú Certificados", panel2);

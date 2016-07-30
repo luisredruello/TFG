@@ -19,6 +19,6 @@ public interface DBInterface {
 	
 	public ExamenTeorico getExamenTeorico(int level);
 	
-	public String getModuloTeorico();
+	public String getModuloTeorico(int nivel, int idmodulo);
 
 }

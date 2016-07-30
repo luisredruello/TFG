@@ -3,6 +3,8 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -77,8 +79,10 @@ public class UserWindow extends JFrame{
 		bloqueSup.add(carnet);
 		
 		//Certificados
-		Certificacion[] cert = {new Certificacion(1), new Certificacion(2), new Certificacion(3)};
-		this.comboCertificados = new JComboBox<Certificacion>(cert);
+		Certificacion[] cert = llenaCertificados();
+		
+		if (cert!=null) this.comboCertificados = new JComboBox<Certificacion>(cert);
+		else this.comboCertificados = new JComboBox<Certificacion>();
 		
 		JPanel bloqueCentral = new JPanel();
 		bloqueCentral.add(comboCertificados);
@@ -117,7 +121,7 @@ public class UserWindow extends JFrame{
 		JButton leerTeoria = new JButton("Lee Teoría");
 		leerTeoria.setBounds(80, 180, 87, 23);
 		
-		lanzaTeoria(leerTeoria);
+		leeTeoria(leerTeoria,comboCertificados);
 		
 		iz.add(leerTeoria);
 		
@@ -139,14 +143,18 @@ public class UserWindow extends JFrame{
 		
 	}
 	
-	private void lanzaTeoria(JButton b){
+	private void leeTeoria(JButton b,final JComboBox<Certificacion> c){
 		b.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String pdf = control.getTeoria();
-				PDFReader.readPDF(pdf);
-				
+				int ind = c.getSelectedIndex();
+				if (ind!=-1){
+					certificado = c.getItemAt(ind);
+					String pdf = getPath(certificado.getNivel(),certificado.getTeorico().getId_examen());
+					if (pdf.isEmpty()) pdf = control.getTeoria(certificado.getNivel(),certificado.getTeorico().getId_examen());
+					PDFReader.readPDF(pdf);
+				}				
 			}
 			
 		});
@@ -163,6 +171,33 @@ public class UserWindow extends JFrame{
 			}
 			
 		});
+	}
+	
+	private Certificacion[] llenaCertificados() {
+		this.listaCertificados = this.control.getListaCertificados();
+		if (listaCertificados != null){
+			Certificacion[] resul = new Certificacion[listaCertificados.size()];
+			Iterator<Certificacion> it = listaCertificados.iterator();
+			int i=0;
+			while(it.hasNext()){
+				resul[i] = it.next();
+				resul[i].setPractico(this.control.getExamenPractico(resul[i].getNivel()));
+				resul[i].setTeorico(this.control.getExamenTeorico(resul[i].getNivel()));
+				i++;
+			}
+			return resul;
+		}
+		else return null;
+	}
+	
+	private String getPath(int nivel, int id){
+		String path = UserWindow.class.getClass().getResource("/pdf/c"+nivel+"/").getPath();
+		String fileName = "teoria"+id+".pdf";
+		String filePath = path + fileName;
+		File file = new File(filePath);
+		if (file.exists()) return filePath;
+		else return "";
+		
 	}
 
 }
