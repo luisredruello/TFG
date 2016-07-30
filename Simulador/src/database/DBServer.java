@@ -209,7 +209,7 @@ public class DBServer implements DBInterface{
 	 */
 
 	@Override
-	public String getModuloTeorico(int nivel, int id) {
+	public String getPDFTeorico(int nivel, int id) {
 		String uri = URLPATH+"teoria/"+nivel+"/"+id;
 		String fileName = "pdf/c"+nivel+"/teoria"+id+".pdf";
         String filePath = null;
@@ -240,6 +240,18 @@ public class DBServer implements DBInterface{
 			System.err.println("No existe el modulo en el Servidor");
 		}
 		return filePath;
+	}
+
+	@Override
+	public ModuloTeorico getModuloTeorico(int nivel, int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ModuloTeorico> getListModTeorico(int nivel) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

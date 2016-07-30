@@ -1,5 +1,6 @@
 package database;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.util.List;
 import logica.Certificacion;
 import logica.ExamenPractico;
 import logica.ExamenTeorico;
+import logica.ModuloTeorico;
 import logica.Usuario;
 
 public class DBLocal implements DBInterface{
@@ -210,8 +212,80 @@ public class DBLocal implements DBInterface{
 	}
 
 	@Override
-	public String getModuloTeorico(int nivel, int id) {
+	public String getPDFTeorico(int nivel, int id) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ModuloTeorico getModuloTeorico(int nivel, int id) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ModuloTeorico result	= null;
+		String query = null;
+		try{
+			this.connection = DBConnection.getConnection();
+			query = "select Id_Modulo,Nivel,PDF from modulo_teorico where Nivel=? and Id_Modulo=?";
+			pst = this.connection.prepareStatement(query);
+			pst.setInt(1, nivel);
+			pst.setInt(2, id);
+			rs = pst.executeQuery();
+			if (rs.next()){
+				int idmod = rs.getInt("Id_Modulo");
+				int l = rs.getInt("Nivel");
+				Blob p = rs.getBlob("PDF");
+				if (!rs.wasNull()){
+					byte[] pd = p.getBytes(1, (int)p.length());
+					result = new ModuloTeorico(idmod,l,pd);
+				}
+				else result = new ModuloTeorico(idmod,l);
+			}			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (this.connection != null) this.connection.close();
+			} catch (Exception e) {}
+		}
+		return result;
+	}
+
+	@Override
+	public List<ModuloTeorico> getListModTeorico(int nivel) {
+		Connection con        = null;
+		PreparedStatement pst = null;
+		ResultSet rs          = null;
+		List<ModuloTeorico> resul = new LinkedList<ModuloTeorico>();
+		try{
+			con = DBConnection.getConnection();
+			String sql = "select Id_Modulo,PDF from modulo_teorico where Nivel=?";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, nivel);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("Id_Modulo");
+				Blob b = rs.getBlob("PDF");
+				if (!rs.wasNull()){
+					byte[] pdf = b.getBytes(1, (int)b.length());
+					resul.add(new ModuloTeorico(id,nivel,pdf));
+				}
+				else resul.add(new ModuloTeorico(id,nivel));
+			}
+			return resul;
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (con != null) con.close();
+			} catch (Exception e) {}
+		}
 		return null;
 	}
 

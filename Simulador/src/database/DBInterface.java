@@ -19,6 +19,10 @@ public interface DBInterface {
 	
 	public ExamenTeorico getExamenTeorico(int level);
 	
-	public String getModuloTeorico(int nivel, int idmodulo);
+	public String getPDFTeorico(int nivel, int idmodulo);
+	
+	public ModuloTeorico getModuloTeorico(int nivel, int id);
+	
+	public List<ModuloTeorico> getListModTeorico(int nivel);
 
 }

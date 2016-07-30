@@ -65,7 +65,17 @@ public class Controlador {
 	}
 	
 	public String getTeoria(int nivel, int modulo){
-		return this.server.getModuloTeorico(nivel,modulo);
+		return this.server.getPDFTeorico(nivel,modulo);
+	}
+	
+	public ModuloTeorico getModuloTeorico(int nivel, int id){
+		return this.database.getModuloTeorico(nivel, id);
+		//return this.server.getModuloTeorico(nivel, id);
+	}
+	
+	public List<ModuloTeorico> getListaModulosTeoricos(int nivel){
+		return this.database.getListModTeorico(nivel);
+		//return this.server.getListModTeorico(nivel);
 	}
 	
 }

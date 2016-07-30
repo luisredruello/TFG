@@ -17,8 +17,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
 
 import controlador.Controlador;
-import logica.Certificacion;
-import logica.Usuario;
+import logica.*;
 import pdf.PDFReader;
 
 public class UserWindow extends JFrame{
@@ -35,6 +34,9 @@ public class UserWindow extends JFrame{
 	private JComboBox<Certificacion> comboCertificados;
 	private Certificacion certificado;
 	private List<Certificacion> listaCertificados;
+	private JComboBox<ModuloTeorico> comboModulos;
+	private ModuloTeorico modulo;
+	private List<ModuloTeorico> listaModulos;
 
 	public UserWindow(JFrame v, Usuario us, Controlador control) {
 		this.login=v;
@@ -84,13 +86,22 @@ public class UserWindow extends JFrame{
 		if (cert!=null) this.comboCertificados = new JComboBox<Certificacion>(cert);
 		else this.comboCertificados = new JComboBox<Certificacion>();
 		
+		this.certificado=this.comboCertificados.getItemAt(0);
+		
+		//Modulos
+		ModuloTeorico[] mod = llenaModulos(this.certificado.getNivel());
+		
+		if (mod!=null) this.comboModulos = new JComboBox<ModuloTeorico>(mod);
+		else this.comboModulos = new JComboBox<ModuloTeorico>();
+		
 		JPanel bloqueCentral = new JPanel();
 		bloqueCentral.add(comboCertificados);
+		bloqueCentral.add(comboModulos);
 		
 		panelUsuario.add(bloqueSup,BorderLayout.NORTH);
 		panelUsuario.add(bloqueCentral, BorderLayout.CENTER);
 	}
-	
+
 	private void initTabePane() {
 		cuadro = new JTabbedPane();
 		
@@ -121,7 +132,7 @@ public class UserWindow extends JFrame{
 		JButton leerTeoria = new JButton("Lee Teoría");
 		leerTeoria.setBounds(80, 180, 87, 23);
 		
-		leeTeoria(leerTeoria,comboCertificados);
+		leeTeoria(leerTeoria,comboCertificados,comboModulos);
 		
 		iz.add(leerTeoria);
 		
@@ -143,7 +154,7 @@ public class UserWindow extends JFrame{
 		
 	}
 	
-	private void leeTeoria(JButton b,final JComboBox<Certificacion> c){
+	private void leeTeoria(JButton b,final JComboBox<Certificacion> c,final JComboBox<ModuloTeorico> m){
 		b.addActionListener(new ActionListener(){
 
 			@Override
@@ -151,9 +162,14 @@ public class UserWindow extends JFrame{
 				int ind = c.getSelectedIndex();
 				if (ind!=-1){
 					certificado = c.getItemAt(ind);
-					String pdf = getPath(certificado.getNivel(),certificado.getTeorico().getId_examen());
-					if (pdf.isEmpty()) pdf = control.getTeoria(certificado.getNivel(),certificado.getTeorico().getId_examen());
-					PDFReader.readPDF(pdf);
+					//listaModulos = control.getListaModulosTeoricos(certificado.getNivel());
+					int ind2 = m.getSelectedIndex();
+					if (ind2!=-1){
+						modulo = m.getItemAt(ind2);
+						String pdf = getPath(certificado.getNivel(),modulo.getId_modulo());
+						if (pdf.isEmpty()) pdf = control.getTeoria(certificado.getNivel(),modulo.getId_modulo());
+						PDFReader.readPDF(pdf);
+					}
 				}				
 			}
 			
@@ -190,14 +206,29 @@ public class UserWindow extends JFrame{
 		else return null;
 	}
 	
+	
+	private ModuloTeorico[] llenaModulos(int l) {
+		this.listaModulos = this.control.getListaModulosTeoricos(l);
+		if (listaModulos != null){
+			ModuloTeorico[] resul = new ModuloTeorico[listaModulos.size()];
+			Iterator<ModuloTeorico> it = listaModulos.iterator();
+			int i=0;
+			while(it.hasNext()){
+				resul[i] = it.next();
+				i++;	
+			}
+			return resul;
+		}
+		else return null;
+	}
+	
 	private String getPath(int nivel, int id){
 		String path = UserWindow.class.getClass().getResource("/pdf/c"+nivel+"/").getPath();
 		String fileName = "teoria"+id+".pdf";
 		String filePath = path + fileName;
 		File file = new File(filePath);
 		if (file.exists()) return filePath;
-		else return "";
-		
+		else return "";		
 	}
 
 }

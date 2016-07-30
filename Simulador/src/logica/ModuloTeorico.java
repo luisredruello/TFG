@@ -43,7 +43,9 @@ public class ModuloTeorico {
 		PDF = pDF;
 	}
 	
-	
+	public String toString(){
+		return "Modulo "+Integer.toString(id_modulo);
+	}
 	
 	
 }
