@@ -81,6 +81,7 @@ public class UserWindow extends JFrame{
 		bloqueSup.add(carnet);
 		
 		//Certificados
+		JLabel labelCert = new JLabel("Certificaciones:");
 		Certificacion[] cert = llenaCertificados();
 		
 		if (cert!=null) this.comboCertificados = new JComboBox<Certificacion>(cert);
@@ -89,17 +90,22 @@ public class UserWindow extends JFrame{
 		this.certificado=this.comboCertificados.getItemAt(0);
 		
 		//Modulos
+		JLabel labelMod = new JLabel("Módulos:");
 		ModuloTeorico[] mod = llenaModulos(this.certificado.getNivel());
 		
 		if (mod!=null) this.comboModulos = new JComboBox<ModuloTeorico>(mod);
 		else this.comboModulos = new JComboBox<ModuloTeorico>();
 		
 		JPanel bloqueCentral = new JPanel();
+		bloqueCentral.add(labelCert);
 		bloqueCentral.add(comboCertificados);
+		bloqueCentral.add(labelMod);
 		bloqueCentral.add(comboModulos);
 		
 		panelUsuario.add(bloqueSup,BorderLayout.NORTH);
 		panelUsuario.add(bloqueCentral, BorderLayout.CENTER);
+		
+		updateComboModulos(this.comboCertificados);
 	}
 
 	private void initTabePane() {
@@ -162,7 +168,6 @@ public class UserWindow extends JFrame{
 				int ind = c.getSelectedIndex();
 				if (ind!=-1){
 					certificado = c.getItemAt(ind);
-					//listaModulos = control.getListaModulosTeoricos(certificado.getNivel());
 					int ind2 = m.getSelectedIndex();
 					if (ind2!=-1){
 						modulo = m.getItemAt(ind2);
@@ -184,6 +189,27 @@ public class UserWindow extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				p.dispose();
 				login.setVisible(true);
+			}
+			
+		});
+	}
+	
+	private void updateComboModulos(final JComboBox<Certificacion> c){
+		c.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int ind = c.getSelectedIndex();
+				if (ind!=-1){
+					certificado = c.getItemAt(ind);
+					ModuloTeorico[] m = llenaModulos(certificado.getNivel());
+					if (m!=null){
+						comboModulos.removeAllItems();
+						for(int i=0;i<m.length;i++){
+							comboModulos.addItem(m[i]);
+						}
+					}					
+				}				
 			}
 			
 		});
