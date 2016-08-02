@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name="usuario")
 @XmlType(propOrder = { "dni", "nombre_completo", "fecha", "tipo", "pass" })
-public class Usuario {	
+public class Usuario {
 	
 	private String dni;
 	private String fecha;
@@ -14,61 +14,61 @@ public class Usuario {
 	private int tipo;
 	
 	
-	    /**
-	     * Default constructor.
-	     */
-	    public Usuario() {}
+	/**
+	 * Default constructor.
+	 */
+	public Usuario() {}
 
-	    public Usuario(String doc, String f,String name, String contra, int type) {
+	public Usuario(String doc, String f,String name, String contra, int type) {
 	        this.nombre_completo = name;
 	        this.pass = contra;
 	        this.fecha = f;
 	        this.dni = doc;
 	        this.tipo = type;
-	    }
+	}
 
-		public String getDni() {
-			return dni;
-		}
+	public String getDni() {
+		return dni;
+	}
 
-		public void setDni(String dni) {
-			this.dni = dni;
-		}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
 
-		public String getFecha() {
-			return fecha;
-		}
+	public String getFecha() {
+		return fecha;
+	}
 
-		public void setFecha(String fecha) {
-			this.fecha = fecha;
-		}
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
 
-		public String getNombre_completo() {
-			return nombre_completo;
-		}
+	public String getNombre_completo() {
+		return nombre_completo;
+	}
 
-		public void setNombre_completo(String nombre_completo) {
-			this.nombre_completo = nombre_completo;
-		}
+	public void setNombre_completo(String nombre_completo) {
+		this.nombre_completo = nombre_completo;
+	}
 
-		public String getPass() {
-			return pass;
-		}
+	public String getPass() {
+		return pass;
+	}
 
-		public void setPass(String pass) {
-			this.pass = pass;
-		}
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
 
-		public int getTipo() {
-			return tipo;
-		}
+	public int getTipo() {
+		return tipo;
+	}
 
-		public void setTipo(int tipo) {
-			this.tipo = tipo;
-		}
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
 	    
-	    public String toString(){
-	    	return this.nombre_completo;
-	    }
+	public String toString(){
+	   	return this.nombre_completo;
+	}
 
 }

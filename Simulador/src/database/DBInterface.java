@@ -11,6 +11,12 @@ public interface DBInterface {
 	
 	public int insertaUsuario(String name, String dni, String pass, Date f);
 	
+	//public int updateUsuario(Usuario user);
+	
+	public int deleteUsuario(String dni);
+	
+	public boolean existeUsuario(String dni);
+	
 	public List<Usuario> getUserList();
 	
 	public List<Certificacion> getCertificados();

@@ -23,9 +23,7 @@ public class DBServer implements DBInterface{
 	
 	private static final String URLPATH = "http://localhost:8888/Servidor/services/";
 	
-	public DBServer(){
-		
-	}
+	public DBServer(){	}
 	
 	/**
 	 * USUARIO
@@ -124,6 +122,18 @@ public class DBServer implements DBInterface{
 		return code;
 	}
 	
+	@Override
+	public int deleteUsuario(String dni) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public boolean existeUsuario(String dni) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 	/**
 	 * CERTIFICACIONES
 	 */
@@ -210,7 +220,7 @@ public class DBServer implements DBInterface{
 
 	@Override
 	public String getPDFTeorico(int nivel, int id) {
-		String uri = URLPATH+"teoria/"+nivel+"/"+id;
+		String uri = URLPATH+"teoria/pdf/"+nivel+"/"+id;
 		String fileName = "pdf/c"+nivel+"/teoria"+id+".pdf";
         String filePath = null;
         byte[] fileBytes = null;
@@ -244,15 +254,51 @@ public class DBServer implements DBInterface{
 
 	@Override
 	public ModuloTeorico getModuloTeorico(int nivel, int id) {
-		// TODO Auto-generated method stub
-		return null;
+		ModuloTeorico modulo = null;
+		String uri = URLPATH+"teoria/"+nivel+"/"+id;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+				 
+			JAXBContext jc = JAXBContext.newInstance(ModuloTeorico.class);
+			InputStream xml = connection.getInputStream();
+			
+			modulo = (ModuloTeorico) jc.createUnmarshaller().unmarshal(xml);
+			
+			connection.disconnect();
+		}
+		catch(JAXBException | IOException e){
+			e.printStackTrace();
+		}
+		return modulo;
 	}
 
 	@Override
 	public List<ModuloTeorico> getListModTeorico(int nivel) {
-		// TODO Auto-generated method stub
-		return null;
+		ModulosTeoricos mods = null;
+		String uri = URLPATH+"teoria/"+nivel;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+				 
+			JAXBContext jc = JAXBContext.newInstance(ModulosTeoricos.class);
+			InputStream xml = connection.getInputStream();
+			
+			mods = (ModulosTeoricos) jc.createUnmarshaller().unmarshal(xml);
+			
+			connection.disconnect();
+		}
+		catch(IOException | JAXBException e){
+			e.printStackTrace();
+		}
+		return mods.getModulos();
 	}
+
+	
 
 	
 

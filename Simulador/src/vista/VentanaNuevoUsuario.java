@@ -95,13 +95,7 @@ public class VentanaNuevoUsuario extends JFrame{
 				String dni = dniField.getText();
 				String pass = passField.getText();
 				if (!name.isEmpty() && !dni.isEmpty() && dni.length()<9 && !pass.isEmpty()){
-					int i = 0;
-					boolean enc = false;					
-					while (!enc && i<comboUsuarios.getItemCount()){
-						Usuario user = comboUsuarios.getItemAt(i);
-						if (user.getDni().equals(dni)) enc=true;
-						else i++;
-					}
+					boolean enc = control.existeUsuario(dni);
 					if (!enc){
 						resul = control.insertaUsuario(name,dni,pass);
 						if (resul > 0) {

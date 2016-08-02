@@ -1,13 +1,10 @@
 package controlador;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import database.DBLocal;
 import database.DBServer;
 import logica.*;
+import tools.Utilities;
 
 public class Controlador {
 	
@@ -27,21 +24,13 @@ public class Controlador {
 	}
 	
 	public int insertaUsuario(String nombre, String dni, String pass){
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar cal = Calendar.getInstance();
-		String fecha = dateFormat.format(cal.getTime());
-		java.util.Date date = null;
-		
-		try{
-			date = dateFormat.parse(fecha);			
-		}
-		catch(ParseException p){
-			p.printStackTrace();
-		}
-		
-		java.sql.Date fechaInsert = new java.sql.Date(date.getTime());
-		//return this.database.insertaUsuario(nombre, dni, pass, fechaInsert);
-		return this.server.insertaUsuario(nombre, dni, pass, fechaInsert);
+		//return this.database.insertaUsuario(nombre, dni, pass, Utilities.getSystemDate());
+		return this.server.insertaUsuario(nombre, dni, pass, Utilities.getSystemDate());
+	}
+	
+	public int borraUsuario(String dni){
+		return this.database.deleteUsuario(dni);
+		//return this.server.deleteUsuario(dni);
 	}
 	
 	public List<Usuario> dameListaUsuarios(){
@@ -69,13 +58,18 @@ public class Controlador {
 	}
 	
 	public ModuloTeorico getModuloTeorico(int nivel, int id){
-		return this.database.getModuloTeorico(nivel, id);
-		//return this.server.getModuloTeorico(nivel, id);
+		//return this.database.getModuloTeorico(nivel, id);
+		return this.server.getModuloTeorico(nivel, id);
 	}
 	
 	public List<ModuloTeorico> getListaModulosTeoricos(int nivel){
-		return this.database.getListModTeorico(nivel);
-		//return this.server.getListModTeorico(nivel);
+		//return this.database.getListModTeorico(nivel);
+		return this.server.getListModTeorico(nivel);
+	}
+
+	public boolean existeUsuario(String dni) {
+		return this.database.existeUsuario(dni);
+		//return this.server.existeUsuario(dni);
 	}
 	
 }

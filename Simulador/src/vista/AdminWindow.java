@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -106,8 +107,40 @@ public class AdminWindow extends JFrame{
 		
 	}
 
-	private void borraUsuario(JButton botonDeleteUser, JComboBox<Usuario> comboUsuarios2) {
-		// TODO Auto-generated method stub
+	private void borraUsuario(final JButton botonDeleteUser, final JComboBox<Usuario> comboUsuarios2) {
+		botonDeleteUser.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int ind = comboUsuarios2.getSelectedIndex();
+				if (ind!=-1){
+					int choice = JOptionPane.showConfirmDialog(login
+							,"¿Realmente quiere eliminar al usuario "
+									+comboUsuarios2.getItemAt(ind).getNombre_completo()+"?"
+							,"Eliminar Usuario"
+							,JOptionPane.YES_NO_OPTION);
+					if (choice == JOptionPane.YES_OPTION) {
+	                    int resul = control.borraUsuario(comboUsuarios2.getItemAt(ind).getDni());
+	                    if(resul!=0) {
+	                    	JOptionPane.showMessageDialog(botonDeleteUser, "Usuario eliminado");
+	                    	comboUsuarios.removeAllItems();
+							List<Usuario> aux = control.dameListaUsuarios(); 
+							if (!aux.isEmpty()){
+								Iterator<Usuario> it = aux.iterator();
+								while (it.hasNext()){
+									comboUsuarios.addItem(it.next());
+								}
+							}
+	                    }
+	                    else JOptionPane.showMessageDialog(botonDeleteUser, "Ha habido un error en tu petición");
+	                } else if (choice == JOptionPane.NO_OPTION) {
+	                	JOptionPane.showMessageDialog(botonDeleteUser, "Petición Cancelada");
+	                } else {
+	                	JOptionPane.showMessageDialog(botonDeleteUser, "Cerrando Ventana");
+	                }
+				}
+			}
+		});
 		
 	}
 

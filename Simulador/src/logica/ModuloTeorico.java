@@ -6,6 +6,7 @@ public class ModuloTeorico {
 	private int nivel;
 	private byte[] PDF;
 	
+	public ModuloTeorico(){}	
 	
 	public ModuloTeorico(int id_modulo, int nivel) {
 		this.id_modulo = id_modulo;
