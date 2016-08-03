@@ -102,8 +102,18 @@ public class AdminWindow extends JFrame{
 		
 	}
 	
-	private void updateUsuario(JButton botonUpdateUser, JComboBox<Usuario> comboUsuarios2) {
-		// TODO Auto-generated method stub
+	private void updateUsuario(JButton botonUpdateUser, final JComboBox<Usuario> comboUsuarios2) {
+		botonUpdateUser.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int ind = comboUsuarios2.getSelectedIndex();
+				if (ind!=-1){
+					new VentanaEditaUsuario(control,comboUsuarios2.getItemAt(ind));
+				}
+			}
+			
+		});
 		
 	}
 

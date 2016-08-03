@@ -18,19 +18,23 @@ public class Controlador {
 	
 	public Usuario validaUsuario(String dni,String pass){
 		Usuario user = null;
-		//user = this.database.getUser(dni,pass);
-		user = this.server.getUser(dni, pass);
+		//user = this.database.getUser(dni,Utilities.md5(pass));
+		user = this.server.getUser(dni, Utilities.md5(pass));
 		return user;
 	}
 	
 	public int insertaUsuario(String nombre, String dni, String pass){
-		//return this.database.insertaUsuario(nombre, dni, pass, Utilities.getSystemDate());
-		return this.server.insertaUsuario(nombre, dni, pass, Utilities.getSystemDate());
+		//return this.database.insertaUsuario(nombre, dni, Utilities.md5(pass), Utilities.getSystemDate());
+		return this.server.insertaUsuario(nombre, dni, Utilities.md5(pass), Utilities.getSystemDate());
 	}
 	
 	public int borraUsuario(String dni){
-		return this.database.deleteUsuario(dni);
-		//return this.server.deleteUsuario(dni);
+		//return this.database.deleteUsuario(dni);
+		return this.server.deleteUsuario(dni);
+	}
+	
+	public int actualizaUsuario(Usuario u,String n,String p){
+		return 0;
 	}
 	
 	public List<Usuario> dameListaUsuarios(){
@@ -68,8 +72,8 @@ public class Controlador {
 	}
 
 	public boolean existeUsuario(String dni) {
-		return this.database.existeUsuario(dni);
-		//return this.server.existeUsuario(dni);
+		//return this.database.existeUsuario(dni);
+		return this.server.existeUsuario(dni);
 	}
 	
 }

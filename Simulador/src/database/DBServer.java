@@ -124,14 +124,36 @@ public class DBServer implements DBInterface{
 	
 	@Override
 	public int deleteUsuario(String dni) {
-		// TODO Auto-generated method stub
-		return 0;
+		int resul = 0;
+		String uri = URLPATH+"user/"+dni;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("DELETE");
+			
+			resul = (connection.getResponseCode()==204)?1:0;
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return resul;
 	}
 	
 	@Override
 	public boolean existeUsuario(String dni) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean exist = false;
+		String uri = URLPATH+"user/"+dni;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			
+			exist = (connection.getResponseCode()==200)?true:false;
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return exist;
 	}
 	
 	/**
