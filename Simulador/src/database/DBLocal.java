@@ -19,9 +19,7 @@ public class DBLocal implements DBInterface{
 	
 	private Connection connection;
 	
-	public DBLocal(){
-		
-	}
+	public DBLocal(){	}
 	
 	public Usuario getUser(String user,String pass){
 		PreparedStatement pst = null;
@@ -123,6 +121,33 @@ public class DBLocal implements DBInterface{
 			pst.setString(1, dni);
 			rs = pst.executeQuery();
 			resul = rs.next();
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		} finally {
+			try{
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (this.connection != null) this.connection.close();				
+			} catch (Exception e) {}
+		}
+		return resul;
+	}
+	
+	@Override
+	public int updateUsuario(Usuario user) {
+		PreparedStatement pst = null;
+		ResultSet rs          = null;
+		String query = null;
+		int resul = 0;
+		try{
+			this.connection = DBConnection.getConnection();
+			query = "update usuario set nombre_completo=?,pass=? where dni=?";
+			pst = this.connection.prepareStatement(query);
+			pst.setString(1, user.getNombre_completo());
+			pst.setString(2, user.getPass());
+			pst.setString(3, user.getDni());
+			resul = pst.executeUpdate();			
 		}
 		catch(SQLException e){
 			e.printStackTrace();
@@ -338,10 +363,6 @@ public class DBLocal implements DBInterface{
 			} catch (Exception e) {}
 		}
 		return null;
-	}
-
-	
-
-	
+	}	
 
 }

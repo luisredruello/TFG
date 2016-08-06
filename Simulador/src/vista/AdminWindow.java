@@ -43,7 +43,7 @@ public class AdminWindow extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(200,150,500,250);
 		
-		JTabbedPane panel = new JTabbedPane();
+		JTabbedPane panelTabbed = new JTabbedPane();
 		
 		JComponent panel1 = new JPanel();
 		panel1.setLayout(new GridLayout(3,1));
@@ -51,10 +51,10 @@ public class AdminWindow extends JFrame{
 		
 		JComponent panel2 = new PanelCertificadosAdmin(this.control);
 		
-		panel.addTab("Menú Usuarios", panel1);
-		panel.addTab("Menú Certificados", panel2);
+		panelTabbed.addTab("Menú Usuarios", panel1);
+		panelTabbed.addTab("Menú Certificados", panel2);
 		
-		this.add(panel);
+		this.add(panelTabbed);
 		this.setVisible(true);
 	}
 	

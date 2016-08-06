@@ -156,6 +156,35 @@ public class DBServer implements DBInterface{
 		return exist;
 	}
 	
+	@Override
+	public int updateUsuario(Usuario user) {
+		int resul = 0;
+		String uri = URLPATH+"user/update/"+user.getDni();
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			
+			StringBuffer queryParam = new StringBuffer();
+	        queryParam.append("nombre=");
+	        queryParam.append(user.getNombre_completo());
+	        queryParam.append("&");
+	        queryParam.append("pass=");
+	        queryParam.append(user.getPass());
+	        
+	        OutputStream output = connection.getOutputStream();
+	        output.write(queryParam.toString().getBytes());
+	        output.flush();
+			
+			resul = (connection.getResponseCode()==204)?1:0;
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return resul;
+	}
+	
 	/**
 	 * CERTIFICACIONES
 	 */
@@ -318,10 +347,6 @@ public class DBServer implements DBInterface{
 			e.printStackTrace();
 		}
 		return mods.getModulos();
-	}
-
-	
-
-	
+	}	
 
 }

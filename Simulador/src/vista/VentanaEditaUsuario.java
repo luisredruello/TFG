@@ -33,7 +33,7 @@ public class VentanaEditaUsuario extends JFrame{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 250);
 		JPanel contenedor = new JPanel();
-		contenedor.setBorder(new TitledBorder("Actualización de datos"));
+		contenedor.setBorder(new TitledBorder("Vas a modificar los datos de: "+usuario.getNombre_completo()));
 		setContentPane(contenedor);
 		contenedor.setLayout(null);
 		
@@ -60,7 +60,7 @@ public class VentanaEditaUsuario extends JFrame{
 		bAceptar.setBounds(80, 140, 90, 25);
 		contenedor.add(bAceptar);
 		
-		modificaDatos(bAceptar,nuevoNombre,nuevoPass);
+		modificaDatos(bAceptar,nuevoNombre,nuevoPass,this);
 		
 		JButton bCancelar = new JButton("Cancelar");		
 		bCancelar.setBounds(250, 140, 90, 25);
@@ -73,7 +73,8 @@ public class VentanaEditaUsuario extends JFrame{
 		
 	}
 	
-	private void modificaDatos(final JButton bAceptar, final JTextField nuevoNombre, final JTextField nuevoPass) {
+	private void modificaDatos(final JButton bAceptar, final JTextField nuevoNombre, final JTextField nuevoPass,
+			final JFrame w) {
 		bAceptar.addActionListener(new ActionListener(){
 
 			@Override
@@ -83,7 +84,10 @@ public class VentanaEditaUsuario extends JFrame{
 				String pass = nuevoPass.getText();
 				if (!name.isEmpty() && !pass.isEmpty()){
 					resul = controlador.actualizaUsuario(usuario,name,pass);
-					if (resul>0) JOptionPane.showMessageDialog(bAceptar, "Se han actualizado con éxito los datos");
+					if (resul>0) {
+						JOptionPane.showMessageDialog(bAceptar, "Se han actualizado con éxito los datos");
+						w.dispose();
+					}
 				    else JOptionPane.showMessageDialog(bAceptar,"No se pudo actualizar los datos");
 				}
 				else JOptionPane.showMessageDialog(bAceptar, "Los campos están vacíos");

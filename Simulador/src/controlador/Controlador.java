@@ -34,7 +34,10 @@ public class Controlador {
 	}
 	
 	public int actualizaUsuario(Usuario u,String n,String p){
-		return 0;
+		u.setNombre_completo(n);
+		u.setPass(Utilities.md5(p));
+		//return this.database.updateUsuario(u);
+		return this.server.updateUsuario(u);
 	}
 	
 	public List<Usuario> dameListaUsuarios(){
