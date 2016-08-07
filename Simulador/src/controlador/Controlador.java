@@ -64,6 +64,11 @@ public class Controlador {
 		return this.server.getPDFTeorico(nivel,modulo);
 	}
 	
+	public int subeTeoria(int level, int idmodulo, byte[] files){
+		int id = idmodulo+1;
+		return this.server.uploadPDFTeorico(level, id, files);
+	}
+	
 	public ModuloTeorico getModuloTeorico(int nivel, int id){
 		//return this.database.getModuloTeorico(nivel, id);
 		return this.server.getModuloTeorico(nivel, id);

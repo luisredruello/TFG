@@ -292,6 +292,12 @@ public class DBLocal implements DBInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public int uploadPDFTeorico(int nivel, int idmodulo, byte[] files) {
+		// TODO Auto-generated method stub
+		return 0;
+	}	
 
 	@Override
 	public ModuloTeorico getModuloTeorico(int nivel, int id) {
@@ -363,6 +369,6 @@ public class DBLocal implements DBInterface{
 			} catch (Exception e) {}
 		}
 		return null;
-	}	
+	}
 
 }

@@ -41,7 +41,7 @@ public class AdminWindow extends JFrame{
 	private void initWindow(){
 		this.setTitle("Bienvenido Administrador "+this.admin.getNombre_completo());		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(200,150,500,250);
+		setBounds(200,150,600,300);
 		
 		JTabbedPane panelTabbed = new JTabbedPane();
 		

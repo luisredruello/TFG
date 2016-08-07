@@ -27,6 +27,8 @@ public interface DBInterface {
 	
 	public String getPDFTeorico(int nivel, int idmodulo);
 	
+	public int uploadPDFTeorico(int nivel, int idmodulo, byte[] files);
+	
 	public ModuloTeorico getModuloTeorico(int nivel, int id);
 	
 	public List<ModuloTeorico> getListModTeorico(int nivel);

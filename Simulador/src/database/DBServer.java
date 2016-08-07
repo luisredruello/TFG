@@ -302,6 +302,12 @@ public class DBServer implements DBInterface{
 		}
 		return filePath;
 	}
+	
+	@Override
+	public int uploadPDFTeorico(int nivel, int idmodulo, byte[] files) {
+		// TODO Auto-generated method stub
+		return 0;
+	}	
 
 	@Override
 	public ModuloTeorico getModuloTeorico(int nivel, int id) {
@@ -347,6 +353,6 @@ public class DBServer implements DBInterface{
 			e.printStackTrace();
 		}
 		return mods.getModulos();
-	}	
+	}
 
 }
