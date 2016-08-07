@@ -102,6 +102,7 @@ public class PanelCertificadosAdmin extends JPanel{
 						byte[] fileContent = new byte[(int)file.length()];
 						is = new FileInputStream(file);
 						is.read(fileContent);
+						is.close();
 						resul = control.subeTeoria(combo.getItemAt(ind).getNivel(),maxMod,fileContent);
 					} catch (IOException i) {
 						i.printStackTrace();

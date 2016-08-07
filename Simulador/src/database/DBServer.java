@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
@@ -305,8 +306,28 @@ public class DBServer implements DBInterface{
 	
 	@Override
 	public int uploadPDFTeorico(int nivel, int idmodulo, byte[] files) {
-		// TODO Auto-generated method stub
-		return 0;
+		String uri = URLPATH+"teoria/upload/"+nivel+"/"+idmodulo;
+		int resul = 0;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			
+			StringBuffer queryParam = new StringBuffer();
+	        queryParam.append("file=");
+	        queryParam.append(URLEncoder.encode(new String(files),"UTF-8"));
+	        
+	        OutputStream output = connection.getOutputStream();
+	        output.write(queryParam.toString().getBytes());
+	        output.flush();
+			
+			resul = (connection.getResponseCode()==200)?1:0;
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return resul;
 	}	
 
 	@Override
