@@ -8,13 +8,14 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.sql.Date;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
 import org.apache.commons.io.IOUtils;
+
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 import logica.*;
 import pdf.PDFReader;
@@ -316,7 +317,11 @@ public class DBServer implements DBInterface{
 			
 			StringBuffer queryParam = new StringBuffer();
 	        queryParam.append("file=");
-	        queryParam.append(URLEncoder.encode(new String(files),"UTF-8"));
+	        queryParam.append(new String(Base64.encode(files)));
+	        
+	        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+	        connection.setRequestProperty("charset","UTF-8");
+	        connection.setRequestProperty("Content-Length",Integer.toString(queryParam.toString().getBytes().length));
 	        
 	        OutputStream output = connection.getOutputStream();
 	        output.write(queryParam.toString().getBytes());
