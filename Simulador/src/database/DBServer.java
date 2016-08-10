@@ -1,6 +1,6 @@
 package database;
 
-import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,8 +14,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
 import org.apache.commons.io.IOUtils;
-
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 import logica.*;
 import pdf.PDFReader;
@@ -61,7 +60,7 @@ public class DBServer implements DBInterface{
 			connection.disconnect();
 		}
 		catch(IOException | JAXBException e){//MalformedURLException
-			e.printStackTrace();
+			System.err.println("Los parámetros no son correctos");
 		}
 		return user;
 	}
@@ -268,15 +267,13 @@ public class DBServer implements DBInterface{
 	}
 	
 	/**
-	 * Devuelve un modulo teórico desde el Web Service
+	 * Devuelve un PDF Teorico desde el Web Service
 	 */
 
-	@Override
 	public String getPDFTeorico(int nivel, int id) {
 		String uri = URLPATH+"teoria/pdf/"+nivel+"/"+id;
 		String fileName = "pdf/c"+nivel+"/teoria"+id+".pdf";
         String filePath = null;
-        byte[] fileBytes = null;
 		try{
 			filePath = PDFReader.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()
 					+ fileName;
@@ -286,13 +283,10 @@ public class DBServer implements DBInterface{
 			connection.setRequestMethod("GET");
 			
 			InputStream textBase64 = connection.getInputStream();
-			
-			fileBytes = IOUtils.toByteArray(textBase64);
-			
-			FileOutputStream fos = new FileOutputStream(filePath);
-            BufferedOutputStream outputStream = new BufferedOutputStream(fos);
-            outputStream.write(fileBytes);
-            outputStream.close();
+
+			OutputStream outputStream = new FileOutputStream(new File(filePath));
+			IOUtils.copy(textBase64, outputStream);
+			outputStream.close();
 			
 			connection.disconnect();
 		}
@@ -317,7 +311,7 @@ public class DBServer implements DBInterface{
 			
 			StringBuffer queryParam = new StringBuffer();
 	        queryParam.append("file=");
-	        queryParam.append(new String(Base64.encode(files)));
+	        queryParam.append(new String(Base64.encodeBase64(files)));
 	        
 	        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
 	        connection.setRequestProperty("charset","UTF-8");

@@ -60,13 +60,13 @@ public class Controlador {
 		return this.server.getExamenTeorico(l);
 	}
 	
-	public String getTeoria(int nivel, int modulo){
+	public String getPDF(int nivel, int modulo){
 		return this.server.getPDFTeorico(nivel,modulo);
 	}
 	
 	public int subeTeoria(int level, int idmodulo, byte[] files){
 		int id = idmodulo+1;
-		return this.server.uploadPDFTeorico(level, id, files);
+		return this.database.uploadPDFTeorico(level, id, files);
 	}
 	
 	public ModuloTeorico getModuloTeorico(int nivel, int id){

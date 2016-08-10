@@ -287,16 +287,73 @@ public class DBLocal implements DBInterface{
 		return result;
 	}
 
-	@Override
-	public String getPDFTeorico(int nivel, int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	//@Override
+	/*public String getPDFTeorico(int nivel, int id) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ModuloTeorico result	= null;
+		String query = null;
+		try{
+			this.connection = DBConnection.getConnection();
+			query = "select Id_Modulo,Nivel,PDF from modulo_teorico where Nivel=? and Id_Modulo=?";
+			pst = this.connection.prepareStatement(query);
+			pst.setInt(1, nivel);
+			pst.setInt(2, id);
+			rs = pst.executeQuery();
+			if (rs.next()){
+				int idmod = rs.getInt("Id_Modulo");
+				int l = rs.getInt("Nivel");
+				Blob p = rs.getBlob("PDF");
+				if (!rs.wasNull()){
+					byte[] pd = p.getBytes(1, (int)p.length());
+					result = new ModuloTeorico(idmod,l,pd);
+				}
+				else result = new ModuloTeorico(idmod,l);
+			}			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (this.connection != null) this.connection.close();
+			} catch (Exception e) {}
+		}
+		return result;
+	}*/
 	
 	@Override
 	public int uploadPDFTeorico(int nivel, int idmodulo, byte[] files) {
-		// TODO Auto-generated method stub
-		return 0;
+		PreparedStatement pst = null;
+		ResultSet rs          = null;
+		String query = null;
+		int resul = 0;
+		Blob blob = null;
+		try{
+			this.connection = DBConnection.getConnection();
+			query = "insert into modulo_teorico (Id_Modulo,Nivel,PDF) values (?,?,?)";
+			pst = this.connection.prepareStatement(query);
+			pst.setInt(1, idmodulo);
+			pst.setInt(2, nivel);
+			if (files!=null){
+				blob = this.connection.createBlob();
+				blob.setBytes(1, files);
+				pst.setBlob(3, blob);
+			}
+			else pst.setBlob(3, blob);
+			resul = pst.executeUpdate();		
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		} finally {
+			try{
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (this.connection != null) this.connection.close();				
+			} catch (Exception e) {}
+		}
+		return resul;
 	}	
 
 	@Override

@@ -3,7 +3,6 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
@@ -166,16 +165,19 @@ public class UserWindow extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int ind = c.getSelectedIndex();
-				if (ind!=-1){
+				int ind2 = m.getSelectedIndex();
+				String pdf = null;
+				if (ind!=-1 && ind2!=-1){
 					certificado = c.getItemAt(ind);
-					int ind2 = m.getSelectedIndex();
-					if (ind2!=-1){
-						modulo = m.getItemAt(ind2);
-						String pdf = getPath(certificado.getNivel(),modulo.getId_modulo());
-						if (pdf.isEmpty()) pdf = control.getTeoria(certificado.getNivel(),modulo.getId_modulo());
-						PDFReader.readPDF(pdf);
+					//modulo = m.getItemAt(ind2);
+					modulo = control.getModuloTeorico(certificado.getNivel(), m.getItemAt(ind2).getId_modulo());
+					if (!modulo.existeFichero()){
+						modulo.createPDFFile();
+						pdf = modulo.getPath();
 					}
-				}				
+					else pdf = control.getPDF(modulo.getNivel(), modulo.getId_modulo());
+					PDFReader.readPDF(pdf);
+				}	
 			}
 			
 		});
@@ -246,15 +248,6 @@ public class UserWindow extends JFrame{
 			return resul;
 		}
 		else return null;
-	}
-	
-	private String getPath(int nivel, int id){
-		String path = UserWindow.class.getClass().getResource("/pdf/c"+nivel+"/").getPath();
-		String fileName = "teoria"+id+".pdf";
-		String filePath = path + fileName;
-		File file = new File(filePath);
-		if (file.exists()) return filePath;
-		else return "";		
 	}
 
 }
