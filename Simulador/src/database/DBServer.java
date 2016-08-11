@@ -1,5 +1,7 @@
 package database;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import org.apache.commons.codec.binary.Base64;
 
 import logica.*;
 import pdf.PDFReader;
+import tools.Utilities;
 
 public class DBServer implements DBInterface{
 	
@@ -338,15 +341,27 @@ public class DBServer implements DBInterface{
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 			connection.setRequestProperty("Accept", "application/xml");
-				 
-			JAXBContext jc = JAXBContext.newInstance(ModuloTeorico.class);
+			
 			InputStream xml = connection.getInputStream();
 			
-			modulo = (ModuloTeorico) jc.createUnmarshaller().unmarshal(xml);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			IOUtils.copy(xml, baos);
+			byte[] bytes = baos.toByteArray();
+
+			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+			
+			modulo = new ModuloTeorico();
+			modulo.setId_modulo(Integer.parseInt(Utilities.getAttributeXML(bais,"id_modulo")));
+			bais = new ByteArrayInputStream(bytes);
+			modulo.setNivel(Integer.parseInt(Utilities.getAttributeXML(bais, "nivel")));
+			bais = new ByteArrayInputStream(bytes);
+			String pdf = Utilities.getAttributeXML(bais, "pdf");
+			if (!pdf.isEmpty())	modulo.setPdf(Base64.decodeBase64(pdf.getBytes()));
+			else modulo.setPdf(null);
 			
 			connection.disconnect();
 		}
-		catch(JAXBException | IOException e){
+		catch(IOException e){
 			e.printStackTrace();
 		}
 		return modulo;

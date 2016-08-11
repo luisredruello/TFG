@@ -169,12 +169,12 @@ public class UserWindow extends JFrame{
 				String pdf = null;
 				if (ind!=-1 && ind2!=-1){
 					certificado = c.getItemAt(ind);
-					//modulo = m.getItemAt(ind2);
 					modulo = control.getModuloTeorico(certificado.getNivel(), m.getItemAt(ind2).getId_modulo());
 					if (!modulo.existeFichero()){
 						modulo.createPDFFile();
 						pdf = modulo.getPath();
 					}
+					else if (modulo.getPdf()!= null) pdf = modulo.getPath();
 					else pdf = control.getPDF(modulo.getNivel(), modulo.getId_modulo());
 					PDFReader.readPDF(pdf);
 				}	

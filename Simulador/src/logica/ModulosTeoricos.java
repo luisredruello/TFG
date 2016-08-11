@@ -20,5 +20,9 @@ public class ModulosTeoricos {
 	public void setModulos(List<ModuloTeorico> modulos) {
 		this.modulos = modulos;
 	}
+	
+	public int numModulos(){
+		return this.modulos.size();
+	}
 
 }

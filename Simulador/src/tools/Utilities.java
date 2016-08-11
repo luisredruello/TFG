@@ -1,5 +1,7 @@
 package tools;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -10,6 +12,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class Utilities {
 	
@@ -50,5 +59,30 @@ public class Utilities {
         }
         return "";
     }
+	
+	/**
+	 * Devuelve el atributo de un xml pasado por parametro
+	 * @param xml InputStream que contiene al xml a parsear
+	 * @param att Strig que representa el nodo que queremos que nos devuelva el metod
+	 * @return El atributo del xml pasado por parámetro
+	 */
+	public static String getAttributeXML(InputStream xml,String att){
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+        NodeList list = null;
+        try {
+            builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(xml);
+            list = doc.getElementsByTagName(att);
+            System.out.println(list.item(0).getTextContent());
+        } catch (ParserConfigurationException e) {
+        	e.printStackTrace();
+        } catch (SAXException e) {
+        	e.printStackTrace();
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
+		return list.item(0).getTextContent();
+	}
 
 }

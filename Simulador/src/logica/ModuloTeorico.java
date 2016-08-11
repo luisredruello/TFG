@@ -2,10 +2,7 @@ package logica;
 
 import java.io.File;
 import java.io.IOException;
-
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.apache.commons.io.FileUtils;
 
 @XmlRootElement(name="modulo_teorico")
@@ -13,21 +10,20 @@ public class ModuloTeorico {
 
 	private int id_modulo;
 	private int nivel;
-	private String PDF;
-	private byte[] file;
+	private byte[] pdf;
 	
 	public ModuloTeorico(){}	
 	
 	public ModuloTeorico(int id_modulo, int nivel) {
 		this.id_modulo = id_modulo;
 		this.nivel = nivel;
-		this.file = null;
+		this.pdf = null;
 	}
 	
 	public ModuloTeorico(int id, int n, byte[] p){
 		this.id_modulo=id;
 		this.nivel=n;
-		this.file=p;
+		this.pdf=p;
 	}
 
 	public int getId_modulo() {
@@ -45,30 +41,13 @@ public class ModuloTeorico {
 	public void setNivel(int nivel) {
 		this.nivel = nivel;
 	}
-
-	/*public byte[] getPDF() {
-		return file;
-	}
-
-	public void setPDF(byte[] pDF) {
-		file = pDF;
-	}*/	
 	
-	public String getPDF() {
-		return PDF;
+	public byte[] getPdf() {
+		return pdf;
 	}
 
-	public void setPDF(String pDF) {
-		PDF = pDF;
-	}
-	
-	@XmlTransient
-	public byte[] getFile() {
-		return file;
-	}
-	
-	public void setFile(byte[] file) {
-		this.file = file;
+	public void setPdf(byte[] pdf) {
+		this.pdf = pdf;
 	}
 
 	public String toString(){
@@ -88,9 +67,9 @@ public class ModuloTeorico {
 	}
 	
 	public void createPDFFile(){
-		if (file!=null){
+		if (pdf!=null){
 			try{
-				FileUtils.writeByteArrayToFile(new File(this.getPath()), file);
+				FileUtils.writeByteArrayToFile(new File(this.getPath()), pdf);
 			}
 			catch (IOException e){
 				e.printStackTrace();
