@@ -189,6 +189,12 @@ public class DBServer implements DBInterface{
 		return resul;
 	}
 	
+	@Override
+	public List<Integer> getCertificadosFromUser(String dni) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	/**
 	 * CERTIFICACIONES
 	 */
@@ -389,5 +395,7 @@ public class DBServer implements DBInterface{
 		}
 		return mods.getModulos();
 	}
+
+	
 
 }

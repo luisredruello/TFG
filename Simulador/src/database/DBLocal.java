@@ -160,6 +160,37 @@ public class DBLocal implements DBInterface{
 		}
 		return resul;
 	}
+	
+	@Override
+	public List<Integer> getCertificadosFromUser(String dni) {
+		Connection con        = null;
+		PreparedStatement pst = null;
+		ResultSet rs          = null;
+		List<Integer> resul = new LinkedList<Integer>();
+		try{
+			con = DBConnection.getConnection();
+			String sql = "select nivel from tiene where dni=?";
+			pst = con.prepareStatement(sql);
+			pst.setString(1, dni);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				int t = rs.getInt("Nivel");
+				resul.add(t);
+			}
+			return resul;
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (con != null) con.close();
+			} catch (Exception e) {}
+		}
+		return null;
+	}
 
 	@Override
 	public List<Usuario> getUserList() {

@@ -84,4 +84,14 @@ public class Controlador {
 		return this.server.existeUsuario(dni);
 	}
 	
+	/**
+	 * Devuelve el numero de certificaciones conseguidas por el alumnos
+	 * @param dni del alumno
+	 * @return numero de certificaciones o 0 si no ha conseguido ninguna aún
+	 */
+	public int numCertificaciones(String dni) {
+		List<Integer> l = this.database.getCertificadosFromUser(dni);
+		return (l.size()>0)?l.size():0;
+	}
+	
 }

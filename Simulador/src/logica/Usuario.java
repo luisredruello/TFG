@@ -1,6 +1,7 @@
 package logica;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name="usuario")
@@ -12,12 +13,15 @@ public class Usuario {
 	private String nombre_completo;
 	private String pass;
 	private int tipo;
+	private int numCertificaciones;	//número de certificaciones obtenidas
 	
 	
 	/**
 	 * Default constructor.
 	 */
-	public Usuario() {}
+	public Usuario() {
+		this.numCertificaciones = 0;
+	}
 
 	public Usuario(String doc, String f,String name, String contra, int type) {
 	        this.nombre_completo = name;
@@ -25,6 +29,7 @@ public class Usuario {
 	        this.fecha = f;
 	        this.dni = doc;
 	        this.tipo = type;
+	        this.numCertificaciones = 0;
 	}
 
 	public String getDni() {
@@ -66,7 +71,16 @@ public class Usuario {
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
-	    
+	
+	@XmlTransient
+	public int getNumCertificaciones() {
+		return numCertificaciones;
+	}
+
+	public void setNumCertificaciones(int numCertificaciones) {
+		this.numCertificaciones = numCertificaciones;
+	}
+
 	public String toString(){
 	   	return this.nombre_completo;
 	}

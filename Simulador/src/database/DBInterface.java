@@ -17,6 +17,13 @@ public interface DBInterface {
 	
 	public boolean existeUsuario(String dni);
 	
+	/**
+	 * Devuelve las Certificaciones que ha aprobado el alumno
+	 * @param dni del alumnos
+	 * @return número de certificaciones conseguidas
+	 */
+	public List<Integer> getCertificadosFromUser(String dni);
+	
 	public List<Usuario> getUserList();
 	
 	public List<Certificacion> getCertificados();
