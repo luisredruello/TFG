@@ -17,6 +17,8 @@ import javax.swing.border.TitledBorder;
 
 import controlador.Controlador;
 import logica.Usuario;
+import vista.admin.AdminWindow;
+import vista.alumno.UserWindow;
 
 public class LoginWindow extends JFrame{
 	

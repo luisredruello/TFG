@@ -13,6 +13,8 @@ import logica.Certificacion;
 import logica.ExamenPractico;
 import logica.ExamenTeorico;
 import logica.ModuloTeorico;
+import logica.Pregunta;
+import logica.Respuesta;
 import logica.Usuario;
 
 public class DBLocal implements DBInterface{
@@ -443,6 +445,72 @@ public class DBLocal implements DBInterface{
 					resul.add(new ModuloTeorico(id,nivel,pdf));
 				}
 				else resul.add(new ModuloTeorico(id,nivel));
+			}
+			return resul;
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (con != null) con.close();
+			} catch (Exception e) {}
+		}
+		return null;
+	}
+
+	@Override
+	public List<Pregunta> getListaPreguntasFromExamen(int idExamen) {
+		Connection con        = null;
+		PreparedStatement pst = null;
+		ResultSet rs          = null;
+		List<Pregunta> resul = new LinkedList<Pregunta>();
+		try{
+			con = DBConnection.getConnection();
+			String sql = "select Id_Pregunta,Enunciado from pregunta where Id_Examen=?";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, idExamen);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("Id_Pregunta");
+				String e = rs.getString("Enunciado");
+				resul.add(new Pregunta(id,e,idExamen));
+			}
+			return resul;
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (con != null) con.close();
+			} catch (Exception e) {}
+		}
+		return null;
+	}
+
+	@Override
+	public List<Respuesta> getListaRespuestasFromPregunta(int idPregunta) {
+		Connection con        = null;
+		PreparedStatement pst = null;
+		ResultSet rs          = null;
+		List<Respuesta> resul = new LinkedList<Respuesta>();
+		try{
+			con = DBConnection.getConnection();
+			String sql = "select Id_Respuesta,Es_Correcta,Enunciado from respuesta where Id_Pregunta=?";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, idPregunta);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("Id_Respuesta");
+				int c = rs.getInt("Es_Correcta");
+				String e = rs.getString("Enunciado");
+				resul.add(new Respuesta(id,c,e,idPregunta));
+				
 			}
 			return resul;
 		}

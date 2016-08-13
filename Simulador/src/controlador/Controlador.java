@@ -94,4 +94,22 @@ public class Controlador {
 		return (l.size()>0)?l.size():0;
 	}
 	
+	/**
+	 * Accede a BBDD y devuelve una lista de preguntas pertenecientes a un examen
+	 * @param idExamen
+	 * @return Lista de Preguntas
+	 */
+	public List<Pregunta> getListaPreguntasFromExamen(int idExamen){
+		return this.database.getListaPreguntasFromExamen(idExamen);
+	}
+	
+	/**
+	 * Accede a BBDD y devuelve la lista de respuestas disponibles para una pregunta
+	 * @param idPregunta
+	 * @return Lista de Respuestas
+	 */
+	public List<Respuesta> getListaRespuestasFromPregunta(int idPregunta){
+		return this.database.getListaRespuestasFromPregunta(idPregunta);
+	}
+	
 }

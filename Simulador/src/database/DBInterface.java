@@ -37,5 +37,19 @@ public interface DBInterface {
 	public ModuloTeorico getModuloTeorico(int nivel, int id);
 	
 	public List<ModuloTeorico> getListModTeorico(int nivel);
+	
+	/**
+	 * Devuelve todas las preguntas pertenecientes a un examen teorico
+	 * @param idExamen del examen teorico
+	 * @return Lista de Preguntas de un examen teorico
+	 */
+	public List<Pregunta> getListaPreguntasFromExamen(int idExamen);
+	
+	/**
+	 * Devuelve una lista con todas las respuestas posibles para un pregunta
+	 * @param idPregunta de la pregunta
+	 * @return Lista con las respuestas a una pregunta pasada por parámetro
+	 */
+	public List<Respuesta> getListaRespuestasFromPregunta(int idPregunta);
 
 }

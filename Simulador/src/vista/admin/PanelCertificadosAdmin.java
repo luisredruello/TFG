@@ -1,4 +1,4 @@
-package vista;
+package vista.admin;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

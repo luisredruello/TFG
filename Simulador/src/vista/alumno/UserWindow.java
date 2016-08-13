@@ -1,4 +1,4 @@
-package vista;
+package vista.alumno;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -177,11 +177,30 @@ public class UserWindow extends JFrame{
 		JButton lanzaExamen = new JButton("Haz Examen");
 		lanzaExamen.setBounds(80, 180, 90, 25);
 		
+		lanzaExamenTeorico(lanzaExamen);
+		
 		der.add(lanzaExamen);
 		
 		p1.add(der,BorderLayout.EAST);
 	}
 	
+	private void lanzaExamenTeorico(JButton b) {
+		b.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int ind = comboCertificados.getSelectedIndex();
+				if (ind!=-1){
+					ExamenTeorico t = comboCertificados.getItemAt(ind).getTeorico();
+					new VistaExamenTeorico(control,t,user);
+				}
+								
+			}
+			
+		});
+		
+	}
+
 	private void initPractica(JComponent p2){
 		
 	}

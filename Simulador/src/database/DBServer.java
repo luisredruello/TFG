@@ -396,6 +396,18 @@ public class DBServer implements DBInterface{
 		return mods.getModulos();
 	}
 
+	@Override
+	public List<Pregunta> getListaPreguntasFromExamen(int idExamen) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Respuesta> getListaRespuestasFromPregunta(int idPregunta) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }
