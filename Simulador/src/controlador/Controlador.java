@@ -90,7 +90,8 @@ public class Controlador {
 	 * @return numero de certificaciones o 0 si no ha conseguido ninguna aún
 	 */
 	public int numCertificaciones(String dni) {
-		List<Integer> l = this.database.getCertificadosFromUser(dni);
+		//List<Integer> l = this.database.getCertificadosFromUser(dni);
+		List<Integer> l = this.server.getCertificadosFromUser(dni);
 		return (l.size()>0)?l.size():0;
 	}
 	
@@ -100,7 +101,8 @@ public class Controlador {
 	 * @return Lista de Preguntas
 	 */
 	public List<Pregunta> getListaPreguntasFromExamen(int idExamen){
-		return this.database.getListaPreguntasFromExamen(idExamen);
+		//return this.database.getListaPreguntasFromExamen(idExamen);
+		return this.server.getListaPreguntasFromExamen(idExamen);
 	}
 	
 	/**
@@ -109,7 +111,8 @@ public class Controlador {
 	 * @return Lista de Respuestas
 	 */
 	public List<Respuesta> getListaRespuestasFromPregunta(int idPregunta){
-		return this.database.getListaRespuestasFromPregunta(idPregunta);
+		//return this.database.getListaRespuestasFromPregunta(idPregunta);
+		return this.server.getListaRespuestasFromPregunta(idPregunta);
 	}
 	
 }

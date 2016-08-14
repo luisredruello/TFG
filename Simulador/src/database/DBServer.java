@@ -11,6 +11,8 @@ import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -189,11 +191,6 @@ public class DBServer implements DBInterface{
 		return resul;
 	}
 	
-	@Override
-	public List<Integer> getCertificadosFromUser(String dni) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	/**
 	 * CERTIFICACIONES
@@ -220,6 +217,39 @@ public class DBServer implements DBInterface{
 			e.printStackTrace();
 		}
 		return cert.getCertificados();
+	}
+	
+	@Override
+	public List<Integer> getCertificadosFromUser(String dni) {
+		Certificaciones cert = null;
+		String uri = URLPATH+"certificados/"+dni;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+				 
+			JAXBContext jc = JAXBContext.newInstance(Certificaciones.class);
+			InputStream xml = connection.getInputStream();
+			
+			cert = (Certificaciones) jc.createUnmarshaller().unmarshal(xml);
+			
+			connection.disconnect();
+		}
+		catch(JAXBException j){
+			j.printStackTrace();
+		}
+		catch(IOException e){
+			System.err.println("El usuario no tiene Certificaciones");
+		}
+		ArrayList<Integer> l = new ArrayList<Integer>();
+		if (cert!=null){
+			Iterator<Certificacion> it = cert.getCertificados().iterator();
+			while(it.hasNext()){
+				l.add(it.next().getNivel());
+			}
+		}		
+		return l;
 	}
 	
 	/**
@@ -398,14 +428,48 @@ public class DBServer implements DBInterface{
 
 	@Override
 	public List<Pregunta> getListaPreguntasFromExamen(int idExamen) {
-		// TODO Auto-generated method stub
-		return null;
+		Preguntas preg = null;
+		String uri = URLPATH+"pregunta/"+idExamen;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+				 
+			JAXBContext jc = JAXBContext.newInstance(Preguntas.class);
+			InputStream xml = connection.getInputStream();
+			
+			preg = (Preguntas) jc.createUnmarshaller().unmarshal(xml);
+			
+			connection.disconnect();
+		}
+		catch(IOException | JAXBException e){
+			e.printStackTrace();
+		}
+		return preg.getPreguntas();
 	}
 
 	@Override
 	public List<Respuesta> getListaRespuestasFromPregunta(int idPregunta) {
-		// TODO Auto-generated method stub
-		return null;
+		Respuestas res = null;
+		String uri = URLPATH+"respuesta/"+idPregunta;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+				 
+			JAXBContext jc = JAXBContext.newInstance(Respuestas.class);
+			InputStream xml = connection.getInputStream();
+			
+			res = (Respuestas) jc.createUnmarshaller().unmarshal(xml);
+			
+			connection.disconnect();
+		}
+		catch(IOException | JAXBException e){
+			e.printStackTrace();
+		}
+		return res.getRespuestas();
 	}
 
 	

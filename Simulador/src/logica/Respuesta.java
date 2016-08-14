@@ -7,6 +7,8 @@ public class Respuesta {
 	private String enunciado;
 	private int id_pregunta;
 	
+	public Respuesta(){}
+	
 	public Respuesta(int id_respuesta, int es_correcta, String enunciado, int id_pregunta) {
 		this.id_respuesta = id_respuesta;
 		this.es_correcta = es_correcta;

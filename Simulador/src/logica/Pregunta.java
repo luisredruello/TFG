@@ -6,6 +6,7 @@ public class Pregunta {
 	private String enunciado;
 	private int id_examen;
 	
+	public Pregunta(){}	
 	
 	public Pregunta(int id_pregunta, String enunciado, int id_examenTeorico) {
 		this.id_pregunta = id_pregunta;
