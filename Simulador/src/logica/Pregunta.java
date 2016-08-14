@@ -43,5 +43,9 @@ public class Pregunta {
 		this.id_examen = id_examen;
 	}
 	
+	public String toString(){
+		return "Pregunta "+Integer.toString(id_pregunta);
+	}
+	
 	
 }

@@ -1,8 +1,10 @@
 package logica;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name="examen_teorico")
+@XmlType(propOrder = { "id_examen", "nombre", "descripcion", "tiempo_examen", "num_preguntas", "nivel" })
 public class ExamenTeorico{
 	
 	private int id_examen;
@@ -10,10 +12,10 @@ public class ExamenTeorico{
 	private String nombre;
 	private String descripcion;
 	private int tiempo_examen;
-	private int numPreguntas;
+	private int num_preguntas;
 	
 	public ExamenTeorico (){
-		super();
+		
 	}
 	
 	public ExamenTeorico(int id, int n, String name, String desc, int t, int preg){
@@ -21,8 +23,16 @@ public class ExamenTeorico{
 		this.nombre=name;
 		this.descripcion=desc;
 		this.tiempo_examen=t;
-		this.numPreguntas=preg;
+		this.num_preguntas=preg;
 		this.nivel=n;
+	}
+	
+	public int getId_examen() {
+		return id_examen;
+	}
+
+	public void setId_examen(int id_examen) {
+		this.id_examen = id_examen;
 	}
 
 	public String getNombre() {
@@ -49,20 +59,12 @@ public class ExamenTeorico{
 		this.tiempo_examen = tiempo_examen;
 	}
 
-	public int getNumPreguntas() {
-		return numPreguntas;
+	public int getNum_preguntas() {
+		return num_preguntas;
 	}
 
-	public void setNumPreguntas(int numPreguntas) {
-		this.numPreguntas = numPreguntas;
-	}
-
-	public int getId_examen() {
-		return id_examen;
-	}
-
-	public void setId_examen(int id_examen) {
-		this.id_examen = id_examen;
+	public void setNum_preguntas(int num_preguntas) {
+		this.num_preguntas = num_preguntas;
 	}
 
 	public int getNivel() {

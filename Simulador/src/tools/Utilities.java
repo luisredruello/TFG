@@ -12,6 +12,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Random;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -83,6 +85,16 @@ public class Utilities {
         	e.printStackTrace();
         }
 		return list.item(0).getTextContent();
+	}
+	
+	/**
+	 * Devuelve un número aleatorio entre 0 y max
+	 * @param max limite pasaso por parametro
+	 * @return numero aleatorio entre 0 y MAX
+	 */
+	public static int getRandomNumber(int max){
+		Random r = new Random();
+		return r.nextInt(max);
 	}
 
 }
