@@ -295,7 +295,7 @@ public class DBLocal implements DBInterface{
 		String query = null;
 		try{
 			this.connection = DBConnection.getConnection();
-			query = "select Id_Examen,Nombre,Descripcion,Tiempo_Examen,numPreguntas from EXAMEN_TEORICO where Nivel=?";
+			query = "select Id_Examen,Nombre,Descripcion,Tiempo_Examen,num_preguntas from EXAMEN_TEORICO where Nivel=?";
 			pst = this.connection.prepareStatement(query);
 			pst.setInt(1, level);
 			rs = pst.executeQuery();
@@ -304,7 +304,7 @@ public class DBLocal implements DBInterface{
 				String name = rs.getString("Nombre");
 				String d = rs.getString("Descripcion");
 				int tiempo = rs.getInt("Tiempo_Examen");
-				int num = rs.getInt("numPreguntas");
+				int num = rs.getInt("num_preguntas");
 				result = new ExamenTeorico(id,level,name,d,tiempo,num);
 			}			
 		}

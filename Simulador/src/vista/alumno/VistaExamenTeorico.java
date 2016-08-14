@@ -100,11 +100,12 @@ public class VistaExamenTeorico extends JFrame{
 			//miramos si no habiamos escogido esa pregunta anteriormente
 			if (!insertados.containsKey(aleatorio)){
 				insertados.put(aleatorio, 0);
+				Pregunta p = listaPreguntas.get(aleatorio);
+				System.out.println(p.toString());
 				
 				//Enunciado de Pregunta
-				JPanel aux = new JPanel(new GridLayout(0, 1));
-				Pregunta p = listaPreguntas.get(aleatorio);
-				aux.setBorder(new TitledBorder(p.toString()));
+				JPanel aux = new JPanel(new GridLayout(0, 1));				
+				aux.setBorder(new TitledBorder("Pregunta "+Integer.toString(i+1)));
 				JLabel textArea = new JLabel(p.getEnunciado());
 				aux.add(textArea);
 				panel.add(aux);
