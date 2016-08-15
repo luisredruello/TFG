@@ -48,6 +48,14 @@ public class Respuesta {
 		this.id_pregunta = id_pregunta;
 	}
 	
+	/**
+	 * Comprueba si una respuesta es la correcta
+	 * @return true si el parametro es_correcta es igual a 1, false en otro caso
+	 */
+	public boolean esCorrecta(){
+		return (es_correcta==1)?true:false;
+	}
+	
 	
 
 }

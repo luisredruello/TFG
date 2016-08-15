@@ -32,7 +32,8 @@ public class UserWindow extends JFrame{
 	private Controlador control;
 	private JComboBox<Certificacion> comboCertificados;
 	private Certificacion certificado;
-	private List<Certificacion> listaCertificados;
+	//private List<Certificacion> listaCertificados;
+	private int numCertificacionesAlumno;
 	private JComboBox<ModuloTeorico> comboModulos;
 	private ModuloTeorico modulo;
 	private List<ModuloTeorico> listaModulos;
@@ -41,6 +42,7 @@ public class UserWindow extends JFrame{
 		this.login=v;
 		this.user=us;
 		this.control=control;
+		this.numCertificacionesAlumno=0;
 		initWindow();
 	}
 	
@@ -193,8 +195,12 @@ public class UserWindow extends JFrame{
 				if (ind!=-1){
 					ExamenTeorico t = comboCertificados.getItemAt(ind).getTeorico();
 					new VistaExamenTeorico(control,t,user);
-				}
-								
+					//En caso de que haya aprobado se actualiza el combo
+					if (numCertificacionesAlumno<user.getNumCertificaciones()) {
+						updateComboCertificados();
+						numCertificacionesAlumno++;
+					}
+				}			
 			}
 			
 		});
@@ -294,6 +300,19 @@ public class UserWindow extends JFrame{
 			}
 			
 		});
+	}
+	
+	/**
+	 * Actualiza el Combo de Certificados del alumno, agregando uno nuevo
+	 */
+	public void updateComboCertificados() {
+		Certificacion c = null;
+		
+		int nivelActual = user.getNumCertificaciones();
+		c = new Certificacion(nivelActual);
+		c.setTeorico(control.getExamenTeorico(nivelActual));
+		c.setPractico(control.getExamenPractico(nivelActual));
+		comboCertificados.addItem(c);				
 	}
 
 }

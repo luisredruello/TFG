@@ -472,6 +472,18 @@ public class DBServer implements DBInterface{
 		return res.getRespuestas();
 	}
 
+	@Override
+	public int insertaAprobadoTeorico(String dni, int idExamenTeorico, Date f) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int obtieneCertificacion(int level, String dni) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 
 }

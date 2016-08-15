@@ -96,6 +96,17 @@ public class Controlador {
 	}
 	
 	/**
+	 * Agrega una nueva Certificacion al Alumno
+	 * @param a Usuario
+	 * @param t Examen Teorico
+	 * @return un entero positivo si se ha agregado la Certificacion, 0 en otro caso
+	 */
+	public int insertaCertificacion(Usuario a, ExamenTeorico t) {
+		return this.database.obtieneCertificacion(t.getNivel(), a.getDni());
+				
+	}
+	
+	/**
 	 * Accede a BBDD y devuelve una lista de preguntas pertenecientes a un examen
 	 * @param idExamen
 	 * @return Lista de Preguntas
@@ -114,5 +125,18 @@ public class Controlador {
 		//return this.database.getListaRespuestasFromPregunta(idPregunta);
 		return this.server.getListaRespuestasFromPregunta(idPregunta);
 	}
+	
+	/**
+	 * Accede al Web Service o a BBDD para aprobar al alumno
+	 * @param a Usuario, alumno que ha aprobado
+	 * @param t Examen Teorico que ha aprobado
+	 * @return un entero mayor a 0 si no hay errores, 0 en otro caso
+	 */
+	public int apruebaExamenTeorico(Usuario a, ExamenTeorico t) {
+		return this.database.insertaAprobadoTeorico(a.getDni(), t.getId_examen(), Utilities.getSystemDate());
+		
+	}
+	
+	
 	
 }

@@ -527,4 +527,57 @@ public class DBLocal implements DBInterface{
 		return null;
 	}
 
+	@Override
+	public int insertaAprobadoTeorico(String dni, int idExamenTeorico, Date f) {
+		PreparedStatement pst = null;
+		ResultSet rs          = null;
+		String query = null;
+		int resul = 0;
+		try{
+			this.connection = DBConnection.getConnection();
+			query = "insert into aprueba_teorico (Id_Examen_Teorico,DNI,Fecha) values (?,?,?)";
+			pst = this.connection.prepareStatement(query);
+			pst.setInt(1, idExamenTeorico);
+			pst.setString(2, dni);
+			pst.setDate(3, f);
+			resul = pst.executeUpdate();			
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		} finally {
+			try{
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (this.connection != null) this.connection.close();				
+			} catch (Exception e) {}
+		}
+		return resul;
+	}
+
+	@Override
+	public int obtieneCertificacion(int level, String dni) {
+		PreparedStatement pst = null;
+		ResultSet rs          = null;
+		String query = null;
+		int resul = 0;
+		try{
+			this.connection = DBConnection.getConnection();
+			query = "insert into tiene (Nivel,DNI) values (?,?)";
+			pst = this.connection.prepareStatement(query);
+			pst.setInt(1, level);
+			pst.setString(2, dni);
+			resul = pst.executeUpdate();			
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		} finally {
+			try{
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (this.connection != null) this.connection.close();				
+			} catch (Exception e) {}
+		}
+		return resul;
+	}
+
 }

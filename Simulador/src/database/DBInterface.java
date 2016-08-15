@@ -51,5 +51,22 @@ public interface DBInterface {
 	 * @return Lista con las respuestas a una pregunta pasada por parámetro
 	 */
 	public List<Respuesta> getListaRespuestasFromPregunta(int idPregunta);
+	
+	/**
+	 * Inserta en la tabla de aprobado teorico un nuevo registro, es decir, que el alumno ha aprobado este modulo
+	 * @param dni del alumno
+	 * @param idExamenTeorico del Examen Teorico
+	 * @param f Fecha en la que aprobo el usuario
+	 * @return un entero, 1 si se ha insertado correctamente el valor en la tabla, 0 en si ha habido un error
+	 */
+	public int insertaAprobadoTeorico(String dni, int idExamenTeorico, Date f);
+	
+	/**
+	 * Inserta en la tabla tiene una nueva certificacion para el alumno
+	 * @param level nivel de la certificacion obtenido
+	 * @param dni del alumno que la ha obtenido
+	 * @return un entero 1 si se ha insertado correctamente, 0 en otro caso 
+	 */
+	public int obtieneCertificacion(int level, String dni);
 
 }
