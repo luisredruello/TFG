@@ -75,6 +75,10 @@ public class ExamenTeorico{
 		this.nivel = nivel;
 	}
 	
+	public int getSegundos(){
+		return (this.tiempo_examen / 100)*1000;
+	}
+	
 	
 
 }

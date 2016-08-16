@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -22,12 +23,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import controlador.Controlador;
 import logica.*;
-import tools.Utilities;
+import tools.*;
 
-public class VistaExamenTeorico extends JFrame{
+public class VistaExamenTeorico extends JFrame implements PropertyChangeListener{
 
 	/**
 	 * 
@@ -40,6 +43,8 @@ public class VistaExamenTeorico extends JFrame{
 	private HashMap<Integer, List<Respuesta>> tablaRespuestas; //K: id pregunta, V: Lista Respuestas
 	private HashMap<Integer, Respuesta> tablaRespuestasAgregadas;
 	private ArrayList<Respuesta> listaRespuestasAlumno; //K: id respuesta, V: Respuesta
+	private JProgressBar progressBar;
+	private Task task;
 	
 	public VistaExamenTeorico(Controlador c,ExamenTeorico t,Usuario u){
 		this.control=c;
@@ -50,6 +55,10 @@ public class VistaExamenTeorico extends JFrame{
 		this.listaRespuestasAlumno = new ArrayList<Respuesta>();
 		iniciaListas();
 		initWindow();
+		
+		task = new Task(this,600);
+        task.addPropertyChangeListener(this);
+        task.execute();
 	}
 
 	private void iniciaListas() {
@@ -70,8 +79,16 @@ public class VistaExamenTeorico extends JFrame{
 		
 		//Panel Superior Datos del Examen
 		JPanel panelSup = new JPanel();
-		JLabel labelDesc = new JLabel(this.teorico.getDescripcion());
+		JLabel labelDesc = new JLabel("Tiempo Total: "+teorico.getTiempo_examen()/60+" Minutos");
+		
+		progressBar = new JProgressBar(0, 100);
+        progressBar.setValue(0);
+        progressBar.setStringPainted(true);
+        
+		JLabel labelTiempo = new JLabel("Tiempo Consumido: ");
 		panelSup.add(labelDesc);
+		panelSup.add(labelTiempo);
+		panelSup.add(progressBar);
 		this.add(panelSup, BorderLayout.NORTH);
 		
 		//Panel Central Lista Preguntas
@@ -88,7 +105,6 @@ public class VistaExamenTeorico extends JFrame{
 		initPanelPreguntas(panelPreguntas);
 		
 		//Panel Inferior Boton Comprobar Resultados
-		
 		JButton botonResultado = new JButton("Comprobar");
 		comprobarResultado(botonResultado,this);
 		
@@ -214,6 +230,15 @@ public class VistaExamenTeorico extends JFrame{
 	        }
 	        
 		}
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if ("progress" == evt.getPropertyName()) {
+            int progress = (Integer) evt.getNewValue();
+            progressBar.setValue(progress);
+        } 
+		
 	}
 
 }
