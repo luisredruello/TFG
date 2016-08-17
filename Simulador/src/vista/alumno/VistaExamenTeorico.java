@@ -56,7 +56,7 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 		iniciaListas();
 		initWindow();
 		
-		task = new Task(this,600);
+		task = new Task(this,this.teorico.getSegundos());
         task.addPropertyChangeListener(this);
         task.execute();
 	}
@@ -75,7 +75,7 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 		this.setTitle(this.teorico.getNombre());
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setBounds(100, 100, 950, 600);
+		this.setBounds(100, 100, 1100, 600);
 		
 		//Panel Superior Datos del Examen
 		JPanel panelSup = new JPanel();
@@ -177,26 +177,28 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 			public void actionPerformed(ActionEvent e) {
 				int resultado = 0;
 				if (!listaRespuestasAlumno.isEmpty() && listaRespuestasAlumno.size()==teorico.getNum_preguntas()){
+					task.cancel(true);
 					Iterator<Respuesta> it = listaRespuestasAlumno.iterator();
 					while(it.hasNext()){
 						if (it.next().esCorrecta()) resultado++;
 					}
 					if (aprobado(resultado)){
 						//agregar a BBDD el aprobado
-						if (control.apruebaExamenTeorico(alumno,teorico)>0)	JOptionPane.showMessageDialog(botonResultado
-								,"Has aprobado con un "+resultado+", Enhorabuena");
-						else JOptionPane.showMessageDialog(botonResultado,"Ha habido un error en tu petición");
-						//El nivel 1 de Certificacion no tiene parte practica, por lo que se obtendría directamente
-						//la certificacion al aprobar el examen
-						if (teorico.getNivel()==1){
-							if (control.insertaCertificacion(alumno,teorico)>0) {
-								int cert = alumno.getNumCertificaciones();
-								alumno.setNumCertificaciones(cert++);
-								JOptionPane.showMessageDialog(botonResultado,"Has Conseguido la Certificación "+teorico.getNivel());
+						if (control.apruebaExamenTeorico(alumno,teorico)>0)	{
+							JOptionPane.showMessageDialog(botonResultado,"Has aprobado con un "+resultado+", Enhorabuena");
+							//El nivel 1 de Certificacion no tiene parte practica, por lo que se obtendría directamente
+							//la certificacion al aprobar el examen
+							if (teorico.getNivel()==1){
+								if (control.insertaCertificacion(alumno,teorico)>0) {
+									int cert = alumno.getNumCertificaciones();
+									cert++;
+									alumno.setNumCertificaciones(cert);
+									JOptionPane.showMessageDialog(botonResultado,"Has Conseguido la Certificación "+teorico.getNivel());
+								}									
+								else JOptionPane.showMessageDialog(botonResultado,"Ha habido un error al obtener certificación");
 							}
-									
-							else JOptionPane.showMessageDialog(botonResultado,"Ha habido un error al obtener certificación");
-						}
+						}								
+						else JOptionPane.showMessageDialog(botonResultado,"Ha habido un error en tu petición");
 					}
 					else JOptionPane.showMessageDialog(botonResultado
 							,"Lo sentimos, has suspendido con un: "+resultado);
@@ -223,10 +225,10 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 	        Respuesta r = null;
 	        if (state == ItemEvent.SELECTED) {
 	        	r = tablaRespuestasAgregadas.get(Integer.parseInt(command));
-	        	if (listaRespuestasAlumno.add(r)) System.out.println("Agregada:"+r.getId_respuesta()+":"+r.getEnunciado());
+	        	listaRespuestasAlumno.add(r);
 	        } else if (state == ItemEvent.DESELECTED) {
 	        	r = tablaRespuestasAgregadas.get(Integer.parseInt(command));
-	        	if (listaRespuestasAlumno.remove(r)) System.out.println("Eliminada:"+r.getId_respuesta()+":"+r.getEnunciado());
+	        	listaRespuestasAlumno.remove(r);
 	        }
 	        
 		}

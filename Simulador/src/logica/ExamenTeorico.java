@@ -75,6 +75,11 @@ public class ExamenTeorico{
 		this.nivel = nivel;
 	}
 	
+	/**
+	 * Devuelve el tiempo que debe durar el examen en segundos, este parámetro se envía en la constructora
+	 * de la clase Task
+	 * @return entero que determina cuanto debe durar este examen
+	 */
 	public int getSegundos(){
 		return (this.tiempo_examen / 100)*1000;
 	}

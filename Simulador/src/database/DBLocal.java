@@ -266,13 +266,15 @@ public class DBLocal implements DBInterface{
 		String query = null;
 		try{
 			this.connection = DBConnection.getConnection();
-			query = "select Id_Examen from EXAMEN_PRACTICO where Nivel=?";
+			query = "select Id_Examen,NumImagenes,Tiempo_Examen from EXAMEN_PRACTICO where Nivel=?";
 			pst = this.connection.prepareStatement(query);
 			pst.setInt(1, level);
 			rs = pst.executeQuery();
 			if (rs.next()){
 				int id = rs.getInt("Id_Examen");
-				result = new ExamenPractico(id,level,50);
+				int ima = rs.getInt("NumImagenes");
+				int t = rs.getInt("Tiempo_Examen");
+				result = new ExamenPractico(id,level,ima,t);
 			}			
 		}
 		catch (SQLException e) {

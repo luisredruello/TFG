@@ -44,8 +44,10 @@ public class Task extends SwingWorker<Void, Void> {
      */
     @Override
     public void done() {
-    	JOptionPane.showMessageDialog(null,"Se ha acabado el tiempo");
-    	frame.dispose();
+    	if (!isCancelled()){
+    		JOptionPane.showMessageDialog(null,"Se ha acabado el tiempo");
+        	frame.dispose();
+    	}    	
         
     }
 }
