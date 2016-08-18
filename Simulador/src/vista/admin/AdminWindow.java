@@ -159,7 +159,7 @@ public class AdminWindow extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaNuevoUsuario v = new VentanaNuevoUsuario(control,comboUsuarios);
+				new VentanaNuevoUsuario(control,comboUsuarios);
 				
 			}
 			

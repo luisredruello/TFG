@@ -13,14 +13,14 @@ public class Usuario {
 	private String nombre_completo;
 	private String pass;
 	private int tipo;
-	private int numCertificaciones;	//número de certificaciones obtenidas
+	private int nextCertificacion;	//número de certificaciones obtenidas
 	
 	
 	/**
 	 * Default constructor.
 	 */
 	public Usuario() {
-		this.numCertificaciones = 0;
+		this.nextCertificacion = 1;
 	}
 
 	public Usuario(String doc, String f,String name, String contra, int type) {
@@ -29,7 +29,7 @@ public class Usuario {
 	        this.fecha = f;
 	        this.dni = doc;
 	        this.tipo = type;
-	        this.numCertificaciones = 0;
+	        this.nextCertificacion = 1;
 	}
 
 	public String getDni() {
@@ -71,14 +71,20 @@ public class Usuario {
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
-	
+
+	/**
+	 * @return the nextCertificacion
+	 */
 	@XmlTransient
-	public int getNumCertificaciones() {
-		return numCertificaciones;
+	public int getNextCertificacion() {
+		return nextCertificacion;
 	}
 
-	public void setNumCertificaciones(int numCertificaciones) {
-		this.numCertificaciones = numCertificaciones;
+	/**
+	 * @param nextCertificacion the nextCertificacion to set
+	 */
+	public void setNextCertificacion(int nextCertificacion) {
+		this.nextCertificacion = nextCertificacion;
 	}
 
 	public String toString(){

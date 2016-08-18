@@ -3,8 +3,6 @@ package vista.alumno;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,24 +25,21 @@ public class UserWindow extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static int TAM_ARRAY_CERTIFICACIONES = 3;	//El número de certificaciones total del sistema
 	private JPanel panelUsuario;
 	private JTabbedPane cuadro;
 	private JFrame login;
 	private Usuario user;
 	private Controlador control;
 	private JComboBox<Certificacion> comboCertificados;
-	private Certificacion certificado;
-	//private List<Certificacion> listaCertificados;
-	//private int numCertificacionesAlumno;
 	private JComboBox<ModuloTeorico> comboModulos;
-	private ModuloTeorico modulo;
-	private List<ModuloTeorico> listaModulos;
+	private Certificacion[] arrayCertificaciones;
 
 	public UserWindow(JFrame v, Usuario us, Controlador control) {
 		this.login=v;
 		this.user=us;
 		this.control=control;
-		//this.numCertificacionesAlumno=0;
+		this.arrayCertificaciones = new Certificacion[TAM_ARRAY_CERTIFICACIONES];
 		initWindow();
 	}
 	
@@ -86,11 +81,9 @@ public class UserWindow extends JFrame{
 		JLabel labelCert = new JLabel("Certificaciones:");
 		iniciaComboCertificados();
 		
-		this.certificado=this.comboCertificados.getItemAt(0);
-		
 		//Modulos
 		JLabel labelMod = new JLabel("Módulos:");
-		ModuloTeorico[] mod = llenaModulos(this.certificado.getNivel());
+		ModuloTeorico[] mod = llenaModulos(this.comboCertificados.getItemAt(0).getNivel());
 		
 		if (mod!=null) this.comboModulos = new JComboBox<ModuloTeorico>(mod);
 		else this.comboModulos = new JComboBox<ModuloTeorico>();
@@ -108,86 +101,74 @@ public class UserWindow extends JFrame{
 	}
 
 	private void iniciaComboCertificados() {
-		Certificacion c = null;
-		this.user.setNumCertificaciones(control.numCertificaciones(user.getDni()));
-		if (this.user.getNumCertificaciones()==0){
-			c = new Certificacion(1);
-			c.setTeorico(control.getExamenTeorico(1));
-			this.comboCertificados = new JComboBox<Certificacion>();
-			this.comboCertificados.addItem(c);
+		int j=1;
+		for (int i=0;i<TAM_ARRAY_CERTIFICACIONES;i++){
+			arrayCertificaciones[i] = new Certificacion(j);
+			j++;
 		}
-		else {
-			Certificacion[] array = new Certificacion[this.user.getNumCertificaciones()];
-			int j = 1;
-			for(int i=0;i<this.user.getNumCertificaciones();i++){
-				array[i] = new Certificacion(j);
-				array[i].setPractico(this.control.getExamenPractico(j));
-				array[i].setTeorico(this.control.getExamenTeorico(j));
-				j++;
-			}
-			this.comboCertificados = new JComboBox<Certificacion>(array);
-			int nivelActual = this.user.getNumCertificaciones()+1;
-			c = new Certificacion(nivelActual);
-			c.setTeorico(control.getExamenTeorico(nivelActual));
-			c.setPractico(control.getExamenPractico(nivelActual));
-			this.comboCertificados.addItem(c);
+		this.comboCertificados = new JComboBox<Certificacion>();
+		for (int k=0;k<user.getNextCertificacion();k++){
+			this.comboCertificados.addItem(arrayCertificaciones[k]);
 		}		
-		
 	}
 	
 
 	private void initTabePane() {
 		cuadro = new JTabbedPane();
 		
-		//Cuadro de la parte teorica
-		JComponent panel1 = new JPanel();
-		panel1.setLayout(new BorderLayout());
+		//Cuadro de la parte principal
+		JComponent panelPrincipal = new JPanel();
+		panelPrincipal.setLayout(new BorderLayout());
+		
+		//Panel izquierdo Examen Teorico
+		JPanel izq = new JPanel();
+		izq.setBorder(new TitledBorder("Examen Teorico"));
 				
-		initTeoria(panel1);
+		JButton lanzaTeorico = new JButton("Realiza Teórico");
+		lanzaTeorico.setBounds(80, 180, 90, 25);
 				
-		//Cuadro de la parta practica
-		JComponent panel2 = new JPanel();
-		panel2.setLayout(new BorderLayout());
+		lanzaExamenTeorico(lanzaTeorico);
 				
-		initPractica(panel2);
-
-		cuadro.addTab("Teoría "+certificado.toString(), panel1);
-		if (certificado.getPractico()!=null)	cuadro.addTab("Práctica "+certificado.toString(), panel2);		
+		izq.add(lanzaTeorico);
+				
+		panelPrincipal.add(izq,BorderLayout.WEST);		
 		
-		updatePaneInferior(comboCertificados,cuadro,panel2);
-		
-	}
-	
-	private void initTeoria(JComponent p1){
-		p1.setLayout(new BorderLayout());
-		
-		//Panel izquierdo teoria
-		JPanel iz = new JPanel();
-		iz.setBorder(new TitledBorder("Zona Izquierda"));
-		
+		//Panel Central Leer Teoria
+		JPanel cent = new JPanel();
+		cent.setBorder(new TitledBorder("Zona Teoría"));
+				
 		JButton leerTeoria = new JButton("Lee Teoría");
-		leerTeoria.setBounds(80, 180, 87, 23);
-		
+		leerTeoria.setBounds(80, 280, 95, 25);
+				
 		leeTeoria(leerTeoria,comboCertificados,comboModulos);
-		
-		iz.add(leerTeoria);
-		
-		p1.add(iz,BorderLayout.WEST);
-		
-		//Panel derecho hacer examen
+			
+		cent.add(leerTeoria);
+				
+		panelPrincipal.add(cent,BorderLayout.CENTER);
+				
+		//Panel derecho Examen Practico
 		JPanel der = new JPanel();
-		der.setBorder(new TitledBorder("Zona Derecha"));
+		der.setBorder(new TitledBorder("Examen Práctico"));
 		
-		JButton lanzaExamen = new JButton("Haz Examen");
-		lanzaExamen.setBounds(80, 180, 90, 25);
+		JButton lanzaPractico = new JButton("Realiza Práctico");
+		lanzaPractico.setBounds(80, 180, 90, 25);
 		
-		lanzaExamenTeorico(lanzaExamen);
+		lanzaExamenPractico(lanzaPractico);
 		
-		der.add(lanzaExamen);
+		der.add(lanzaPractico);
 		
-		p1.add(der,BorderLayout.EAST);
+		panelPrincipal.add(der, BorderLayout.EAST);
+		
+		cuadro.addTab("Zona Principal", panelPrincipal);
+		
 	}
 	
+	
+	private void lanzaExamenPractico(JButton b) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void lanzaExamenTeorico(JButton b) {
 		b.addActionListener(new ActionListener(){
 
@@ -195,20 +176,13 @@ public class UserWindow extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				int ind = comboCertificados.getSelectedIndex();
 				if (ind!=-1){
-					ExamenTeorico t = comboCertificados.getItemAt(ind).getTeorico();
-					JFrame f = new VistaExamenTeorico(control,t,user);
+					ExamenTeorico t = control.getExamenTeorico(comboCertificados.getItemAt(ind).getNivel());
+					new VistaExamenTeorico(control,t,user,comboCertificados);
 					//En caso de que se haya aprobado se actualiza el combo
-					
-					updateComboCertificados();
-					//numCertificacionesAlumno++;
 				}
 			}
 			
 		});
-		
-	}
-
-	private void initPractica(JComponent p2){
 		
 	}
 	
@@ -221,14 +195,18 @@ public class UserWindow extends JFrame{
 				int ind2 = m.getSelectedIndex();
 				String pdf = null;
 				if (ind!=-1 && ind2!=-1){
-					certificado = c.getItemAt(ind);
-					modulo = control.getModuloTeorico(certificado.getNivel(), m.getItemAt(ind2).getId_modulo());
+					Certificacion cert = c.getItemAt(ind);
+					ModuloTeorico modulo = control.getModuloTeorico(cert.getNivel(), m.getItemAt(ind2).getId_modulo());
 					if (!modulo.existeFichero()){
-						modulo.createPDFFile();
-						pdf = modulo.getPath();
+						if (modulo.getPdf()==null){
+							pdf = control.getPDF(modulo.getNivel(), modulo.getId_modulo());
+						}
+						else {
+							modulo.createPDFFile();
+							pdf = modulo.getPath();
+						}
 					}
-					else if (modulo.getPdf()!= null) pdf = modulo.getPath();
-					else pdf = control.getPDF(modulo.getNivel(), modulo.getId_modulo());
+					else pdf = modulo.getPath();
 					PDFReader.readPDF(pdf);
 				}	
 			}
@@ -256,8 +234,8 @@ public class UserWindow extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				int ind = c.getSelectedIndex();
 				if (ind!=-1){
-					certificado = c.getItemAt(ind);
-					ModuloTeorico[] m = llenaModulos(certificado.getNivel());
+					Certificacion cer = c.getItemAt(ind);
+					ModuloTeorico[] m = llenaModulos(cer.getNivel());
 					if (m!=null){
 						comboModulos.removeAllItems();
 						for(int i=0;i<m.length;i++){
@@ -271,7 +249,7 @@ public class UserWindow extends JFrame{
 	}
 	
 	private ModuloTeorico[] llenaModulos(int l) {
-		this.listaModulos = this.control.getListaModulosTeoricos(l);
+		List<ModuloTeorico> listaModulos = this.control.getListaModulosTeoricos(l);
 		if (listaModulos != null){
 			ModuloTeorico[] resul = new ModuloTeorico[listaModulos.size()];
 			Iterator<ModuloTeorico> it = listaModulos.iterator();
@@ -283,37 +261,6 @@ public class UserWindow extends JFrame{
 			return resul;
 		}
 		else return null;
-	}	
-	
-	
-	private void updatePaneInferior(final JComboBox<Certificacion> c, final JTabbedPane p, final JComponent panel){
-		c.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int indice = c.getSelectedIndex();
-				if (indice != -1){
-					Certificacion t = c.getItemAt(indice);
-					p.setTitleAt(0, "Teoría "+t.toString());
-					if (t.getPractico()!=null)	p.addTab("Práctica "+t.toString(), panel);
-					else p.remove(1);
-				}				
-			}
-			
-		});
-	}
-	
-	/**
-	 * Actualiza el Combo de Certificados del alumno, agregando uno nuevo
-	 */
-	public void updateComboCertificados() {
-		Certificacion c = null;
-		
-		int nivelActual = user.getNumCertificaciones();
-		c = new Certificacion(nivelActual);
-		c.setTeorico(control.getExamenTeorico(nivelActual));
-		c.setPractico(control.getExamenPractico(nivelActual));
-		comboCertificados.addItem(c);				
 	}
 
 }

@@ -10,6 +10,7 @@ import java.util.Iterator;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -45,14 +46,16 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 	private ArrayList<Respuesta> listaRespuestasAlumno; //K: id respuesta, V: Respuesta
 	private JProgressBar progressBar;
 	private Task task;
+	private JComboBox<Certificacion> comboModel;
 	
-	public VistaExamenTeorico(Controlador c,ExamenTeorico t,Usuario u){
+	public VistaExamenTeorico(Controlador c,ExamenTeorico t,Usuario u,JComboBox<Certificacion> com){
 		this.control=c;
 		this.teorico=t;
 		this.alumno=u;
 		this.tablaRespuestas = new HashMap<Integer, List<Respuesta>>();
 		this.tablaRespuestasAgregadas = new HashMap<Integer,Respuesta>();
 		this.listaRespuestasAlumno = new ArrayList<Respuesta>();
+		this.comboModel=com;
 		iniciaListas();
 		initWindow();
 		
@@ -189,10 +192,11 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 							//El nivel 1 de Certificacion no tiene parte practica, por lo que se obtendría directamente
 							//la certificacion al aprobar el examen
 							if (teorico.getNivel()==1){
-								if (control.insertaCertificacion(alumno,teorico)>0) {
-									int cert = alumno.getNumCertificaciones();
+								if (control.insertaCertificacion(alumno,teorico)>0) {									
+									int cert = alumno.getNextCertificacion();
 									cert++;
-									alumno.setNumCertificaciones(cert);
+									alumno.setNextCertificacion(cert);
+									comboModel.addItem(new Certificacion(cert));
 									JOptionPane.showMessageDialog(botonResultado,"Has Conseguido la Certificación "+teorico.getNivel());
 								}									
 								else JOptionPane.showMessageDialog(botonResultado,"Ha habido un error al obtener certificación");
@@ -207,7 +211,7 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 				else JOptionPane.showMessageDialog(botonResultado,"Hay Respuestas sin responder, revísalo por favor");
 			}
 			
-			public boolean aprobado(int r){
+			private boolean aprobado(int r){
 				float mitad = (teorico.getNum_preguntas()*50)/100;
 				return (r>=mitad)?true:false;
 			}
