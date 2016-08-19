@@ -18,45 +18,37 @@ public class Controlador {
 	
 	public Usuario validaUsuario(String dni,String pass){
 		Usuario user = null;
-		//user = this.database.getUser(dni,Utilities.md5(pass));
 		user = this.server.getUser(dni, Utilities.md5(pass));
 		return user;
 	}
 	
 	public int insertaUsuario(String nombre, String dni, String pass){
-		//return this.database.insertaUsuario(nombre, dni, Utilities.md5(pass), Utilities.getSystemDate());
 		return this.server.insertaUsuario(nombre, dni, Utilities.md5(pass), Utilities.getSystemDate());
 	}
 	
 	public int borraUsuario(String dni){
-		//return this.database.deleteUsuario(dni);
 		return this.server.deleteUsuario(dni);
 	}
 	
 	public int actualizaUsuario(Usuario u,String n,String p){
 		u.setNombre_completo(n);
 		u.setPass(Utilities.md5(p));
-		//return this.database.updateUsuario(u);
 		return this.server.updateUsuario(u);
 	}
 	
 	public List<Usuario> dameListaUsuarios(){
-		//return this.database.getUserList();
 		return this.server.getUserList();
 	}
 	
 	public List<Certificacion> getListaCertificados(){
-		//return this.database.getCertificados();
 		return this.server.getCertificados();
 	}
 	
 	public ExamenPractico getExamenPractico(int l){
-		//return this.database.getExamenPractico(l);
 		return this.server.getExamenPractico(l);
 	}
 	
 	public ExamenTeorico getExamenTeorico(int l){
-		//return this.database.getExamenTeorico(l);
 		return this.server.getExamenTeorico(l);
 	}
 	
@@ -70,17 +62,14 @@ public class Controlador {
 	}
 	
 	public ModuloTeorico getModuloTeorico(int nivel, int id){
-		//return this.database.getModuloTeorico(nivel, id);
 		return this.server.getModuloTeorico(nivel, id);
 	}
 	
 	public List<ModuloTeorico> getListaModulosTeoricos(int nivel){
-		//return this.database.getListModTeorico(nivel);
 		return this.server.getListModTeorico(nivel);
 	}
 
 	public boolean existeUsuario(String dni) {
-		//return this.database.existeUsuario(dni);
 		return this.server.existeUsuario(dni);
 	}
 	
@@ -90,7 +79,6 @@ public class Controlador {
 	 * @return numero de certificaciones o 0 si no ha conseguido ninguna aún
 	 */
 	public int numCertificaciones(String dni) {
-		//List<Integer> l = this.database.getCertificadosFromUser(dni);
 		List<Integer> l = this.server.getCertificadosFromUser(dni);
 		return (l.size()>0)?l.size():0;
 	}
@@ -102,8 +90,8 @@ public class Controlador {
 	 * @return un entero positivo si se ha agregado la Certificacion, 0 en otro caso
 	 */
 	public int insertaCertificacion(Usuario a, ExamenTeorico t) {
-		return this.database.obtieneCertificacion(t.getNivel(), a.getDni());
-				
+		//return this.database.obtieneCertificacion(t.getNivel(), a.getDni());
+		return this.server.obtieneCertificacion(t.getNivel(), a.getDni());				
 	}
 	
 	/**
@@ -112,7 +100,6 @@ public class Controlador {
 	 * @return Lista de Preguntas
 	 */
 	public List<Pregunta> getListaPreguntasFromExamen(int idExamen){
-		//return this.database.getListaPreguntasFromExamen(idExamen);
 		return this.server.getListaPreguntasFromExamen(idExamen);
 	}
 	
@@ -122,7 +109,6 @@ public class Controlador {
 	 * @return Lista de Respuestas
 	 */
 	public List<Respuesta> getListaRespuestasFromPregunta(int idPregunta){
-		//return this.database.getListaRespuestasFromPregunta(idPregunta);
 		return this.server.getListaRespuestasFromPregunta(idPregunta);
 	}
 	
@@ -133,8 +119,8 @@ public class Controlador {
 	 * @return un entero mayor a 0 si no hay errores, 0 en otro caso
 	 */
 	public int apruebaExamenTeorico(Usuario a, ExamenTeorico t) {
-		return this.database.insertaAprobadoTeorico(a.getDni(), t.getId_examen(), Utilities.getSystemDate());
-		
+		//return this.database.insertaAprobadoTeorico(a.getDni(), t.getId_examen(), Utilities.getSystemDate());
+		return this.server.insertaAprobadoTeorico(a.getDni(), t.getId_examen(), Utilities.getSystemDate());
 	}
 	
 	

@@ -69,7 +69,8 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 		Iterator<Pregunta> it = this.listaPreguntas.iterator();
 		while(it.hasNext()){
 			Pregunta aux = it.next();
-			this.tablaRespuestas.put(aux.getId_pregunta(), control.getListaRespuestasFromPregunta(aux.getId_pregunta()));
+			List<Respuesta> l = control.getListaRespuestasFromPregunta(aux.getId_pregunta());
+			this.tablaRespuestas.put(aux.getId_pregunta(), l);
 		}
 		
 	}
@@ -128,7 +129,7 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 			aleatorio = Utilities.getRandomNumber(teorico.getNum_preguntas());
 			
 			//miramos si no habiamos escogido esa pregunta anteriormente
-			if (!insertados.containsKey(aleatorio)){
+			if (!insertados.containsKey(aleatorio) && listaPreguntas.size()>aleatorio){
 				insertados.put(aleatorio, 0);
 				Pregunta p = listaPreguntas.get(aleatorio);
 				

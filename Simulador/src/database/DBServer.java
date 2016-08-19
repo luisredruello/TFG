@@ -259,7 +259,7 @@ public class DBServer implements DBInterface{
 	@Override
 	public ExamenPractico getExamenPractico(int level) {
 		ExamenPractico practico = null;
-		String uri = URLPATH+"examen/practico/"+level;
+		String uri = URLPATH+"practico/"+level;
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -285,7 +285,7 @@ public class DBServer implements DBInterface{
 	@Override
 	public ExamenTeorico getExamenTeorico(int level) {
 		ExamenTeorico teorico = null;
-		String uri = URLPATH+"examen/teorico/"+level;
+		String uri = URLPATH+"teorico/"+level;
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -474,14 +474,64 @@ public class DBServer implements DBInterface{
 
 	@Override
 	public int insertaAprobadoTeorico(String dni, int idExamenTeorico, Date f) {
-		// TODO Auto-generated method stub
-		return 0;
+		int code = 0;
+		String uri = 
+				URLPATH+"teorico/aprueba";
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			
+			StringBuffer queryParam = new StringBuffer();
+	        queryParam.append("dni=");
+	        queryParam.append(dni);
+	        queryParam.append("&");
+	        queryParam.append("id=");
+	        queryParam.append(idExamenTeorico);
+	        
+	        OutputStream output = connection.getOutputStream();
+	        output.write(queryParam.toString().getBytes());
+	        output.flush();
+			
+			code = (connection.getResponseCode()==200)?1:0;
+			
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return code;
 	}
 
 	@Override
 	public int obtieneCertificacion(int level, String dni) {
-		// TODO Auto-generated method stub
-		return 0;
+		int code = 0;
+		String uri = 
+				URLPATH+"certificados/obtiene";
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			
+			StringBuffer queryParam = new StringBuffer();
+	        queryParam.append("nivel=");
+	        queryParam.append(level);
+	        queryParam.append("&");
+	        queryParam.append("dni=");
+	        queryParam.append(dni);
+	        
+	        OutputStream output = connection.getOutputStream();
+	        output.write(queryParam.toString().getBytes());
+	        output.flush();
+			
+			code = (connection.getResponseCode()==200)?1:0;
+			
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return code;
 	}
 
 	

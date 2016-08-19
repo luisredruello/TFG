@@ -107,6 +107,9 @@ public class UserWindow extends JFrame{
 			j++;
 		}
 		this.comboCertificados = new JComboBox<Certificacion>();
+		int nextCert = control.numCertificaciones(user.getDni());
+		nextCert++;
+		this.user.setNextCertificacion(nextCert);
 		for (int k=0;k<user.getNextCertificacion();k++){
 			this.comboCertificados.addItem(arrayCertificaciones[k]);
 		}		

@@ -322,41 +322,6 @@ public class DBLocal implements DBInterface{
 		return result;
 	}
 
-	//@Override
-	/*public String getPDFTeorico(int nivel, int id) {
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		ModuloTeorico result	= null;
-		String query = null;
-		try{
-			this.connection = DBConnection.getConnection();
-			query = "select Id_Modulo,Nivel,PDF from modulo_teorico where Nivel=? and Id_Modulo=?";
-			pst = this.connection.prepareStatement(query);
-			pst.setInt(1, nivel);
-			pst.setInt(2, id);
-			rs = pst.executeQuery();
-			if (rs.next()){
-				int idmod = rs.getInt("Id_Modulo");
-				int l = rs.getInt("Nivel");
-				Blob p = rs.getBlob("PDF");
-				if (!rs.wasNull()){
-					byte[] pd = p.getBytes(1, (int)p.length());
-					result = new ModuloTeorico(idmod,l,pd);
-				}
-				else result = new ModuloTeorico(idmod,l);
-			}			
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null) rs.close();
-				if (pst != null) pst.close();
-				if (this.connection != null) this.connection.close();
-			} catch (Exception e) {}
-		}
-		return result;
-	}*/
 	
 	@Override
 	public int uploadPDFTeorico(int nivel, int idmodulo, byte[] files) {
