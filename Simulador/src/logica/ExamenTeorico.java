@@ -84,6 +84,10 @@ public class ExamenTeorico{
 		return (this.tiempo_examen / 100)*1000;
 	}
 	
+	public String toString(){
+		return nombre;
+	}
+	
 	
 
 }

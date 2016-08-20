@@ -8,14 +8,18 @@ public class Imagen {
 	private byte[] contrasteInorganico;
 	private byte[] contrasteBN;
 	private int id_examen;
+	private int id_objeto;
 	
-	public Imagen(int id, byte[] propia, byte[] organico, byte[] inorganico, byte[] bn, int examen){
+	public Imagen(){}
+	
+	public Imagen(int id, byte[] propia, byte[] organico, byte[] inorganico, byte[] bn, int examen, int obj){
 		this.id_imagen=id;
 		this.imagenPropia=propia;
 		this.contrasteOrganico=organico;
 		this.contrasteInorganico=inorganico;
 		this.contrasteBN=bn;
 		this.id_examen=examen;
+		this.id_objeto=obj;
 	}
 
 	public int getId_imagen() {
@@ -64,6 +68,20 @@ public class Imagen {
 
 	public void setId_examen(int id_examen) {
 		this.id_examen = id_examen;
+	}
+
+	/**
+	 * @return the id_objeto
+	 */
+	public int getId_objeto() {
+		return id_objeto;
+	}
+
+	/**
+	 * @param id_objeto the id_objeto to set
+	 */
+	public void setId_objeto(int id_objeto) {
+		this.id_objeto = id_objeto;
 	}
 	
 	

@@ -20,6 +20,7 @@ import javax.swing.JTabbedPane;
 
 import controlador.Controlador;
 import logica.Certificacion;
+import logica.ExamenPractico;
 import logica.ExamenTeorico;
 import logica.ModuloTeorico;
 
@@ -30,16 +31,20 @@ public class PanelCertificadosAdmin extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JComboBox<Certificacion> comboCertificados;
-	private Certificacion certificado;
 	private List<Certificacion> listaCertificados;
 	private Controlador control;
+	private JComboBox<ExamenTeorico> comboTeorico;
+	private JComboBox<ExamenPractico> comboPractico;
 	
 	public PanelCertificadosAdmin(Controlador c){
 		this.listaCertificados = null;
 		this.control = c;
 		initCertificados();
 	}
-
+	
+	/**
+	 * Crea la interfaz gráfica
+	 */
 	private void initCertificados() {
 		this.setLayout(new BorderLayout());
 		
@@ -64,23 +69,21 @@ public class PanelCertificadosAdmin extends JPanel{
 		
 		//Paneles Inferiores
 		JTabbedPane panelCertificados = new JTabbedPane();
-				
-		this.certificado = this.comboCertificados.getItemAt(0);
 		
 		//Examen Practico
 		JComponent panel1 = new JPanel();
 		panel1.setLayout(new BorderLayout());
-		initExamenPractico(panel1);
+		initPanelExamenPractico(panel1);
 		
 		//Examen Teorico
 		JComponent panel2 = new JPanel();
 		panel2.setLayout(new BorderLayout());
-		initExamenTeorico(panel2);
+		initPanelExamenTeorico(panel2);
 				
-		panelCertificados.add(this.certificado.pintaExamenPractico(), panel1);
-		panelCertificados.add(this.certificado.getTeorico().getNombre(), panel2);
+		panelCertificados.add("Administración Examen Práctico", panel1);
+		panelCertificados.add("Administración Examen Teórico", panel2);
 				
-		updatePaneExamen(this.comboCertificados,panelCertificados);
+		updateCombosInferiores(comboCertificados,comboTeorico,comboPractico);
 				
 		this.add(panelCertificados, BorderLayout.CENTER);
 		
@@ -123,29 +126,50 @@ public class PanelCertificadosAdmin extends JPanel{
 		
 	}
 
-	private void updatePaneExamen(final JComboBox<Certificacion> comboCertificados2,final JTabbedPane panelCertificados) {
-		comboCertificados2.addActionListener(new ActionListener(){
+	private void updateCombosInferiores(final JComboBox<Certificacion> c
+			, final JComboBox<ExamenTeorico> teo
+			, final JComboBox<ExamenPractico> prac) {
+		c.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
-				int indice = comboCertificados2.getSelectedIndex();
-				if (indice != -1){
-					ExamenTeorico t = comboCertificados2.getItemAt(indice).getTeorico();
-					panelCertificados.setTitleAt(0, comboCertificados2.getItemAt(indice).pintaExamenPractico());
-					panelCertificados.setTitleAt(1, t.getNombre());
-				}				
+				int ind = c.getSelectedIndex();
+				if (ind!=-1){
+					ExamenTeorico t = c.getItemAt(ind).getTeorico();
+					ExamenPractico p = c.getItemAt(ind).getPractico();
+					if (t!=null){
+						teo.removeAllItems();
+						teo.addItem(t);
+					}
+					if (p!=null){
+						prac.removeAllItems();
+						prac.addItem(p);
+					}
+				}
 			}			
 		});
 		
 	}
 
-	private void initExamenTeorico(JComponent panel4) {
-		// TODO Auto-generated method stub
-		
+	private void initPanelExamenTeorico(JComponent panel4) {
+		comboTeorico = new JComboBox<ExamenTeorico>();
+		comboTeorico.addItem(listaCertificados.get(0).getTeorico());
+		JPanel p = new JPanel();
+		p.add(comboTeorico);
+		panel4.add(p, BorderLayout.NORTH);
 	}
 
-	private void initExamenPractico(JComponent panel3) {
-		// TODO Auto-generated method stub
+	private void initPanelExamenPractico(JComponent panel3) {
+		comboPractico = new JComboBox<ExamenPractico>();
+		comboPractico.addItem(listaCertificados.get(1).getPractico());
+		JPanel pcombo = new JPanel();
+		pcombo.add(comboPractico);
 		
+		JButton botonSubida = new JButton("Subir Imagen");
+		JPanel pboton = new JPanel();
+		pboton.add(botonSubida);
+		
+		panel3.add(pcombo, BorderLayout.NORTH);
+		panel3.add(pboton, BorderLayout.SOUTH);
 	}
 
 	private Certificacion[] llenaCertificados() {

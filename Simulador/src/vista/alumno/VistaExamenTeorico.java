@@ -79,7 +79,8 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 		this.setTitle(this.teorico.getNombre());
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setBounds(100, 100, 1100, 600);
+		//this.setBounds(100, 100, 1100, 600);
+		this.setSize(this.getToolkit().getScreenSize());
 		
 		//Panel Superior Datos del Examen
 		JPanel panelSup = new JPanel();

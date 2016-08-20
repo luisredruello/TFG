@@ -4,13 +4,17 @@ public class ObjetoProhibido {
 	
 	private int id_objeto;
 	private String nombre;
-	private byte[] mapa_de_bits;
+	private float alto;
+	private float ancho;
 	private int id_arma;
 	
-	public ObjetoProhibido(int id, String n, byte[] mapa, int arm){
+	public ObjetoProhibido(){}
+	
+	public ObjetoProhibido(int id, String n, float al, float anc,int arm){
 		this.id_objeto=id;
 		this.nombre=n;
-		this.mapa_de_bits=mapa;
+		this.alto=al;
+		this.ancho=anc;
 		this.id_arma=arm;
 	}
 
@@ -30,20 +34,40 @@ public class ObjetoProhibido {
 		this.nombre = nombre;
 	}
 
-	public byte[] getMapa_de_bits() {
-		return mapa_de_bits;
-	}
-
-	public void setMapa_de_bits(byte[] mapa_de_bits) {
-		this.mapa_de_bits = mapa_de_bits;
-	}
-
 	public int getId_arma() {
 		return id_arma;
 	}
 
 	public void setId_arma(int id_arma) {
 		this.id_arma = id_arma;
+	}
+
+	/**
+	 * @return the alto
+	 */
+	public float getAlto() {
+		return alto;
+	}
+
+	/**
+	 * @param alto the alto to set
+	 */
+	public void setAlto(float alto) {
+		this.alto = alto;
+	}
+
+	/**
+	 * @return the ancho
+	 */
+	public float getAncho() {
+		return ancho;
+	}
+
+	/**
+	 * @param ancho the ancho to set
+	 */
+	public void setAncho(float ancho) {
+		this.ancho = ancho;
 	}
 	
 	
