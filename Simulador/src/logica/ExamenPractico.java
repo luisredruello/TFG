@@ -7,7 +7,7 @@ public class ExamenPractico{
 	
 	private int id_examen;
 	private int nivel;
-	private int numImagenes;
+	private int num_imagenes;
 	private int tiempo_examen;
 	
 	public ExamenPractico (){
@@ -16,16 +16,8 @@ public class ExamenPractico{
 	public ExamenPractico(int id, int n, int num, int t){
 		this.id_examen=id;
 		this.nivel=n;
-		this.numImagenes=num;
+		this.num_imagenes=num;
 		this.tiempo_examen=t;
-	}
-
-	public int getNumImagenes() {
-		return numImagenes;
-	}
-
-	public void setNumImagenes(int numImagenes) {
-		this.numImagenes = numImagenes;
 	}
 	
 	public int getId_examen() {
@@ -42,6 +34,20 @@ public class ExamenPractico{
 
 	public void setNivel(int nivel) {
 		this.nivel = nivel;
+	}
+
+	/**
+	 * @return the num_imagenes
+	 */
+	public int getNum_imagenes() {
+		return num_imagenes;
+	}
+
+	/**
+	 * @param num_imagenes the num_imagenes to set
+	 */
+	public void setNum_imagenes(int num_imagenes) {
+		this.num_imagenes = num_imagenes;
 	}
 
 	/**
