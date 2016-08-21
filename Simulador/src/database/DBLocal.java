@@ -520,6 +520,32 @@ public class DBLocal implements DBInterface{
 		}
 		return resul;
 	}
+	
+	@Override
+	public int tieneAprobadoTeorico(String dni) {
+		PreparedStatement pst = null;
+		ResultSet rs          = null;
+		String query = null;
+		int resul = 0;
+		try{
+			this.connection = DBConnection.getConnection();
+			query = "select dni from aprueba_teorico a join examen_teorico b where a.Id_Examen_Teorico=b.Id_Examen and a.DNI=?";
+			pst = this.connection.prepareStatement(query);
+			pst.setString(1, dni);
+			rs = pst.executeQuery();
+			if (rs.next()) resul=1;
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		} finally {
+			try{
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (this.connection != null) this.connection.close();				
+			} catch (Exception e) {}
+		}
+		return resul;
+	}
 
 	@Override
 	public int obtieneCertificacion(int level, String dni) {

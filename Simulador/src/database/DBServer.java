@@ -502,6 +502,12 @@ public class DBServer implements DBInterface{
 		}
 		return code;
 	}
+	
+	@Override
+	public int tieneAprobadoTeorico(String dni) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public int obtieneCertificacion(int level, String dni) {

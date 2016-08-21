@@ -124,5 +124,10 @@ public class Controlador {
 	}
 	
 	
+	public boolean tieneAprobadoTeorico(String dni){
+		return this.database.tieneAprobadoTeorico(dni)>0?true:false;
+	}
+	
+	
 	
 }

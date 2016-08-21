@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
@@ -167,8 +168,26 @@ public class UserWindow extends JFrame{
 	}
 	
 	
-	private void lanzaExamenPractico(JButton b) {
-		// TODO Auto-generated method stub
+	private void lanzaExamenPractico(final JButton b) {
+		b.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int ind = comboCertificados.getSelectedIndex();
+				if (ind!=-1){
+					ExamenPractico p = control.getExamenPractico(comboCertificados.getItemAt(ind).getNivel());
+					if (p!=null){
+						if (control.tieneAprobadoTeorico(user.getDni())){
+							new VistaExamenPractico(control,p,user);
+						}
+						else JOptionPane.showMessageDialog(b,"Primero debes aprobar el Examen Teórico"); 
+					}
+					else JOptionPane.showMessageDialog(b,"Esta Certificación No Tiene Examen Práctico");
+				}
+				
+			}
+			
+		});
 		
 	}
 
