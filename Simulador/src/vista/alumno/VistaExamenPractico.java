@@ -65,7 +65,7 @@ public class VistaExamenPractico extends JFrame implements ItemListener{
 		
 		//Panel Central CardLayout
 		vistaImagenes = new JPanel(new CardLayout());
-		vistaImagenes.add(new PanelImagen(),"1");
+		vistaImagenes.add(new PanelImagen(this.control),"1");
 		
 		this.add(vistaImagenes, BorderLayout.CENTER);
 		

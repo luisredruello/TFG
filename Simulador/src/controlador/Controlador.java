@@ -123,11 +123,25 @@ public class Controlador {
 		return this.server.insertaAprobadoTeorico(a.getDni(), t.getId_examen(), Utilities.getSystemDate());
 	}
 	
-	
+	/**
+	 * Comprueba si el usuario ha aprobado previamente un Examen Teorico
+	 * @param dni del Alumno
+	 * @return true si el usuario esta en la tabla de aprobado teorico, false en otro caso
+	 */
 	public boolean tieneAprobadoTeorico(String dni){
 		return this.database.tieneAprobadoTeorico(dni)>0?true:false;
 	}
 	
+	/**
+	 * Devuelve un array que representa una imagen
+	 * @param tipo (normal,organico,inorganico o B/N)
+	 * @param idIma id de la imagen
+	 * @param idExam id del examen practico al que pertenece la imagen
+	 * @return array de bytes que corresponde a una imagen
+	 */
+	public byte[] getImageBytes(String tipo, int idIma, int idExam){
+		return this.server.getImagenBytes(tipo, idIma, idExam);
+	}
 	
 	
 }

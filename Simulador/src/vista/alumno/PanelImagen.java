@@ -14,18 +14,23 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
 
+import controlador.Controlador;
+
 public class PanelImagen extends JPanel implements ActionListener{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static String bn = "B-N";
-	private static String organico = "ContrasteOrganico";
-	private static String inorganico = "ContrasteInorganico";
+	private static String normal = "normal";
+	private static String bn = "bn";
+	private static String organico = "organico";
+	private static String inorganico = "inorganico";
 	private JLabel picture;
+	private Controlador control;
 	
-	public PanelImagen(){
+	public PanelImagen(Controlador c){
+		this.control=c;
 		initWindow();
 	}
 	
@@ -37,7 +42,9 @@ public class PanelImagen extends JPanel implements ActionListener{
 		this.setBorder(new TitledBorder("Imagen"));
 		
 		//Imagen
+		byte[] array = control.getImageBytes(normal, 1, 1);
 		picture = new JLabel();
+		picture.setIcon(new ImageIcon(array));
 		picture.addMouseListener(new MouseAdapter(){
 			
 			@Override
@@ -49,10 +56,13 @@ public class PanelImagen extends JPanel implements ActionListener{
 		
 		this.add(picture, BorderLayout.CENTER);
 		
-		//Check Button (B\N, Organico e Inorganico)		
+		//Check Button (B\N, Organico e Inorganico)
+		JRadioButton normalButton = new JRadioButton(normal);
+		normalButton.setActionCommand(normal);
+		normalButton.setSelected(true);
+		
 		JRadioButton bnButton = new JRadioButton(bn);
         bnButton.setActionCommand(bn);
-        bnButton.setSelected(true);
 
         JRadioButton orgButton = new JRadioButton(organico);
         orgButton.setActionCommand(organico);
@@ -60,11 +70,13 @@ public class PanelImagen extends JPanel implements ActionListener{
         JRadioButton inorgButton = new JRadioButton(inorganico);
         inorgButton.setActionCommand(inorganico);
         
+        normalButton.addActionListener(this);
         bnButton.addActionListener(this);
         orgButton.addActionListener(this);
         inorgButton.addActionListener(this);
         
         ButtonGroup group = new ButtonGroup();
+        group.add(normalButton);
         group.add(bnButton);
         group.add(orgButton);
         group.add(inorgButton);
@@ -82,19 +94,17 @@ public class PanelImagen extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		picture.setIcon(createImageIcon("images/"
-                + e.getActionCommand()
-                + ".gif"));
+		picture.setIcon(createImageIcon(normal));
 		
 	};
 	
 	/** Returns an ImageIcon, or null if the path was invalid. */
-    protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = PanelImagen.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
+    private ImageIcon createImageIcon(String tipo) {
+        byte[] bytes = control.getImageBytes(tipo, 1, 1);
+        if (bytes != null) {
+            return new ImageIcon(bytes);
         } else {
-            System.err.println("Couldn't find file: " + path);
+            System.err.println("No se ha podido cargar la imagen");
             return null;
         }
     }
