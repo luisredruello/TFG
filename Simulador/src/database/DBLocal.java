@@ -573,4 +573,10 @@ public class DBLocal implements DBInterface{
 		return resul;
 	}
 
+	@Override
+	public byte[] getImagenBytes(String tipo, int idImagen, int idExamen) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

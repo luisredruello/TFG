@@ -75,5 +75,14 @@ public interface DBInterface {
 	 * @return un entero 1 si se ha insertado correctamente, 0 en otro caso 
 	 */
 	public int obtieneCertificacion(int level, String dni);
+	
+	/**
+	 * Obtiene una imagen desde el Web Service
+	 * @param tipo normal,blanco y negro, organico o inorganico
+	 * @param idImagen
+	 * @param idExamen a la que pertenece esta imagen
+	 * @return array de bytes que representa una imagen
+	 */
+	public byte[] getImagenBytes(String tipo, int idImagen, int idExamen);
 
 }

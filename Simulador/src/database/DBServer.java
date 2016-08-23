@@ -540,6 +540,42 @@ public class DBServer implements DBInterface{
 		return code;
 	}
 
+	@Override
+	public byte[] getImagenBytes(String tipo, int idImagen, int idExamen) {
+		String uri = URLPATH+"imagen/"+tipo;
+		byte[] bytes = null;
+		try{			
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Accept", "image/png");
+			connection.setDoOutput(true);
+			
+			StringBuffer queryParam = new StringBuffer();
+	        queryParam.append("examen=");
+	        queryParam.append(idExamen);
+	        queryParam.append("&");
+	        queryParam.append("id=");
+	        queryParam.append(idImagen);
+	        
+	        OutputStream output = connection.getOutputStream();
+	        output.write(queryParam.toString().getBytes());
+	        output.flush();
+			
+			InputStream textBase64 = connection.getInputStream();
+			
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			IOUtils.copy(textBase64, baos);
+			bytes = baos.toByteArray();			
+			
+			connection.disconnect();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return bytes;
+	}
+
 	
 
 }
