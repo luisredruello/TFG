@@ -3,21 +3,21 @@ package logica;
 public class Imagen {
 	
 	private int id_imagen;
-	private byte[] imagenPropia;
-	private byte[] contrasteOrganico;
-	private byte[] contrasteInorganico;
-	private byte[] contrasteBN;
-	private int id_examen;
+	private String normal;
+	private String organico;
+	private String inorganico;
+	private String bn;
 	private int id_objeto;
+	private int id_examen;
 	
 	public Imagen(){}
 	
-	public Imagen(int id, byte[] propia, byte[] organico, byte[] inorganico, byte[] bn, int examen, int obj){
+	public Imagen(int id, String propia, String org, String ino, String blanco, int examen, int obj){
 		this.id_imagen=id;
-		this.imagenPropia=propia;
-		this.contrasteOrganico=organico;
-		this.contrasteInorganico=inorganico;
-		this.contrasteBN=bn;
+		this.normal=propia;
+		this.organico=org;
+		this.inorganico=ino;
+		this.bn=blanco;
 		this.id_examen=examen;
 		this.id_objeto=obj;
 	}
@@ -30,36 +30,60 @@ public class Imagen {
 		this.id_imagen = id_imagen;
 	}
 
-	public byte[] getImagenPropia() {
-		return imagenPropia;
+	/**
+	 * @return the normal
+	 */
+	public String getNormal() {
+		return normal;
 	}
 
-	public void setImagenPropia(byte[] imagenPropia) {
-		this.imagenPropia = imagenPropia;
+	/**
+	 * @param normal the normal to set
+	 */
+	public void setNormal(String normal) {
+		this.normal = normal;
 	}
 
-	public byte[] getContrasteOrganico() {
-		return contrasteOrganico;
+	/**
+	 * @return the organico
+	 */
+	public String getOrganico() {
+		return organico;
 	}
 
-	public void setContrasteOrganico(byte[] contrasteOrganico) {
-		this.contrasteOrganico = contrasteOrganico;
+	/**
+	 * @param organico the organico to set
+	 */
+	public void setOrganico(String organico) {
+		this.organico = organico;
 	}
 
-	public byte[] getContrasteInorganico() {
-		return contrasteInorganico;
+	/**
+	 * @return the inorganico
+	 */
+	public String getInorganico() {
+		return inorganico;
 	}
 
-	public void setContrasteInorganico(byte[] contrasteInorganico) {
-		this.contrasteInorganico = contrasteInorganico;
+	/**
+	 * @param inorganico the inorganico to set
+	 */
+	public void setInorganico(String inorganico) {
+		this.inorganico = inorganico;
 	}
 
-	public byte[] getContrasteBN() {
-		return contrasteBN;
+	/**
+	 * @return the bn
+	 */
+	public String getBn() {
+		return bn;
 	}
 
-	public void setContrasteBN(byte[] contrasteBN) {
-		this.contrasteBN = contrasteBN;
+	/**
+	 * @param bn the bn to set
+	 */
+	public void setBn(String bn) {
+		this.bn = bn;
 	}
 
 	public int getId_examen() {

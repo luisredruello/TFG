@@ -4,15 +4,19 @@ public class ObjetoProhibido {
 	
 	private int id_objeto;
 	private String nombre;
-	private float alto;
-	private float ancho;
+	private int posx;
+	private int posy;
+	private int alto;
+	private int ancho;
 	private int id_arma;
 	
 	public ObjetoProhibido(){}
 	
-	public ObjetoProhibido(int id, String n, float al, float anc,int arm){
+	public ObjetoProhibido(int id, String n, int x, int y, int al, int anc, int arm){
 		this.id_objeto=id;
 		this.nombre=n;
+		this.posx=x;
+		this.posy=y;
 		this.alto=al;
 		this.ancho=anc;
 		this.id_arma=arm;
@@ -43,33 +47,60 @@ public class ObjetoProhibido {
 	}
 
 	/**
+	 * @return the posx
+	 */
+	public int getPosx() {
+		return posx;
+	}
+
+	/**
+	 * @param posx the posx to set
+	 */
+	public void setPosx(int posx) {
+		this.posx = posx;
+	}
+
+	/**
+	 * @return the posy
+	 */
+	public int getPosy() {
+		return posy;
+	}
+
+	/**
+	 * @param posy the posy to set
+	 */
+	public void setPosy(int posy) {
+		this.posy = posy;
+	}
+
+	/**
 	 * @return the alto
 	 */
-	public float getAlto() {
+	public int getAlto() {
 		return alto;
 	}
 
 	/**
 	 * @param alto the alto to set
 	 */
-	public void setAlto(float alto) {
+	public void setAlto(int alto) {
 		this.alto = alto;
 	}
 
 	/**
 	 * @return the ancho
 	 */
-	public float getAncho() {
+	public int getAncho() {
 		return ancho;
 	}
 
 	/**
 	 * @param ancho the ancho to set
 	 */
-	public void setAncho(float ancho) {
+	public void setAncho(int ancho) {
 		this.ancho = ancho;
 	}
-	
 	
 
 }

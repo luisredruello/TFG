@@ -49,7 +49,7 @@ public class PanelImagen extends JPanel implements ActionListener{
 			
 			@Override
 			  public void mouseClicked(MouseEvent e) {
-			     
+			     System.out.println(e.getPoint());
 			  }
 			
 		});
