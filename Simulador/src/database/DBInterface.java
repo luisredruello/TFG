@@ -64,9 +64,10 @@ public interface DBInterface {
 	/**
 	 * Comprueba si un alumno tiene aprobado un examen teorico
 	 * @param dni del alumno
+	 * @param idExamenTeorico el examen que ha aprobado el alumno previamente
 	 * @return un entero positivo si el usuario ha aprobado el examen teorico, 0 en caso contrario 
 	 */
-	public int tieneAprobadoTeorico(String dni);
+	public int tieneAprobadoTeorico(String dni, int idExamenTeorico);
 	
 	/**
 	 * Inserta en la tabla tiene una nueva certificacion para el alumno

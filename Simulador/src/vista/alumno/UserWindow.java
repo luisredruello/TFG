@@ -139,7 +139,7 @@ public class UserWindow extends JFrame{
 		
 		//Panel Central Leer Teoria
 		JPanel cent = new JPanel();
-		cent.setBorder(new TitledBorder("Zona Teoría"));
+		cent.setBorder(new TitledBorder("Modulo Teorico"));
 				
 		JButton leerTeoria = new JButton("Lee Teoría");
 		leerTeoria.setBounds(80, 280, 95, 25);
@@ -177,7 +177,8 @@ public class UserWindow extends JFrame{
 				if (ind!=-1){
 					ExamenPractico p = control.getExamenPractico(comboCertificados.getItemAt(ind).getNivel());
 					if (p!=null){
-						if (control.tieneAprobadoTeorico(user.getDni())){
+						ExamenTeorico teo = control.getExamenTeorico(comboCertificados.getItemAt(ind).getNivel());
+						if (control.tieneAprobadoTeorico(user.getDni(),teo.getId_examen())){
 							new VistaExamenPractico(control,p,user);
 						}
 						else JOptionPane.showMessageDialog(b,"Primero debes aprobar el Examen Teórico"); 

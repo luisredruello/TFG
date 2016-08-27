@@ -128,9 +128,9 @@ public class Controlador {
 	 * @param dni del Alumno
 	 * @return true si el usuario esta en la tabla de aprobado teorico, false en otro caso
 	 */
-	public boolean tieneAprobadoTeorico(String dni){
-		//return this.database.tieneAprobadoTeorico(dni)>0?true:false;
-		return this.server.tieneAprobadoTeorico(dni)>0?true:false;
+	public boolean tieneAprobadoTeorico(String dni, int idExamen){
+		//return this.database.tieneAprobadoTeorico(dni, idExamen)>0?true:false;
+		return this.server.tieneAprobadoTeorico(dni, idExamen)>0?true:false;
 	}
 	
 	/**

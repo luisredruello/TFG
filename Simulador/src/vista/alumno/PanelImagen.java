@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -31,10 +32,12 @@ public class PanelImagen extends JPanel implements ActionListener{
 	private ImageIcon img;
 	private Controlador control;
 	private Imagen imagen;
+	private int posicion;
 	
-	public PanelImagen(Controlador c, Imagen im){
+	public PanelImagen(Controlador c, Imagen im, int pos){
 		this.control=c;
 		this.imagen=im;
+		this.posicion = pos+1;
 		initWindow();
 	}
 	
@@ -43,7 +46,7 @@ public class PanelImagen extends JPanel implements ActionListener{
 	 */
 	private void initWindow(){
 		this.setLayout(new GridLayout(1,2));
-		this.setBorder(new TitledBorder("Imagen"));
+		this.setBorder(new TitledBorder("Imagen: "+posicion));
 		
 		//Imagen
 		byte[] array = control.getImageBytes(normal, imagen.getId_imagen(), imagen.getId_examen());
@@ -63,7 +66,10 @@ public class PanelImagen extends JPanel implements ActionListener{
 		
 		this.add(picture);
 		
-		//Check Button (B\N, Organico e Inorganico)
+		//Panel Derecho (Con los Check Buttons y Los Botones de Seleccion)
+		JPanel panelDerecho = new JPanel(new GridLayout(2,1));
+		
+		//Check Button (Normal, B\N, Organico e Inorganico)
 		JRadioButton normalButton = new JRadioButton(normal);
 		normalButton.setActionCommand(normal);
 		normalButton.setSelected(true);
@@ -95,7 +101,20 @@ public class PanelImagen extends JPanel implements ActionListener{
         radioPanel.add(orgButton);
         radioPanel.add(inorgButton);
         
-        this.add(radioPanel);
+        panelDerecho.add(radioPanel);
+        
+        //Panel con los botones
+        JPanel inferiorDerecha = new JPanel();
+        inferiorDerecha.setBorder(new TitledBorder("Opciones"));
+        
+        JButton limpia = new JButton("Sin Peligro");
+        JButton peligro = new JButton("Objeto Peligroso");
+        inferiorDerecha.add(limpia);
+        inferiorDerecha.add(peligro);
+        
+        panelDerecho.add(inferiorDerecha);
+        
+        this.add(panelDerecho);
         
         this.setVisible(true);
 	}

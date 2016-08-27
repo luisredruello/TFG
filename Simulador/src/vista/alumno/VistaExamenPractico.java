@@ -2,8 +2,8 @@ package vista.alumno;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ import logica.ExamenPractico;
 import logica.Imagen;
 import logica.Usuario;
 
-public class VistaExamenPractico extends JFrame implements ItemListener, PropertyChangeListener{
+public class VistaExamenPractico extends JFrame implements ActionListener, PropertyChangeListener{
 
 	/**
 	 * 
@@ -74,10 +74,10 @@ public class VistaExamenPractico extends JFrame implements ItemListener, Propert
 		while (i<practico.getNum_imagenes()){
 			aleatorio = Utilities.getRandomNumber(tablaImagen.size());
 			
-			if (!insertados.containsKey(aleatorio)){
+			if (!insertados.containsKey(aleatorio) && aleatorio>0){
 				insertados.put(aleatorio, 0);
 				Imagen image = tablaImagen.get(aleatorio);
-				panelImagen.add(new PanelImagen(control,image));
+				panelImagen.add(new PanelImagen(control,image,i));
 				vistaImagenes.add(panelImagen.getLast(),Integer.toString(i));
 				i++;
 			}
@@ -93,7 +93,7 @@ public class VistaExamenPractico extends JFrame implements ItemListener, Propert
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		//this.setSize(this.getToolkit().getScreenSize());
-		this.setBounds(100, 100, 1300, 600);
+		this.setBounds(50, 50, 1500, 750);
 		
 		//Panel Superior Datos del Examen
 		JPanel panelSup = new JPanel();
@@ -104,9 +104,11 @@ public class VistaExamenPractico extends JFrame implements ItemListener, Propert
 		progressBar.setStringPainted(true);
 		        
 		JLabel labelTiempo = new JLabel("Tiempo Consumido: ");
+		JLabel labelPreguntas = new JLabel("Preguntas Totales: "+practico.getNum_imagenes());
 		panelSup.add(labelDesc);
 		panelSup.add(labelTiempo);
 		panelSup.add(progressBar);
+		panelSup.add(labelPreguntas);
 		this.add(panelSup, BorderLayout.NORTH);
 		
 		//Panel Central CardLayout		
@@ -117,11 +119,11 @@ public class VistaExamenPractico extends JFrame implements ItemListener, Propert
 		
 		JButton botonRetroceder = new JButton("Anterior");
 		botonRetroceder.setActionCommand("back");
-		botonRetroceder.addItemListener(this);
+		botonRetroceder.addActionListener(this);
 		
 		JButton botonAvanzar = new JButton("Siguiente");
 		botonAvanzar.setActionCommand("forward");
-		botonAvanzar.addItemListener(this);
+		botonAvanzar.addActionListener(this);
 		
 		JButton botonResultado = new JButton("Comprobar");
 		
@@ -151,21 +153,6 @@ public class VistaExamenPractico extends JFrame implements ItemListener, Propert
 		if (pagina<0){
 			pagina=panelImagen.size()-1;
 		}
-	}
-
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		CardLayout cl = (CardLayout)vistaImagenes.getLayout();
-		String command = ((JButton)e.getSource()).getActionCommand();
-		if (command.compareTo("forward")==0){
-			avanzaPagina();
-			cl.show(panelImagen.get(pagina), (String)e.getItem());
-		}
-		else if (command.compareTo("back")==0){
-			retrocedePagina();
-			cl.show(panelImagen.get(pagina), (String)e.getItem());
-		}
-		
 	}	
 
 	@Override
@@ -174,6 +161,21 @@ public class VistaExamenPractico extends JFrame implements ItemListener, Propert
             int progress = (Integer) evt.getNewValue();
             progressBar.setValue(progress);
         } 
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		CardLayout cl = (CardLayout)vistaImagenes.getLayout();
+		String command = ((JButton)e.getSource()).getActionCommand();
+		if (command.compareTo("forward")==0){
+			avanzaPagina();
+			cl.show(vistaImagenes, Integer.toString(pagina));
+		}
+		else if (command.compareTo("back")==0){
+			retrocedePagina();
+			cl.show(vistaImagenes, Integer.toString(pagina));
+		}
 		
 	}
 

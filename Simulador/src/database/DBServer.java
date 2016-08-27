@@ -504,7 +504,7 @@ public class DBServer implements DBInterface{
 	}
 	
 	@Override
-	public int tieneAprobadoTeorico(String dni) {
+	public int tieneAprobadoTeorico(String dni, int idExamen) {
 		int code = 0;
 		String uri = URLPATH+"user/tieneteorico";
 		try{
@@ -516,6 +516,9 @@ public class DBServer implements DBInterface{
 			StringBuffer queryParam = new StringBuffer();
 	        queryParam.append("dni=");
 	        queryParam.append(dni);
+	        queryParam.append("&");
+	        queryParam.append("id=");
+	        queryParam.append(idExamen);
 	        
 	        OutputStream output = connection.getOutputStream();
 	        output.write(queryParam.toString().getBytes());

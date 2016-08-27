@@ -523,16 +523,18 @@ public class DBLocal implements DBInterface{
 	}
 	
 	@Override
-	public int tieneAprobadoTeorico(String dni) {
+	public int tieneAprobadoTeorico(String dni, int idExamenTeorico) {
 		PreparedStatement pst = null;
 		ResultSet rs          = null;
 		String query = null;
 		int resul = 0;
 		try{
 			this.connection = DBConnection.getConnection();
-			query = "select dni from aprueba_teorico a join examen_teorico b where a.Id_Examen_Teorico=b.Id_Examen and a.DNI=?";
+			query = "select dni from aprueba_teorico a join examen_teorico b "
+					+ "where a.Id_Examen_Teorico=b.Id_Examen and a.Id_Examen_Teorico=? and a.DNI=?";
 			pst = this.connection.prepareStatement(query);
-			pst.setString(1, dni);
+			pst.setInt(1, idExamenTeorico);
+			pst.setString(2, dni);
 			rs = pst.executeQuery();
 			if (rs.next()) resul=1;
 		}
