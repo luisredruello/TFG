@@ -1,16 +1,19 @@
 package vista.alumno;
 
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
@@ -33,11 +36,16 @@ public class PanelImagen extends JPanel implements ActionListener{
 	private Controlador control;
 	private Imagen imagen;
 	private int posicion;
+	private Point click;
+	private Frame parent;
 	
-	public PanelImagen(Controlador c, Imagen im, int pos){
+	public PanelImagen(Controlador c, Imagen im, int pos, Frame padre){
 		this.control=c;
 		this.imagen=im;
 		this.posicion = pos+1;
+		this.click = new Point();
+		this.parent=padre;
+		//this.tablaPuntos=table;
 		initWindow();
 	}
 	
@@ -60,6 +68,7 @@ public class PanelImagen extends JPanel implements ActionListener{
 				Point panelPoint = e.getPoint();
                 Point imgContext = toImageContext(panelPoint);
 			    System.out.println(e.getPoint()+" Relativo a: "+imgContext);
+			    click.setLocation(e.getX(), imgContext.y);
 			  }
 			
 		});
@@ -108,7 +117,9 @@ public class PanelImagen extends JPanel implements ActionListener{
         inferiorDerecha.setBorder(new TitledBorder("Opciones"));
         
         JButton limpia = new JButton("Sin Peligro");
+        agregaImagenLimpia(limpia);
         JButton peligro = new JButton("Objeto Peligroso");
+        agregaImagenPeligro(peligro);
         inferiorDerecha.add(limpia);
         inferiorDerecha.add(peligro);
         
@@ -118,13 +129,42 @@ public class PanelImagen extends JPanel implements ActionListener{
         
         this.setVisible(true);
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		picture.setIcon(createImageIcon(((JRadioButton) e.getSource()).getActionCommand()));
-		
-	};
 	
+	private void agregaImagenLimpia(JButton limp) {
+		limp.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HashMap<Integer, Point> tablaPuntos = ((VistaExamenPractico) parent).getImagenPuntos();
+				if (!tablaPuntos.containsKey(imagen.getId_imagen())){
+					tablaPuntos.put(imagen.getId_imagen(), null);
+					((VistaExamenPractico) parent).setImagenPuntos(tablaPuntos);
+					((VistaExamenPractico) parent).updateNumPreguntas(tablaPuntos.size());
+				}
+			}			
+		});
+		
+	}
+
+	private void agregaImagenPeligro(final JButton pel) {
+		pel.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(pel,"Pulsa en el elemento prohibido, por favor");
+				HashMap<Integer, Point> tablaPuntos = ((VistaExamenPractico) parent).getImagenPuntos();
+				if (!tablaPuntos.containsKey(imagen.getId_imagen())){
+					System.out.println("La imagen es "+imagen.getId_imagen());
+					tablaPuntos.put(imagen.getId_imagen(), click);
+					((VistaExamenPractico) parent).setImagenPuntos(tablaPuntos);
+					((VistaExamenPractico) parent).updateNumPreguntas(tablaPuntos.size());
+				}
+			}
+			
+		});
+		
+	}
+
 	/** Returns an ImageIcon, or null if the path was invalid. */
     private ImageIcon createImageIcon(String tipo) {
         byte[] bytes = control.getImageBytes(tipo, imagen.getId_imagen(), imagen.getId_examen());
@@ -135,6 +175,13 @@ public class PanelImagen extends JPanel implements ActionListener{
             return null;
         }
     }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		picture.setIcon(createImageIcon(((JRadioButton) e.getSource()).getActionCommand()));
+		
+	};
+	
     
     public Point getImageLocation() {
         Point p = null;

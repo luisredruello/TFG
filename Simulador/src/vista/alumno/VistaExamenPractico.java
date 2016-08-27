@@ -2,6 +2,7 @@ package vista.alumno;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -14,6 +15,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import tools.*;
@@ -35,8 +37,10 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 	private JPanel vistaImagenes;	//Representa el CardLayout
 	private LinkedList<PanelImagen> panelImagen;
 	private HashMap<Integer, Imagen> tablaImagen;	//K: id imagen, V: imagen
+	private HashMap<Integer, Point> imagenPuntos;	//K: id imagen, V: punto clickado o null, si no ha clickado
 	private Task task;
 	private int pagina;
+	private JLabel numPreguntas;
 	
 	public VistaExamenPractico(Controlador c, ExamenPractico ex, Usuario u){
 		this.control=c;
@@ -44,8 +48,10 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 		this.alumno=u;
 		this.panelImagen = new LinkedList<PanelImagen>();
 		this.tablaImagen = new HashMap<Integer, Imagen>();
+		this.imagenPuntos = new HashMap<Integer, Point>();
 		this.vistaImagenes = new JPanel(new CardLayout());
 		this.pagina=0;
+		this.numPreguntas = new JLabel("Imagenes Restantes: "+practico.getNum_imagenes());
 		initList();
 		initWindow();
 		
@@ -77,7 +83,7 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 			if (!insertados.containsKey(aleatorio) && aleatorio>0){
 				insertados.put(aleatorio, 0);
 				Imagen image = tablaImagen.get(aleatorio);
-				panelImagen.add(new PanelImagen(control,image,i));
+				panelImagen.add(new PanelImagen(control,image,i,this));
 				vistaImagenes.add(panelImagen.getLast(),Integer.toString(i));
 				i++;
 			}
@@ -109,6 +115,7 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 		panelSup.add(labelTiempo);
 		panelSup.add(progressBar);
 		panelSup.add(labelPreguntas);
+		panelSup.add(numPreguntas);
 		this.add(panelSup, BorderLayout.NORTH);
 		
 		//Panel Central CardLayout		
@@ -126,6 +133,7 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 		botonAvanzar.addActionListener(this);
 		
 		JButton botonResultado = new JButton("Comprobar");
+		comprobarResultado(botonResultado);
 		
 		panelInferior.add(botonRetroceder);
 		panelInferior.add(botonAvanzar);
@@ -153,7 +161,23 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 		if (pagina<0){
 			pagina=panelImagen.size()-1;
 		}
-	}	
+	}
+	
+	private void comprobarResultado(final JButton c){
+		c.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int tam = imagenPuntos.size();
+				if (tam==practico.getNum_imagenes()){
+					
+				}
+				else JOptionPane.showMessageDialog(c,"Debes marcar todas las imágenes, por favor");
+				
+			}
+			
+		});
+	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -176,7 +200,30 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 			retrocedePagina();
 			cl.show(vistaImagenes, Integer.toString(pagina));
 		}
-		
+	}
+	
+	/**
+	 * Actualiza el label numero de preguntas restantes
+	 * @param n
+	 */
+	public void updateNumPreguntas(int n){
+		int restante = practico.getNum_imagenes()-n;
+		numPreguntas.setText("Imagenes Restantes: "+restante);
+		numPreguntas.repaint();
+	}
+
+	/**
+	 * @return the imagenPuntos
+	 */
+	public HashMap<Integer, Point> getImagenPuntos() {
+		return imagenPuntos;
+	}
+
+	/**
+	 * @param imagenPuntos the imagenPuntos to set
+	 */
+	public void setImagenPuntos(HashMap<Integer, Point> imagenPuntos) {
+		this.imagenPuntos = imagenPuntos;
 	}
 
 }
