@@ -505,8 +505,28 @@ public class DBServer implements DBInterface{
 	
 	@Override
 	public int tieneAprobadoTeorico(String dni) {
-		// TODO Auto-generated method stub
-		return 0;
+		int code = 0;
+		String uri = URLPATH+"user/tieneteorico";
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			
+			StringBuffer queryParam = new StringBuffer();
+	        queryParam.append("dni=");
+	        queryParam.append(dni);
+	        
+	        OutputStream output = connection.getOutputStream();
+	        output.write(queryParam.toString().getBytes());
+	        output.flush();
+			
+			code = (connection.getResponseCode()==200)?1:0;
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return code;
 	}
 
 	@Override
@@ -574,6 +594,29 @@ public class DBServer implements DBInterface{
 			e.printStackTrace();
 		}
 		return bytes;
+	}
+
+	@Override
+	public List<Imagen> getListImagesFromExam(int idExamen) {
+		Imagenes imagenes = null;
+		String uri = URLPATH+"imagen/imagenes/"+idExamen;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+				 
+			JAXBContext jc = JAXBContext.newInstance(Imagenes.class);
+			InputStream xml = connection.getInputStream();
+			
+			imagenes = (Imagenes) jc.createUnmarshaller().unmarshal(xml);
+			
+			connection.disconnect();
+		}
+		catch(IOException | JAXBException e){
+			e.printStackTrace();
+		}
+		return imagenes.getImagenes();
 	}
 
 	

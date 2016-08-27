@@ -4,19 +4,25 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-
+import tools.*;
 import controlador.Controlador;
 import logica.ExamenPractico;
+import logica.Imagen;
 import logica.Usuario;
 
-public class VistaExamenPractico extends JFrame implements ItemListener{
+public class VistaExamenPractico extends JFrame implements ItemListener, PropertyChangeListener{
 
 	/**
 	 * 
@@ -28,6 +34,8 @@ public class VistaExamenPractico extends JFrame implements ItemListener{
 	private JProgressBar progressBar;
 	private JPanel vistaImagenes;	//Representa el CardLayout
 	private LinkedList<PanelImagen> panelImagen;
+	private HashMap<Integer, Imagen> tablaImagen;	//K: id imagen, V: imagen
+	private Task task;
 	private int pagina;
 	
 	public VistaExamenPractico(Controlador c, ExamenPractico ex, Usuario u){
@@ -35,10 +43,48 @@ public class VistaExamenPractico extends JFrame implements ItemListener{
 		this.practico=ex;
 		this.alumno=u;
 		this.panelImagen = new LinkedList<PanelImagen>();
+		this.tablaImagen = new HashMap<Integer, Imagen>();
+		this.vistaImagenes = new JPanel(new CardLayout());
 		this.pagina=0;
+		initList();
 		initWindow();
+		
+		task = new Task(this,practico.getSegundos());
+        task.addPropertyChangeListener(this);
+        task.execute();
 	}
 	
+	/**
+	 * Inicializa las distintas estructuras de datos necesarias para la logica del examen
+	 */
+	private void initList() {
+		List<Imagen> l = control.getImagenesFromExamen(practico.getId_examen());
+		if (!l.isEmpty()){
+			Iterator<Imagen> it = l.iterator();
+			while (it.hasNext()){
+				Imagen im = it.next();
+				tablaImagen.put(im.getId_imagen(), im);
+			}
+		}
+		int i = 0;
+		int aleatorio = 0;
+		//K: id imagen, para comprobar si ya hemos insertado la imagen
+		HashMap<Integer,Integer> insertados = new HashMap<Integer,Integer>();
+		
+		while (i<practico.getNum_imagenes()){
+			aleatorio = Utilities.getRandomNumber(tablaImagen.size());
+			
+			if (!insertados.containsKey(aleatorio)){
+				insertados.put(aleatorio, 0);
+				Imagen image = tablaImagen.get(aleatorio);
+				panelImagen.add(new PanelImagen(control,image));
+				vistaImagenes.add(panelImagen.getLast(),Integer.toString(i));
+				i++;
+			}
+		}
+		
+	}
+
 	/**
 	 * Inicializa la interfaz gráfica
 	 */
@@ -63,10 +109,7 @@ public class VistaExamenPractico extends JFrame implements ItemListener{
 		panelSup.add(progressBar);
 		this.add(panelSup, BorderLayout.NORTH);
 		
-		//Panel Central CardLayout
-		vistaImagenes = new JPanel(new CardLayout());
-		vistaImagenes.add(new PanelImagen(this.control),"1");
-		
+		//Panel Central CardLayout		
 		this.add(vistaImagenes, BorderLayout.CENTER);
 		
 		//Panel Inferior (3 Botones, avanzar, retroceder, comprobar)
@@ -89,21 +132,6 @@ public class VistaExamenPractico extends JFrame implements ItemListener{
 		this.add(panelInferior, BorderLayout.SOUTH);
 		this.setVisible(true);
 	}
-
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		CardLayout cl = (CardLayout)vistaImagenes.getLayout();
-		String command = ((JButton)e.getSource()).getActionCommand();
-		if (command.compareTo("forward")==0){
-			avanzaPagina();
-			cl.show(panelImagen.get(pagina), (String)e.getItem());
-		}
-		else if (command.compareTo("back")==0){
-			retrocedePagina();
-			cl.show(panelImagen.get(pagina), (String)e.getItem());
-		}
-		
-	}
 	
 	/**
 	 * Avanza la página actual, si llega al final vuelve a la primera imagen
@@ -123,6 +151,30 @@ public class VistaExamenPractico extends JFrame implements ItemListener{
 		if (pagina<0){
 			pagina=panelImagen.size()-1;
 		}
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		CardLayout cl = (CardLayout)vistaImagenes.getLayout();
+		String command = ((JButton)e.getSource()).getActionCommand();
+		if (command.compareTo("forward")==0){
+			avanzaPagina();
+			cl.show(panelImagen.get(pagina), (String)e.getItem());
+		}
+		else if (command.compareTo("back")==0){
+			retrocedePagina();
+			cl.show(panelImagen.get(pagina), (String)e.getItem());
+		}
+		
+	}	
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if ("progress" == evt.getPropertyName()) {
+            int progress = (Integer) evt.getNewValue();
+            progressBar.setValue(progress);
+        } 
+		
 	}
 
 }

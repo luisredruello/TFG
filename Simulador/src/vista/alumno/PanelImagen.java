@@ -1,7 +1,7 @@
 package vista.alumno;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -15,6 +15,7 @@ import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
 
 import controlador.Controlador;
+import logica.Imagen;
 
 public class PanelImagen extends JPanel implements ActionListener{
 
@@ -27,10 +28,13 @@ public class PanelImagen extends JPanel implements ActionListener{
 	private static String organico = "organico";
 	private static String inorganico = "inorganico";
 	private JLabel picture;
+	private ImageIcon img;
 	private Controlador control;
+	private Imagen imagen;
 	
-	public PanelImagen(Controlador c){
+	public PanelImagen(Controlador c, Imagen im){
 		this.control=c;
+		this.imagen=im;
 		initWindow();
 	}
 	
@@ -38,23 +42,26 @@ public class PanelImagen extends JPanel implements ActionListener{
 	 * Inicia la Interfaz Gráfica
 	 */
 	private void initWindow(){
-		this.setLayout(new BorderLayout());
+		this.setLayout(new GridLayout(1,2));
 		this.setBorder(new TitledBorder("Imagen"));
 		
 		//Imagen
-		byte[] array = control.getImageBytes(normal, 1, 1);
+		byte[] array = control.getImageBytes(normal, imagen.getId_imagen(), imagen.getId_examen());
+		img = new ImageIcon(array);
 		picture = new JLabel();
-		picture.setIcon(new ImageIcon(array));
+		picture.setIcon(img);
 		picture.addMouseListener(new MouseAdapter(){
 			
 			@Override
 			  public void mouseClicked(MouseEvent e) {
-			     System.out.println(e.getPoint());
+				Point panelPoint = e.getPoint();
+                Point imgContext = toImageContext(panelPoint);
+			    System.out.println(e.getPoint()+" Relativo a: "+imgContext);
 			  }
 			
 		});
 		
-		this.add(picture, BorderLayout.CENTER);
+		this.add(picture);
 		
 		//Check Button (B\N, Organico e Inorganico)
 		JRadioButton normalButton = new JRadioButton(normal);
@@ -83,30 +90,49 @@ public class PanelImagen extends JPanel implements ActionListener{
         
         //Ponemos los checkButton en una fila
         JPanel radioPanel = new JPanel(new GridLayout(0, 1));
+        radioPanel.add(normalButton);
         radioPanel.add(bnButton);
         radioPanel.add(orgButton);
         radioPanel.add(inorgButton);
         
-        this.add(radioPanel, BorderLayout.EAST);
+        this.add(radioPanel);
         
         this.setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		picture.setIcon(createImageIcon(normal));
+		picture.setIcon(createImageIcon(((JRadioButton) e.getSource()).getActionCommand()));
 		
 	};
 	
 	/** Returns an ImageIcon, or null if the path was invalid. */
     private ImageIcon createImageIcon(String tipo) {
-        byte[] bytes = control.getImageBytes(tipo, 1, 1);
+        byte[] bytes = control.getImageBytes(tipo, imagen.getId_imagen(), imagen.getId_examen());
         if (bytes != null) {
             return new ImageIcon(bytes);
         } else {
             System.err.println("No se ha podido cargar la imagen");
             return null;
         }
+    }
+    
+    public Point getImageLocation() {
+        Point p = null;
+        if (img != null) {
+            int x = (picture.getWidth() - img.getIconWidth()) / 2;
+            int y = (picture.getHeight() - img.getIconHeight()) / 2;
+            p = new Point(x, y);
+        }
+        return p;
+    }
+
+    public Point toImageContext(Point p) {
+        Point imgLocation = getImageLocation();
+        Point relative = new Point(p);
+        relative.x -= imgLocation.x;
+        relative.y -= imgLocation.y;
+        return relative;
     }
 
 }

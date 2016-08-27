@@ -84,5 +84,12 @@ public interface DBInterface {
 	 * @return array de bytes que representa una imagen
 	 */
 	public byte[] getImagenBytes(String tipo, int idImagen, int idExamen);
+	
+	/**
+	 * Devuelve una lista de imagenes pertenecientes a un examen determinado
+	 * @param idExamen del examen practico al que pertenecen las imagenes
+	 * @return Lista de imagenes
+	 */
+	public List<Imagen> getListImagesFromExam(int idExamen);
 
 }

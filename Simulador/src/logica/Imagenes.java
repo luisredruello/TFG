@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "listaImagenes")
+@XmlRootElement(name = "imagenes")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Imagenes {
 	

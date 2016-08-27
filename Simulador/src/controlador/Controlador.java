@@ -129,7 +129,8 @@ public class Controlador {
 	 * @return true si el usuario esta en la tabla de aprobado teorico, false en otro caso
 	 */
 	public boolean tieneAprobadoTeorico(String dni){
-		return this.database.tieneAprobadoTeorico(dni)>0?true:false;
+		//return this.database.tieneAprobadoTeorico(dni)>0?true:false;
+		return this.server.tieneAprobadoTeorico(dni)>0?true:false;
 	}
 	
 	/**
@@ -141,6 +142,15 @@ public class Controlador {
 	 */
 	public byte[] getImageBytes(String tipo, int idIma, int idExam){
 		return this.server.getImagenBytes(tipo, idIma, idExam);
+	}
+	
+	/**
+	 * Devuelve una lista de imagenes pertenecientes a un examen practico
+	 * @param idExam del Examen Practico
+	 * @return List de imagenes
+	 */
+	public List<Imagen> getImagenesFromExamen(int idExam){
+		return this.server.getListImagesFromExam(idExam);
 	}
 	
 	

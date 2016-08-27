@@ -12,6 +12,7 @@ import java.util.List;
 import logica.Certificacion;
 import logica.ExamenPractico;
 import logica.ExamenTeorico;
+import logica.Imagen;
 import logica.ModuloTeorico;
 import logica.Pregunta;
 import logica.Respuesta;
@@ -575,6 +576,12 @@ public class DBLocal implements DBInterface{
 
 	@Override
 	public byte[] getImagenBytes(String tipo, int idImagen, int idExamen) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Imagen> getListImagesFromExam(int idExamen) {
 		// TODO Auto-generated method stub
 		return null;
 	}

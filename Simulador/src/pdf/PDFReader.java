@@ -6,7 +6,7 @@ import java.io.File;
 //Cross platform solution to view a PDF file
 public class PDFReader {
 
-	public static void readPDF(String path) {//C:\\Memoria.pdf
+	public static void readPDF(String path) {
 
 	  try {
 
@@ -20,7 +20,7 @@ public class PDFReader {
 			}
 
 		} else {
-			System.out.println("File is not exists!");
+			System.out.println("File does not exists!");
 		}
 
 		System.out.println("Done");
