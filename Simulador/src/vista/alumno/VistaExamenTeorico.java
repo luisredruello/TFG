@@ -194,13 +194,13 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 							//El nivel 1 de Certificacion no tiene parte practica, por lo que se obtendría directamente
 							//la certificacion al aprobar el examen
 							if (teorico.getNivel()==1){
-								if (control.insertaCertificacion(alumno,teorico)>0) {									
+								if (control.insertaCertificacion(alumno,teorico.getNivel())>0) {									
 									int cert = alumno.getNextCertificacion();
 									cert++;
 									alumno.setNextCertificacion(cert);
 									comboModel.addItem(new Certificacion(cert));
 									JOptionPane.showMessageDialog(botonResultado,"Has Conseguido la Certificación "+teorico.getNivel());
-								}									
+								}			
 								else JOptionPane.showMessageDialog(botonResultado,"Ha habido un error al obtener certificación");
 							}
 						}								

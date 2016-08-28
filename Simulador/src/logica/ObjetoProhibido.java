@@ -1,5 +1,7 @@
 package logica;
 
+import java.awt.Point;
+
 public class ObjetoProhibido {
 	
 	private int id_objeto;
@@ -100,6 +102,15 @@ public class ObjetoProhibido {
 	 */
 	public void setAncho(int ancho) {
 		this.ancho = ancho;
+	}
+	
+	/**
+	 * Determina si un punto determinado determina un objeto prohibido
+	 * @param p Punto que ha elegido el usuario al hacer click en la imagen
+	 * @return true si el punto esta dentro del cuadrado que determina un objeto prohibido, false en otro caso
+	 */
+	public boolean estaDentro(Point p){
+		return ((p.x<=posx+ancho) && (p.y<=posy+alto));
 	}
 	
 

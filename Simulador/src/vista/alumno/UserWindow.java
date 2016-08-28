@@ -179,7 +179,7 @@ public class UserWindow extends JFrame{
 					if (p!=null){
 						ExamenTeorico teo = control.getExamenTeorico(comboCertificados.getItemAt(ind).getNivel());
 						if (control.tieneAprobadoTeorico(user.getDni(),teo.getId_examen())){
-							new VistaExamenPractico(control,p,user);
+							new VistaExamenPractico(control,p,user,comboCertificados);
 						}
 						else JOptionPane.showMessageDialog(b,"Primero debes aprobar el Examen Teórico"); 
 					}

@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,8 +21,10 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import tools.*;
 import controlador.Controlador;
+import logica.Certificacion;
 import logica.ExamenPractico;
 import logica.Imagen;
+import logica.ObjetoProhibido;
 import logica.Usuario;
 
 public class VistaExamenPractico extends JFrame implements ActionListener, PropertyChangeListener{
@@ -41,8 +44,9 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 	private Task task;
 	private int pagina;
 	private JLabel numPreguntas;
+	private JComboBox<Certificacion> comboModel;
 	
-	public VistaExamenPractico(Controlador c, ExamenPractico ex, Usuario u){
+	public VistaExamenPractico(Controlador c, ExamenPractico ex, Usuario u, JComboBox<Certificacion> com){
 		this.control=c;
 		this.practico=ex;
 		this.alumno=u;
@@ -52,6 +56,7 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 		this.vistaImagenes = new JPanel(new CardLayout());
 		this.pagina=0;
 		this.numPreguntas = new JLabel("Imagenes Restantes: "+practico.getNum_imagenes());
+		this.comboModel=com;
 		initList();
 		initWindow();
 		
@@ -133,7 +138,7 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 		botonAvanzar.addActionListener(this);
 		
 		JButton botonResultado = new JButton("Comprobar");
-		comprobarResultado(botonResultado);
+		comprobarResultado(botonResultado,this);
 		
 		panelInferior.add(botonRetroceder);
 		panelInferior.add(botonAvanzar);
@@ -163,17 +168,48 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 		}
 	}
 	
-	private void comprobarResultado(final JButton c){
+	private void comprobarResultado(final JButton c, final JFrame v){
 		c.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int tam = imagenPuntos.size();
 				if (tam==practico.getNum_imagenes()){
-					
+					int resultado = 0;
+					Iterator<Integer> it = imagenPuntos.keySet().iterator();
+					while (it.hasNext()){
+						Integer key = it.next();
+						Point value = imagenPuntos.get(key);
+						Imagen aux = tablaImagen.get(key);
+						if (value==null && aux.getId_objeto()==0) resultado++;
+						else if (value!=null && aux.getId_objeto()!=0){
+							ObjetoProhibido prohibido = control.getObjetoProhibido(aux.getId_objeto());
+							if (prohibido.estaDentro(value)) resultado++;
+						}
+					}
+					if (aprobado(resultado)){
+						if (control.apruebaExamenPractico(alumno,practico)>0){
+							JOptionPane.showMessageDialog(c,"Has aprobado con un "+resultado+", Enhorabuena");
+							if (control.insertaCertificacion(alumno, practico.getNivel())>0){
+								int cert = alumno.getNextCertificacion();
+								cert++;
+								alumno.setNextCertificacion(cert);
+								comboModel.addItem(new Certificacion(cert));
+								JOptionPane.showMessageDialog(c,"Has Conseguido la Certificación "+practico.getNivel());
+								
+							}
+						}
+					}
+					else JOptionPane.showMessageDialog(null,"Lo sentimos, has suspendido con un: "+resultado);
+					v.dispose();
 				}
 				else JOptionPane.showMessageDialog(c,"Debes marcar todas las imágenes, por favor");
 				
+			}
+			
+			private boolean aprobado(int r){
+				float mitad = (practico.getNum_imagenes()*50)/100;
+				return (r>=mitad)?true:false;
 			}
 			
 		});

@@ -80,7 +80,7 @@ public interface DBInterface {
 	/**
 	 * Obtiene una imagen desde el Web Service
 	 * @param tipo normal,blanco y negro, organico o inorganico
-	 * @param idImagen
+	 * @param idImagen entero
 	 * @param idExamen a la que pertenece esta imagen
 	 * @return array de bytes que representa una imagen
 	 */
@@ -92,5 +92,20 @@ public interface DBInterface {
 	 * @return Lista de imagenes
 	 */
 	public List<Imagen> getListImagesFromExam(int idExamen);
+	
+	/**
+	 * Devuelve un objeto prohibido perteneciente a una imagen
+	 * @param idObjeto entero
+	 * @return Objeto Prohibido
+	 */
+	public ObjetoProhibido getObjetoProhibido(int idObjeto);
+	
+	/**
+	 * Inserta un nuevo registro en la tabla Aprobado_Practico
+	 * @param dni del alumno que la ha conseguido
+	 * @param idExamenPractico entero
+	 * @return 1 si se ha insertado correctamente, 0 en otro caso
+	 */
+	public int insertaAprobadoPractico(String dni, int idExamenPractico);
 
 }

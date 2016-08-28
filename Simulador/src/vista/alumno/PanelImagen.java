@@ -141,6 +141,7 @@ public class PanelImagen extends JPanel implements ActionListener{
 					((VistaExamenPractico) parent).setImagenPuntos(tablaPuntos);
 					((VistaExamenPractico) parent).updateNumPreguntas(tablaPuntos.size());
 				}
+				else JOptionPane.showMessageDialog(null,"Ya has seleccionado una opción"); 
 			}			
 		});
 		
@@ -159,6 +160,7 @@ public class PanelImagen extends JPanel implements ActionListener{
 					((VistaExamenPractico) parent).setImagenPuntos(tablaPuntos);
 					((VistaExamenPractico) parent).updateNumPreguntas(tablaPuntos.size());
 				}
+				else JOptionPane.showMessageDialog(null,"Ya has seleccionado una opción");
 			}
 			
 		});
@@ -186,6 +188,7 @@ public class PanelImagen extends JPanel implements ActionListener{
     public Point getImageLocation() {
         Point p = null;
         if (img != null) {
+        	System.out.println("Img Width: "+picture.getWidth()+" Img Height: "+picture.getHeight());
             int x = (picture.getWidth() - img.getIconWidth()) / 2;
             int y = (picture.getHeight() - img.getIconHeight()) / 2;
             p = new Point(x, y);

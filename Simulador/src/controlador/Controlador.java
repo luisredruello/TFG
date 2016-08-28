@@ -86,12 +86,12 @@ public class Controlador {
 	/**
 	 * Agrega una nueva Certificacion al Alumno
 	 * @param a Usuario
-	 * @param t Examen Teorico
+	 * @param level nivel que ha obtenido el alumno
 	 * @return un entero positivo si se ha agregado la Certificacion, 0 en otro caso
 	 */
-	public int insertaCertificacion(Usuario a, ExamenTeorico t) {
-		//return this.database.obtieneCertificacion(t.getNivel(), a.getDni());
-		return this.server.obtieneCertificacion(t.getNivel(), a.getDni());				
+	public int insertaCertificacion(Usuario a, int level) {
+		//return this.database.obtieneCertificacion(level, a.getDni());
+		return this.server.obtieneCertificacion(level, a.getDni());				
 	}
 	
 	/**
@@ -151,6 +151,19 @@ public class Controlador {
 	 */
 	public List<Imagen> getImagenesFromExamen(int idExam){
 		return this.server.getListImagesFromExam(idExam);
+	}
+	
+	/**
+	 * Devuelve un ObjetoProhibido perteneciente a una imagen
+	 * @param id_objeto
+	 * @return ObjetoProhibido
+	 */
+	public ObjetoProhibido getObjetoProhibido(int id_objeto) {
+		return this.server.getObjetoProhibido(id_objeto);
+	}
+
+	public int apruebaExamenPractico(Usuario alum, ExamenPractico prac) {
+		return this.server.insertaAprobadoPractico(alum.getDni(), prac.getId_examen());
 	}
 	
 	

@@ -14,6 +14,7 @@ import logica.ExamenPractico;
 import logica.ExamenTeorico;
 import logica.Imagen;
 import logica.ModuloTeorico;
+import logica.ObjetoProhibido;
 import logica.Pregunta;
 import logica.Respuesta;
 import logica.Usuario;
@@ -586,6 +587,18 @@ public class DBLocal implements DBInterface{
 	public List<Imagen> getListImagesFromExam(int idExamen) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public ObjetoProhibido getObjetoProhibido(int idObjeto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insertaAprobadoPractico(String dni, int idExamenPractico) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

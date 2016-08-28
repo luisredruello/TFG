@@ -622,6 +622,18 @@ public class DBServer implements DBInterface{
 		return imagenes.getImagenes();
 	}
 
+	@Override
+	public ObjetoProhibido getObjetoProhibido(int idObjeto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insertaAprobadoPractico(String dni, int idExamenPractico) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 
 }
