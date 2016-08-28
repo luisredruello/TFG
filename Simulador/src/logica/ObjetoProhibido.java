@@ -2,6 +2,9 @@ package logica;
 
 import java.awt.Point;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="objeto_prohibido")
 public class ObjetoProhibido {
 	
 	private int id_objeto;
@@ -110,7 +113,7 @@ public class ObjetoProhibido {
 	 * @return true si el punto esta dentro del cuadrado que determina un objeto prohibido, false en otro caso
 	 */
 	public boolean estaDentro(Point p){
-		return ((p.x<=posx+ancho) && (p.y<=posy+alto));
+		return ((p.x>=posx && p.x<=posx+ancho) && (p.y>=posy && p.y<=posy+alto));
 	}
 	
 

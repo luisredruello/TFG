@@ -43,7 +43,7 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 	private HashMap<Integer, Point> imagenPuntos;	//K: id imagen, V: punto clickado o null, si no ha clickado
 	private Task task;
 	private int pagina;
-	private JLabel numPreguntas;
+	private JLabel numImagenes;
 	private JComboBox<Certificacion> comboModel;
 	
 	public VistaExamenPractico(Controlador c, ExamenPractico ex, Usuario u, JComboBox<Certificacion> com){
@@ -55,7 +55,7 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 		this.imagenPuntos = new HashMap<Integer, Point>();
 		this.vistaImagenes = new JPanel(new CardLayout());
 		this.pagina=0;
-		this.numPreguntas = new JLabel("Imagenes Restantes: "+practico.getNum_imagenes());
+		this.numImagenes = new JLabel("Imagenes Restantes: "+practico.getNum_imagenes());
 		this.comboModel=com;
 		initList();
 		initWindow();
@@ -103,7 +103,6 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 		this.setTitle("Examen Práctico");
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		//this.setSize(this.getToolkit().getScreenSize());
 		this.setBounds(50, 50, 1500, 750);
 		
 		//Panel Superior Datos del Examen
@@ -115,12 +114,12 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 		progressBar.setStringPainted(true);
 		        
 		JLabel labelTiempo = new JLabel("Tiempo Consumido: ");
-		JLabel labelPreguntas = new JLabel("Preguntas Totales: "+practico.getNum_imagenes());
+		JLabel labelImagenes = new JLabel("Imagenes Totales: "+practico.getNum_imagenes());
 		panelSup.add(labelDesc);
 		panelSup.add(labelTiempo);
 		panelSup.add(progressBar);
-		panelSup.add(labelPreguntas);
-		panelSup.add(numPreguntas);
+		panelSup.add(labelImagenes);
+		panelSup.add(numImagenes);
 		this.add(panelSup, BorderLayout.NORTH);
 		
 		//Panel Central CardLayout		
@@ -175,6 +174,7 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 			public void actionPerformed(ActionEvent e) {
 				int tam = imagenPuntos.size();
 				if (tam==practico.getNum_imagenes()){
+					task.cancel(true);
 					int resultado = 0;
 					Iterator<Integer> it = imagenPuntos.keySet().iterator();
 					while (it.hasNext()){
@@ -193,8 +193,10 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 							if (control.insertaCertificacion(alumno, practico.getNivel())>0){
 								int cert = alumno.getNextCertificacion();
 								cert++;
-								alumno.setNextCertificacion(cert);
-								comboModel.addItem(new Certificacion(cert));
+								if (cert<=3){
+									alumno.setNextCertificacion(cert);
+									comboModel.addItem(new Certificacion(cert));
+								}
 								JOptionPane.showMessageDialog(c,"Has Conseguido la Certificación "+practico.getNivel());
 								
 							}
@@ -244,8 +246,8 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 	 */
 	public void updateNumPreguntas(int n){
 		int restante = practico.getNum_imagenes()-n;
-		numPreguntas.setText("Imagenes Restantes: "+restante);
-		numPreguntas.repaint();
+		numImagenes.setText("Imagenes Restantes: "+restante);
+		numImagenes.repaint();
 	}
 
 	/**

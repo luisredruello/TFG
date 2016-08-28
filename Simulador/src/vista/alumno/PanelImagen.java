@@ -67,7 +67,7 @@ public class PanelImagen extends JPanel implements ActionListener{
 			  public void mouseClicked(MouseEvent e) {
 				Point panelPoint = e.getPoint();
                 Point imgContext = toImageContext(panelPoint);
-			    System.out.println(e.getPoint()+" Relativo a: "+imgContext);
+                System.out.println("Punto x: "+e.getX()+" Punto y: "+imgContext.y);
 			    click.setLocation(e.getX(), imgContext.y);
 			  }
 			
@@ -152,9 +152,9 @@ public class PanelImagen extends JPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(pel,"Pulsa en el elemento prohibido, por favor");
 				HashMap<Integer, Point> tablaPuntos = ((VistaExamenPractico) parent).getImagenPuntos();
 				if (!tablaPuntos.containsKey(imagen.getId_imagen())){
+					JOptionPane.showMessageDialog(pel,"Pulsa en el elemento prohibido, por favor");
 					System.out.println("La imagen es "+imagen.getId_imagen());
 					tablaPuntos.put(imagen.getId_imagen(), click);
 					((VistaExamenPractico) parent).setImagenPuntos(tablaPuntos);
@@ -188,7 +188,6 @@ public class PanelImagen extends JPanel implements ActionListener{
     public Point getImageLocation() {
         Point p = null;
         if (img != null) {
-        	System.out.println("Img Width: "+picture.getWidth()+" Img Height: "+picture.getHeight());
             int x = (picture.getWidth() - img.getIconWidth()) / 2;
             int y = (picture.getHeight() - img.getIconHeight()) / 2;
             p = new Point(x, y);

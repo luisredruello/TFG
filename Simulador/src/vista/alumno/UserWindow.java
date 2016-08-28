@@ -126,7 +126,7 @@ public class UserWindow extends JFrame{
 		
 		//Panel izquierdo Examen Teorico
 		JPanel izq = new JPanel();
-		izq.setBorder(new TitledBorder("Examen Teorico"));
+		izq.setBorder(new TitledBorder("Examen Teórico"));
 				
 		JButton lanzaTeorico = new JButton("Realiza Teórico");
 		lanzaTeorico.setBounds(80, 180, 90, 25);

@@ -47,6 +47,7 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 	private JProgressBar progressBar;
 	private Task task;
 	private JComboBox<Certificacion> comboModel;
+	private JLabel numPreguntas;
 	
 	public VistaExamenTeorico(Controlador c,ExamenTeorico t,Usuario u,JComboBox<Certificacion> com){
 		this.control=c;
@@ -56,6 +57,7 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 		this.tablaRespuestasAgregadas = new HashMap<Integer,Respuesta>();
 		this.listaRespuestasAlumno = new ArrayList<Respuesta>();
 		this.comboModel=com;
+		this.numPreguntas=new JLabel("Preguntas Respondidas: "+0);
 		iniciaListas();
 		initWindow();
 		
@@ -94,6 +96,7 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 		panelSup.add(labelDesc);
 		panelSup.add(labelTiempo);
 		panelSup.add(progressBar);
+		panelSup.add(numPreguntas);
 		this.add(panelSup, BorderLayout.NORTH);
 		
 		//Panel Central Lista Preguntas
@@ -236,7 +239,7 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 	        	r = tablaRespuestasAgregadas.get(Integer.parseInt(command));
 	        	listaRespuestasAlumno.remove(r);
 	        }
-	        
+	        updateNumPreguntasLabel();
 		}
 	}
 
@@ -245,8 +248,16 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 		if ("progress" == evt.getPropertyName()) {
             int progress = (Integer) evt.getNewValue();
             progressBar.setValue(progress);
-        } 
-		
+        }	
+	}
+	
+	/**
+	 * Actualiza el numero de preguntas respondidas por el usuario
+	 */
+	public void updateNumPreguntasLabel(){
+		//int num = ;
+		numPreguntas.setText("Preguntas Respondidas: "+listaRespuestasAlumno.size());
+		numPreguntas.repaint();
 	}
 
 }

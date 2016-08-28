@@ -90,7 +90,6 @@ public class Controlador {
 	 * @return un entero positivo si se ha agregado la Certificacion, 0 en otro caso
 	 */
 	public int insertaCertificacion(Usuario a, int level) {
-		//return this.database.obtieneCertificacion(level, a.getDni());
 		return this.server.obtieneCertificacion(level, a.getDni());				
 	}
 	
@@ -113,14 +112,13 @@ public class Controlador {
 	}
 	
 	/**
-	 * Accede al Web Service o a BBDD para aprobar al alumno
+	 * Accede al Web Service para aprobar al alumno un examen teorico
 	 * @param a Usuario, alumno que ha aprobado
 	 * @param t Examen Teorico que ha aprobado
 	 * @return un entero mayor a 0 si no hay errores, 0 en otro caso
 	 */
 	public int apruebaExamenTeorico(Usuario a, ExamenTeorico t) {
-		//return this.database.insertaAprobadoTeorico(a.getDni(), t.getId_examen(), Utilities.getSystemDate());
-		return this.server.insertaAprobadoTeorico(a.getDni(), t.getId_examen(), Utilities.getSystemDate());
+		return this.server.insertaAprobadoTeorico(a.getDni(), t.getId_examen());
 	}
 	
 	/**
@@ -129,7 +127,6 @@ public class Controlador {
 	 * @return true si el usuario esta en la tabla de aprobado teorico, false en otro caso
 	 */
 	public boolean tieneAprobadoTeorico(String dni, int idExamen){
-		//return this.database.tieneAprobadoTeorico(dni, idExamen)>0?true:false;
 		return this.server.tieneAprobadoTeorico(dni, idExamen)>0?true:false;
 	}
 	
@@ -161,7 +158,13 @@ public class Controlador {
 	public ObjetoProhibido getObjetoProhibido(int id_objeto) {
 		return this.server.getObjetoProhibido(id_objeto);
 	}
-
+	
+	/**
+	 * El alumno aprueba el examen practico
+	 * @param alum Usuario
+	 * @param prac ExamenPractico
+	 * @return un entero positivo si se ha insertado correctamente, 0 en otro caso
+	 */
 	public int apruebaExamenPractico(Usuario alum, ExamenPractico prac) {
 		return this.server.insertaAprobadoPractico(alum.getDni(), prac.getId_examen());
 	}

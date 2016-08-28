@@ -56,10 +56,9 @@ public interface DBInterface {
 	 * Inserta en la tabla de aprobado teorico un nuevo registro, es decir, que el alumno ha aprobado este modulo
 	 * @param dni del alumno
 	 * @param idExamenTeorico del Examen Teorico
-	 * @param f Fecha en la que aprobo el usuario
 	 * @return un entero, 1 si se ha insertado correctamente el valor en la tabla, 0 en si ha habido un error
 	 */
-	public int insertaAprobadoTeorico(String dni, int idExamenTeorico, Date f);
+	public int insertaAprobadoTeorico(String dni, int idExamenTeorico);
 	
 	/**
 	 * Comprueba si un alumno tiene aprobado un examen teorico

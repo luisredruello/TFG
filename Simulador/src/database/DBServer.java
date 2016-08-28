@@ -473,7 +473,7 @@ public class DBServer implements DBInterface{
 	}
 
 	@Override
-	public int insertaAprobadoTeorico(String dni, int idExamenTeorico, Date f) {
+	public int insertaAprobadoTeorico(String dni, int idExamenTeorico) {
 		int code = 0;
 		String uri = 
 				URLPATH+"teorico/aprueba";
@@ -624,14 +624,56 @@ public class DBServer implements DBInterface{
 
 	@Override
 	public ObjetoProhibido getObjetoProhibido(int idObjeto) {
-		// TODO Auto-generated method stub
-		return null;
+		ObjetoProhibido prohibido = null;
+		String uri = URLPATH+"prohibido/"+idObjeto;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+				 
+			JAXBContext jc = JAXBContext.newInstance(ObjetoProhibido.class);
+			InputStream xml = connection.getInputStream();
+			
+			prohibido = (ObjetoProhibido) jc.createUnmarshaller().unmarshal(xml);
+			
+			connection.disconnect();
+		}
+		catch(IOException | JAXBException e){
+			e.printStackTrace();
+		}
+		return prohibido;
 	}
 
 	@Override
 	public int insertaAprobadoPractico(String dni, int idExamenPractico) {
-		// TODO Auto-generated method stub
-		return 0;
+		int code = 0;
+		String uri = 
+				URLPATH+"practico/aprueba";
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			
+			StringBuffer queryParam = new StringBuffer();
+	        queryParam.append("dni=");
+	        queryParam.append(dni);
+	        queryParam.append("&");
+	        queryParam.append("id=");
+	        queryParam.append(idExamenPractico);
+	        
+	        OutputStream output = connection.getOutputStream();
+	        output.write(queryParam.toString().getBytes());
+	        output.flush();
+			
+			code = (connection.getResponseCode()==200)?1:0;
+			
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return code;
 	}
 
 	

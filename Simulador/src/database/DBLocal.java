@@ -497,7 +497,7 @@ public class DBLocal implements DBInterface{
 	}
 
 	@Override
-	public int insertaAprobadoTeorico(String dni, int idExamenTeorico, Date f) {
+	public int insertaAprobadoTeorico(String dni, int idExamenTeorico) {
 		PreparedStatement pst = null;
 		ResultSet rs          = null;
 		String query = null;
@@ -508,7 +508,7 @@ public class DBLocal implements DBInterface{
 			pst = this.connection.prepareStatement(query);
 			pst.setInt(1, idExamenTeorico);
 			pst.setString(2, dni);
-			pst.setDate(3, f);
+			pst.setDate(3, null);
 			resul = pst.executeUpdate();			
 		}
 		catch(SQLException e){
@@ -579,25 +579,21 @@ public class DBLocal implements DBInterface{
 
 	@Override
 	public byte[] getImagenBytes(String tipo, int idImagen, int idExamen) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Imagen> getListImagesFromExam(int idExamen) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ObjetoProhibido getObjetoProhibido(int idObjeto) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int insertaAprobadoPractico(String dni, int idExamenPractico) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
