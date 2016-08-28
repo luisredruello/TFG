@@ -70,10 +70,10 @@ public class ExamenPractico{
 	
 	/**
 	 * Devuelve el tiempo que debe durar un examen en segundos
-	 * @return int Representa milisegundos que dura el examen
+	 * @return int Representa milisegundos que dura el examen (milisegundos para la clase Task)
 	 */
 	public int getSegundos(){
-		return (tiempo_examen/100)*1000;
+		return tiempo_examen*10;
 	}
 
 }

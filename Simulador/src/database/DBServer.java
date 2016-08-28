@@ -37,8 +37,7 @@ public class DBServer implements DBInterface{
 	
 	public Usuario getUser(String dni,String pass){
 		Usuario user = null;
-		String uri = 
-				URLPATH+"user/get";
+		String uri = URLPATH+"user/get";
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -64,7 +63,7 @@ public class DBServer implements DBInterface{
 			
 			connection.disconnect();
 		}
-		catch(IOException | JAXBException e){//MalformedURLException
+		catch(IOException | JAXBException e){
 			System.err.println("Los parámetros no son correctos");
 		}
 		return user;
@@ -73,8 +72,7 @@ public class DBServer implements DBInterface{
 	@Override
 	public List<Usuario> getUserList() {
 		Usuarios users = null;
-		String uri = 
-				URLPATH+"user/users";
+		String uri = URLPATH+"user/users";
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -97,8 +95,7 @@ public class DBServer implements DBInterface{
 	@Override
 	public int insertaUsuario(String name, String dni, String pass, Date f) {
 		int code = 0;
-		String uri = 
-				URLPATH+"user/add";
+		String uri = URLPATH+"user/add";
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -120,7 +117,6 @@ public class DBServer implements DBInterface{
 	        output.flush();
 			
 			code = (connection.getResponseCode()==200)?1:0;
-			
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -308,7 +304,6 @@ public class DBServer implements DBInterface{
 	/**
 	 * Devuelve un PDF Teorico desde el Web Service
 	 */
-
 	public String getPDFTeorico(int nivel, int id) {
 		String uri = URLPATH+"teoria/pdf/"+nivel+"/"+id;
 		String fileName = "pdf/c"+nivel+"/teoria"+id+".pdf";
@@ -475,8 +470,7 @@ public class DBServer implements DBInterface{
 	@Override
 	public int insertaAprobadoTeorico(String dni, int idExamenTeorico) {
 		int code = 0;
-		String uri = 
-				URLPATH+"teorico/aprueba";
+		String uri = URLPATH+"teorico/aprueba";
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -535,8 +529,7 @@ public class DBServer implements DBInterface{
 	@Override
 	public int obtieneCertificacion(int level, String dni) {
 		int code = 0;
-		String uri = 
-				URLPATH+"certificados/obtiene";
+		String uri = URLPATH+"certificados/obtiene";
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -555,7 +548,6 @@ public class DBServer implements DBInterface{
 	        output.flush();
 			
 			code = (connection.getResponseCode()==200)?1:0;
-			
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -648,8 +640,7 @@ public class DBServer implements DBInterface{
 	@Override
 	public int insertaAprobadoPractico(String dni, int idExamenPractico) {
 		int code = 0;
-		String uri = 
-				URLPATH+"practico/aprueba";
+		String uri = URLPATH+"practico/aprueba";
 		try{
 			URL url = new URL(uri);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -668,7 +659,6 @@ public class DBServer implements DBInterface{
 	        output.flush();
 			
 			code = (connection.getResponseCode()==200)?1:0;
-			
 		}
 		catch(IOException e){
 			e.printStackTrace();

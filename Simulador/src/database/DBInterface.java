@@ -7,14 +7,43 @@ import logica.*;
 
 public interface DBInterface {
 	
+	/**
+	 * Devuelve un usuario
+	 * @param user dni del usuario
+	 * @param pass password
+	 * @return Usuario
+	 */
 	public Usuario getUser(String user,String pass);
 	
+	/**
+	 * Inserta un nuevo usuario en el sistema
+	 * @param name String
+	 * @param dni String
+	 * @param pass String
+	 * @param f Date
+	 * @return 1 si ha habido exito al insertar, 0 en caso contrario
+	 */
 	public int insertaUsuario(String name, String dni, String pass, Date f);
 	
+	/**
+	 * Actualiza los datos de un alumno
+	 * @param user Usuario
+	 * @return 1 si ha habido exito al actualizar, 0 en caso contrario
+	 */
 	public int updateUsuario(Usuario user);
 	
+	/**
+	 * Elimina un usuario del sistema
+	 * @param dni String
+	 * @return 1 si ha habido exito al eliminar, 0 en caso contrario
+	 */
 	public int deleteUsuario(String dni);
 	
+	/**
+	 * Comprueba si existe un usuario en el sistema
+	 * @param dni String
+	 * @return true si el usuario existe, false en caso contrario
+	 */
 	public boolean existeUsuario(String dni);
 	
 	/**
@@ -24,18 +53,54 @@ public interface DBInterface {
 	 */
 	public List<Integer> getCertificadosFromUser(String dni);
 	
+	/**
+	 * Devuelve los usuarios del sistema
+	 * @return Lista de objetos de tipo Usuario
+	 */
 	public List<Usuario> getUserList();
 	
+	/**
+	 * Devuelve los certificados del sistema
+	 * @return Lista de objettos de tipo Certificacion
+	 */
 	public List<Certificacion> getCertificados();
 	
+	/**
+	 * Devuelve un ExamenPractico perteneciente a un determinado nivel de Certificacion
+	 * @param level int nivel de certificacion
+	 * @return ExamenPractico
+	 */
 	public ExamenPractico getExamenPractico(int level);
 	
+	/**
+	 * Devuelve un ExamenTeorico perteneciente a un determinado nivel de Certificacion
+	 * @param level int nivel de certificacion
+	 * @return ExamenTeorico
+	 */
 	public ExamenTeorico getExamenTeorico(int level);
 	
+	/**
+	 * Carga un nuevo pdf teorico en el sistema
+	 * @param nivel int Certificacion
+	 * @param idmodulo int ModuloTeorico
+	 * @param files array de bytes que representa el PDF
+	 * @return 1 si se ha subido correctamente, 0 en caso contrario
+	 */
 	public int uploadPDFTeorico(int nivel, int idmodulo, byte[] files);
 	
+	/**
+	 * Devuelve un ModuloTeorico de una determinada Certificacion
+	 * @param nivel int Certificacion
+	 * @param id int clave del ModuloTeorico
+	 * @return ModuloTeorico
+	 */
 	public ModuloTeorico getModuloTeorico(int nivel, int id);
 	
+	/**
+	 * Devuelve una lista de Modulos Teoricos pertenecientes a una cierta Certificacion
+	 * @param nivel int Certificacion
+	 * @return Lista de objetos ModuloTeorico
+	 */
 	public List<ModuloTeorico> getListModTeorico(int nivel);
 	
 	/**

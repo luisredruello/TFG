@@ -9,6 +9,10 @@ import java.util.Properties;
 
 public class DBConnection {
 	
+	/**
+	 * Inicia una conexion a la BBDD
+	 * @return una conexion
+	 */
 	public static Connection getConnection() {
 		Properties props = new Properties();
 		FileInputStream fis = null;

@@ -29,7 +29,7 @@ public class Task extends SwingWorker<Void, Void> {
         //Initialize progress property.
         setProgress(0);
         while (progress < 100) {
-            //Cambiamos el tiempo que debe durar el examen es decir dormimos la cuenta.
+            //Cambiamos el tiempo que debe durar el examen, es decir, dormimos el thread que realiza la cuenta.
             try {
                 Thread.sleep(time);
             } catch (InterruptedException ignore) {}
