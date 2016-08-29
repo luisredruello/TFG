@@ -169,5 +169,28 @@ public class Controlador {
 		return this.server.insertaAprobadoPractico(alum.getDni(), prac.getId_examen());
 	}
 	
+	/**
+	 * Inserta una pregunta en el sistema
+	 * @param pregunta String enunciado de la pregunta
+	 * @param id_examen int
+	 * @return devuelve el id de la pregunta insertada, 0 si no se ha podido insertar
+	 */
+	public int insertaPregunta(String pregunta, int id_examen) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	/**
+	 * Inserta una respuesta en el sistema
+	 * @param idPregunta int
+	 * @param respuesta enunciado respuesta
+	 * @param correcta 1 si esta pregunta es la correcta, 0 si no es la correcta
+	 * @return 1 si se ha insertado correctamente, 0 en caso contrario
+	 */
+	public int insertaRespuesta(int idPregunta, String respuesta, int correcta) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	
 }

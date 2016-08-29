@@ -666,6 +666,18 @@ public class DBServer implements DBInterface{
 		return code;
 	}
 
+	@Override
+	public int insertaPregunta(String enunciado, int idExamen) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertaRespuesta(int idPregunta, String respuesta, int correcta) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 
 }

@@ -171,5 +171,22 @@ public interface DBInterface {
 	 * @return 1 si se ha insertado correctamente, 0 en otro caso
 	 */
 	public int insertaAprobadoPractico(String dni, int idExamenPractico);
+	
+	/**
+	 * Inserta una nueva pregunta en el sistema
+	 * @param enunciado de la nueva pregunta
+	 * @param idExamen int
+	 * @return el idPregunta generado o 0 si ha habido un error
+	 */
+	public int insertaPregunta(String enunciado, int idExamen);
+	
+	/**
+	 * Inserta una nueva respuesta en el sistema
+	 * @param idPregunta int
+	 * @param respuesta String
+	 * @param correcta int 1 si es correcta, 0 si es falsa
+	 * @return 1 si se ha insertado correctamente, 0 en caso contrario
+	 */
+	public int insertaRespuesta(int idPregunta, String respuesta, int correcta);
 
 }
