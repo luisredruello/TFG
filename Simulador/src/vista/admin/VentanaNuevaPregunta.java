@@ -124,7 +124,7 @@ public class VentanaNuevaPregunta extends JFrame implements ActionListener{
 		bAceptar.setBounds(240, 650, 90, 25);
 		contenedor.add(bAceptar);
 		
-		insertarPregunta(bAceptar,nuevaPregunta,respuesta1,respuesta2,respuesta3,respuesta4,group);
+		insertarPregunta(bAceptar,nuevaPregunta,respuesta1,respuesta2,respuesta3,respuesta4,this);
 				
 		JButton bCancelar = new JButton("Cancelar");		
 		bCancelar.setBounds(360, 650, 90, 25);
@@ -140,7 +140,7 @@ public class VentanaNuevaPregunta extends JFrame implements ActionListener{
 
 	private void insertarPregunta(final JButton b, final JTextArea nuevaPregunta, final JTextArea respuesta1, 
 			final JTextArea respuesta2, final JTextArea respuesta3, final JTextArea respuesta4,
-			ButtonGroup group) {
+			final JFrame v) {
 		b.addActionListener(new ActionListener(){
 
 			@Override
@@ -164,6 +164,8 @@ public class VentanaNuevaPregunta extends JFrame implements ActionListener{
 							control.insertaRespuesta(idPregunta,it.next(),seleccion[i]);
 							i++;
 						}
+						JOptionPane.showMessageDialog(b, "Pregunta insertada correctamente");
+						v.dispose();
 					}
 					else JOptionPane.showMessageDialog(b, "Ha habido un error en la inserción de la pregunta"); 
 				}

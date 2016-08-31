@@ -176,8 +176,8 @@ public class Controlador {
 	 * @return devuelve el id de la pregunta insertada, 0 si no se ha podido insertar
 	 */
 	public int insertaPregunta(String pregunta, int id_examen) {
-		// TODO Auto-generated method stub
-		return 0;
+		//return this.database.insertaPregunta(pregunta, id_examen);
+		return this.server.insertaPregunta(pregunta, id_examen);
 	}
 	
 	/**
@@ -188,8 +188,7 @@ public class Controlador {
 	 * @return 1 si se ha insertado correctamente, 0 en caso contrario
 	 */
 	public int insertaRespuesta(int idPregunta, String respuesta, int correcta) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.server.insertaRespuesta(idPregunta, respuesta, correcta);
 	}
 	
 	

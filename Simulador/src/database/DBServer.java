@@ -668,14 +668,64 @@ public class DBServer implements DBInterface{
 
 	@Override
 	public int insertaPregunta(String enunciado, int idExamen) {
-		// TODO Auto-generated method stub
-		return 0;
+		int idResul = 0;
+		String uri = URLPATH+"pregunta/insert";
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			
+			StringBuffer queryParam = new StringBuffer();
+	        queryParam.append("enunciado=");
+	        queryParam.append(enunciado);
+	        queryParam.append("&");
+	        queryParam.append("examen=");
+	        queryParam.append(idExamen);
+	        
+	        OutputStream output = connection.getOutputStream();
+	        output.write(queryParam.toString().getBytes());
+	        output.flush();
+			
+	        InputStream xml = connection.getInputStream();
+	        idResul = Integer.parseInt(Utilities.getAttributeXML(xml, "id_pregunta"));
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return idResul;
 	}
 
 	@Override
 	public int insertaRespuesta(int idPregunta, String respuesta, int correcta) {
-		// TODO Auto-generated method stub
-		return 0;
+		int code = 0;
+		String uri = URLPATH+"respuesta/insert";
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			
+			StringBuffer queryParam = new StringBuffer();
+	        queryParam.append("id=");
+	        queryParam.append(idPregunta);
+	        queryParam.append("&");
+	        queryParam.append("respuesta=");
+	        queryParam.append(respuesta);
+	        queryParam.append("&");
+	        queryParam.append("correcta=");
+	        queryParam.append(correcta);
+	        
+	        OutputStream output = connection.getOutputStream();
+	        output.write(queryParam.toString().getBytes());
+	        output.flush();
+			
+			code = (connection.getResponseCode()==201)?1:0;
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return code;
 	}
 
 	

@@ -1,5 +1,6 @@
 package vista.alumno;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Point;
@@ -130,7 +131,7 @@ public class PanelImagen extends JPanel implements ActionListener{
         this.setVisible(true);
 	}
 	
-	private void agregaImagenLimpia(JButton limp) {
+	private void agregaImagenLimpia(final JButton limp) {
 		limp.addActionListener(new ActionListener(){
 
 			@Override
@@ -140,6 +141,7 @@ public class PanelImagen extends JPanel implements ActionListener{
 					tablaPuntos.put(imagen.getId_imagen(), null);
 					((VistaExamenPractico) parent).setImagenPuntos(tablaPuntos);
 					((VistaExamenPractico) parent).updateNumPreguntas(tablaPuntos.size());
+					limp.setForeground(Color.BLUE);
 				}
 				else JOptionPane.showMessageDialog(null,"Ya has seleccionado una opción"); 
 			}			
@@ -159,6 +161,7 @@ public class PanelImagen extends JPanel implements ActionListener{
 					tablaPuntos.put(imagen.getId_imagen(), click);
 					((VistaExamenPractico) parent).setImagenPuntos(tablaPuntos);
 					((VistaExamenPractico) parent).updateNumPreguntas(tablaPuntos.size());
+					pel.setForeground(Color.BLUE);
 				}
 				else JOptionPane.showMessageDialog(null,"Ya has seleccionado una opción");
 			}

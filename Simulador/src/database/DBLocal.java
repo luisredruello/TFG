@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.mysql.jdbc.Statement;
+
 import logica.Certificacion;
 import logica.ExamenPractico;
 import logica.ExamenTeorico;
@@ -599,8 +601,33 @@ public class DBLocal implements DBInterface{
 
 	@Override
 	public int insertaPregunta(String enunciado, int idExamen) {
-		// TODO Auto-generated method stub
-		return 0;
+		PreparedStatement pst = null;
+		ResultSet rs          = null;
+		String query = null;
+		int resul = 0;
+		int lastid = 0;
+		try{
+			this.connection = DBConnection.getConnection();
+			query = "insert into pregunta (Enunciado,Id_Examen) values (?,?)";
+			pst = this.connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+			pst.setString(1, enunciado);
+			pst.setInt(2, idExamen);
+			resul = pst.executeUpdate();
+			rs = pst.getGeneratedKeys();
+			if (rs.next() && resul>0){
+				lastid = rs.getInt(1);
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		} finally {
+			try{
+				if (rs != null) rs.close();
+				if (pst != null) pst.close();
+				if (this.connection != null) this.connection.close();				
+			} catch (Exception e) {}
+		}
+		return lastid;
 	}
 
 	@Override

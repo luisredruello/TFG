@@ -116,29 +116,6 @@ public class PanelCertificadosAdmin extends JPanel{
 		
 	}
 
-	/*private void updateCombosInferiores(final JComboBox<Certificacion> c
-			, final JComboBox<ExamenTeorico> teo
-			, final JComboBox<ExamenPractico> prac) {
-		c.addActionListener(new ActionListener(){
-			
-			public void actionPerformed(ActionEvent e){
-				
-				if (ind!=-1){
-					ExamenTeorico t = c.getItemAt(ind).getTeorico();
-					ExamenPractico p = c.getItemAt(ind).getPractico();
-					if (t!=null){
-						teo.removeAllItems();
-						teo.addItem(t);
-					}
-					if (p!=null){
-						prac.removeAllItems();
-						prac.addItem(p);
-					}
-				}
-			}			
-		});
-		
-	}*/
 
 	private void initPanelExamenTeorico(JComponent panel4) {
 		comboTeorico = new JComboBox<ExamenTeorico>();
@@ -183,8 +160,8 @@ public class PanelCertificadosAdmin extends JPanel{
 			int i=0;
 			while(it.hasNext()){
 				resul[i] = it.next();
-				resul[i].setPractico(this.control.getExamenPractico(resul[i].getNivel()));
-				resul[i].setTeorico(this.control.getExamenTeorico(resul[i].getNivel()));
+				//resul[i].setPractico(this.control.getExamenPractico(resul[i].getNivel()));
+				//resul[i].setTeorico(this.control.getExamenTeorico(resul[i].getNivel()));
 				i++;
 			}
 			return resul;

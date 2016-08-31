@@ -5,6 +5,8 @@ public class TipoArma {
 	private int id_arma;
 	private String descripcion;
 	
+	public TipoArma(){}
+	
 	public TipoArma(int id, String d){
 		this.id_arma=id;
 		this.descripcion=d;
