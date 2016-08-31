@@ -19,6 +19,7 @@ import logica.ModuloTeorico;
 import logica.ObjetoProhibido;
 import logica.Pregunta;
 import logica.Respuesta;
+import logica.TipoArma;
 import logica.Usuario;
 
 public class DBLocal implements DBInterface{
@@ -552,6 +553,13 @@ public class DBLocal implements DBInterface{
 		}
 		return resul;
 	}
+	
+	
+	@Override
+	public int tieneAprobadoPractico(String dni, int idExamenPractico) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public int obtieneCertificacion(int level, String dni) {
@@ -635,5 +643,13 @@ public class DBLocal implements DBInterface{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public TipoArma getTipoArma(int idArma) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 }

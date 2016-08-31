@@ -131,6 +131,16 @@ public class Controlador {
 	}
 	
 	/**
+	 * Comprueba si el alumno tiene aprobado un Examen Practico
+	 * @param dni String
+	 * @param idPractico int
+	 * @return true si el alumno ha aprobado el examen previamente, false en otro caso
+	 */
+	public boolean tieneAprobadoPractico(String dni, int idPractico){
+		return this.server.tieneAprobadoPractico(dni, idPractico)>0?true:false;
+	}
+	
+	/**
 	 * Devuelve un array que representa una imagen
 	 * @param tipo (normal,organico,inorganico o B/N)
 	 * @param idIma id de la imagen
@@ -189,6 +199,15 @@ public class Controlador {
 	 */
 	public int insertaRespuesta(int idPregunta, String respuesta, int correcta) {
 		return this.server.insertaRespuesta(idPregunta, respuesta, correcta);
+	}
+	
+	/**
+	 * Devuelve el tipo de arma de un objeto prohibido
+	 * @param idArma int
+	 * @return
+	 */
+	public TipoArma getTipoArma(int idArma){
+		return this.server.getTipoArma(idArma);
 	}
 	
 	

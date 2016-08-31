@@ -1,6 +1,7 @@
 package vista.alumno;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
@@ -142,7 +143,6 @@ public class UserWindow extends JFrame{
 		cent.setBorder(new TitledBorder("Modulo Teorico"));
 				
 		JButton leerTeoria = new JButton("Lee Teoría");
-		leerTeoria.setBounds(80, 280, 95, 25);
 				
 		leeTeoria(leerTeoria,comboCertificados,comboModulos);
 			
@@ -151,15 +151,25 @@ public class UserWindow extends JFrame{
 		panelPrincipal.add(cent,BorderLayout.CENTER);
 				
 		//Panel derecho Examen Practico
-		JPanel der = new JPanel();
+		JPanel der = new JPanel(new GridLayout(0,1));
 		der.setBorder(new TitledBorder("Examen Práctico"));
 		
 		JButton lanzaPractico = new JButton("Realiza Práctico");
-		lanzaPractico.setBounds(80, 180, 90, 25);
 		
 		lanzaExamenPractico(lanzaPractico);
 		
-		der.add(lanzaPractico);
+		JButton lanzaPruebaPractico = new JButton("Realiza Prueba");
+		
+		lanzaPruebaPractico(lanzaPruebaPractico);
+		
+		JPanel p1 = new JPanel();
+		JPanel p2 = new JPanel();
+		
+		p1.add(lanzaPruebaPractico);
+		p2.add(lanzaPractico);
+		
+		der.add(p1);
+		der.add(p2);
 		
 		panelPrincipal.add(der, BorderLayout.EAST);
 		
@@ -168,6 +178,27 @@ public class UserWindow extends JFrame{
 	}
 	
 	
+	private void lanzaPruebaPractico(final JButton lprueba) {
+		lprueba.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int ind = comboCertificados.getSelectedIndex();
+				if (ind!=-1){
+					ExamenPractico p = control.getExamenPractico(comboCertificados.getItemAt(ind).getNivel());
+					if (p!=null){
+						new VistaPruebaPractico(control,p);
+					}
+					else JOptionPane.showMessageDialog(lprueba,
+							"La Certificacion C1 No Tiene Examen Práctico, Elige Otra en el Combo");
+				}
+				
+			}
+			
+		});
+		
+	}
+
 	private void lanzaExamenPractico(final JButton b) {
 		b.addActionListener(new ActionListener(){
 
@@ -179,11 +210,14 @@ public class UserWindow extends JFrame{
 					if (p!=null){
 						ExamenTeorico teo = control.getExamenTeorico(comboCertificados.getItemAt(ind).getNivel());
 						if (control.tieneAprobadoTeorico(user.getDni(),teo.getId_examen())){
-							new VistaExamenPractico(control,p,user,comboCertificados);
+							if (!control.tieneAprobadoPractico(user.getDni(), p.getId_examen()))
+								new VistaExamenPractico(control,p,user,comboCertificados);
+							else JOptionPane.showMessageDialog(b,"Ya has aprobado este Examen"); 
 						}
 						else JOptionPane.showMessageDialog(b,"Primero debes aprobar el Examen Teórico"); 
 					}
-					else JOptionPane.showMessageDialog(b,"Esta Certificación No Tiene Examen Práctico");
+					else JOptionPane.showMessageDialog(b,
+							"La Certificacion C1 No Tiene Examen Práctico, Elige Otra en el Combo");
 				}
 				
 			}
@@ -192,7 +226,7 @@ public class UserWindow extends JFrame{
 		
 	}
 
-	private void lanzaExamenTeorico(JButton b) {
+	private void lanzaExamenTeorico(final JButton b) {
 		b.addActionListener(new ActionListener(){
 
 			@Override
@@ -200,8 +234,11 @@ public class UserWindow extends JFrame{
 				int ind = comboCertificados.getSelectedIndex();
 				if (ind!=-1){
 					ExamenTeorico t = control.getExamenTeorico(comboCertificados.getItemAt(ind).getNivel());
-					new VistaExamenTeorico(control,t,user,comboCertificados);
-					//En caso de que se haya aprobado se actualiza el combo
+					if (!control.tieneAprobadoTeorico(user.getDni(), t.getId_examen())){
+						new VistaExamenTeorico(control,t,user,comboCertificados);
+						//En caso de que se haya aprobado se actualiza el combo
+					}
+					else JOptionPane.showMessageDialog(b,"Ya has aprobado este examen previamente");
 				}
 			}
 			

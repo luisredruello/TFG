@@ -134,6 +134,14 @@ public interface DBInterface {
 	public int tieneAprobadoTeorico(String dni, int idExamenTeorico);
 	
 	/**
+	 * Comprueba si un alumno tiene aprobado un examen practico
+	 * @param dni String
+	 * @param idExamenPractico int
+	 * @return un entero positivo si el alumno ha aprobado el examen practico, 0 en caso contrario
+	 */
+	public int tieneAprobadoPractico(String dni, int idExamenPractico);
+	
+	/**
 	 * Inserta en la tabla tiene una nueva certificacion para el alumno
 	 * @param level nivel de la certificacion obtenido
 	 * @param dni del alumno que la ha obtenido
@@ -188,5 +196,12 @@ public interface DBInterface {
 	 * @return 1 si se ha insertado correctamente, 0 en caso contrario
 	 */
 	public int insertaRespuesta(int idPregunta, String respuesta, int correcta);
+	
+	/**
+	 * Devuelve el tipo del objeto prohibido
+	 * @param idArma int
+	 * @return objeto TipoArma
+	 */
+	public TipoArma getTipoArma(int idArma);
 
 }

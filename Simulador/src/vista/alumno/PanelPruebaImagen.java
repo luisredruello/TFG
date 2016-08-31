@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -21,18 +20,18 @@ import javax.swing.border.TitledBorder;
 
 import controlador.Controlador;
 import logica.Imagen;
+import logica.ObjetoProhibido;
+import logica.TipoArma;
 
-public class PanelImagen extends JPanel implements ActionListener{
-
-	/**
-	 * 
-	 */
+public class PanelPruebaImagen extends JPanel implements ActionListener{
+	
 	private static final long serialVersionUID = 1L;
 	private static String normal = "normal";
 	private static String bn = "bn";
 	private static String organico = "organico";
 	private static String inorganico = "inorganico";
 	private JLabel picture;
+	private JLabel tipoArma;
 	private ImageIcon img;
 	private Controlador control;
 	private Imagen imagen;
@@ -40,12 +39,8 @@ public class PanelImagen extends JPanel implements ActionListener{
 	private Point click;
 	private Frame parent;
 	
-	public PanelImagen(Controlador c, Imagen im, int pos, Frame padre){
-		this.control=c;
-		this.imagen=im;
-		this.posicion = pos+1;
-		this.click = new Point();
-		this.parent=padre;
+	public PanelPruebaImagen(Controlador c, Imagen image, int pos, Frame frame){
+		this.parent=frame;
 		initWindow();
 	}
 	
@@ -122,6 +117,9 @@ public class PanelImagen extends JPanel implements ActionListener{
         agregaImagenPeligro(peligro);
         inferiorDerecha.add(limpia);
         inferiorDerecha.add(peligro);
+        inferiorDerecha.add(tipoArma);
+        
+        tipoArma.setVisible(false);
         
         panelDerecho.add(inferiorDerecha);
         
@@ -135,15 +133,18 @@ public class PanelImagen extends JPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				HashMap<Integer, Point> tablaPuntos = ((VistaExamenPractico) parent).getImagenPuntos();
-				if (!tablaPuntos.containsKey(imagen.getId_imagen())){
-					tablaPuntos.put(imagen.getId_imagen(), null);
-					((VistaExamenPractico) parent).setImagenPuntos(tablaPuntos);
-					((VistaExamenPractico) parent).updateNumPreguntas(tablaPuntos.size());
-					limp.setForeground(Color.BLUE);
+				if (imagen.getId_objeto()==0){
+					limp.setForeground(Color.GREEN);
+					((VistaPruebaPractico) parent).aumentaCorrectas();
+					JOptionPane.showMessageDialog(null,"Correcto");
 				}
-				else JOptionPane.showMessageDialog(null,"Ya has seleccionado una opción"); 
-			}			
+				else {
+					limp.setForeground(Color.RED);
+					JOptionPane.showMessageDialog(null,"Has fallado");
+				}
+				((VistaPruebaPractico) parent).updateNumPreguntas();
+				limp.setEnabled(false);
+			}		
 		});
 		
 	}
@@ -153,16 +154,27 @@ public class PanelImagen extends JPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				HashMap<Integer, Point> tablaPuntos = ((VistaExamenPractico) parent).getImagenPuntos();
-				if (!tablaPuntos.containsKey(imagen.getId_imagen())){
-					JOptionPane.showMessageDialog(pel,"Pulsa en el elemento prohibido, por favor");
-					System.out.println("La imagen es "+imagen.getId_imagen());
-					tablaPuntos.put(imagen.getId_imagen(), click);
-					((VistaExamenPractico) parent).setImagenPuntos(tablaPuntos);
-					((VistaExamenPractico) parent).updateNumPreguntas(tablaPuntos.size());
-					pel.setForeground(Color.BLUE);
+				if (imagen.getId_objeto()!=0){
+					//correcta
+					ObjetoProhibido prohibido = control.getObjetoProhibido(imagen.getId_objeto());
+					//Comprobamos si ha clickado correctamente
+					if (prohibido.estaDentro(click)){
+						pel.setForeground(Color.GREEN);
+						JOptionPane.showMessageDialog(null,"Has acertado");
+						((VistaPruebaPractico) parent).aumentaCorrectas();
+						tipoArma.setVisible(true);
+						TipoArma tipo = control.getTipoArma(prohibido.getId_arma());
+						tipoArma.setText(tipo.getDescripcion());
+					}
+					else pel.setForeground(Color.RED);
 				}
-				else JOptionPane.showMessageDialog(null,"Ya has seleccionado una opción");
+				else {
+					//Fallo
+					JOptionPane.showMessageDialog(null,"Has fallado");
+					pel.setForeground(Color.RED);
+				}
+				((VistaPruebaPractico) parent).updateNumPreguntas();
+				pel.setEnabled(false);
 			}
 			
 		});

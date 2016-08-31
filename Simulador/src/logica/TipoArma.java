@@ -1,5 +1,8 @@
 package logica;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="tipo_arma")
 public class TipoArma {
 	
 	private int id_arma;

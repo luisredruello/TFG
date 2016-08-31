@@ -525,6 +525,35 @@ public class DBServer implements DBInterface{
 		}
 		return code;
 	}
+	
+	@Override
+	public int tieneAprobadoPractico(String dni, int idExamenPractico) {
+		int code = 0;
+		String uri = URLPATH+"user/tienepractico";
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			
+			StringBuffer queryParam = new StringBuffer();
+	        queryParam.append("dni=");
+	        queryParam.append(dni);
+	        queryParam.append("&");
+	        queryParam.append("id=");
+	        queryParam.append(idExamenPractico);
+	        
+	        OutputStream output = connection.getOutputStream();
+	        output.write(queryParam.toString().getBytes());
+	        output.flush();
+			
+			code = (connection.getResponseCode()==200)?1:0;
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return code;
+	}
 
 	@Override
 	public int obtieneCertificacion(int level, String dni) {
@@ -728,6 +757,30 @@ public class DBServer implements DBInterface{
 		return code;
 	}
 
-	
+	@Override
+	public TipoArma getTipoArma(int idArma) {
+		TipoArma arma = null;
+		String uri = URLPATH+"tipoarma/"+idArma;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+			
+			JAXBContext jc = JAXBContext.newInstance(TipoArma.class);
+			InputStream xml = connection.getInputStream();
+			
+			arma = (TipoArma) jc.createUnmarshaller().unmarshal(xml);
+			
+			connection.disconnect();
+		}
+		catch(JAXBException e){
+			e.printStackTrace();
+		}
+		catch(IOException i){
+			System.err.println("Esta certificación no tiene examen práctico");
+		}
+		return arma;
+	}	
 
 }
