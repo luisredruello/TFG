@@ -70,7 +70,6 @@ public class VentanaEditaUsuario extends JFrame{
 				
 		this.setVisible(true);
 		
-		
 	}
 	
 	private void modificaDatos(final JButton bAceptar, final JTextField nuevoNombre, final JTextField nuevoPass,
@@ -103,13 +102,10 @@ public class VentanaEditaUsuario extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ventanaEditaUsuario.dispose();
-				
 			}
 			
 		});
 		
-	}
-
-	
+	}	
 
 }

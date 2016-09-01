@@ -557,7 +557,6 @@ public class DBLocal implements DBInterface{
 	
 	@Override
 	public int tieneAprobadoPractico(String dni, int idExamenPractico) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -640,13 +639,11 @@ public class DBLocal implements DBInterface{
 
 	@Override
 	public int insertaRespuesta(int idPregunta, String respuesta, int correcta) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public TipoArma getTipoArma(int idArma) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

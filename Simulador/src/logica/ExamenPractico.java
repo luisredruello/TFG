@@ -10,8 +10,7 @@ public class ExamenPractico{
 	private int num_imagenes;
 	private int tiempo_examen;
 	
-	public ExamenPractico (){
-	}
+	public ExamenPractico (){	}
 	
 	public ExamenPractico(int id, int n, int num, int t){
 		this.id_examen=id;

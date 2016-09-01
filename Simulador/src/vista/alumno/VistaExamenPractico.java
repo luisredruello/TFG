@@ -197,8 +197,8 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 									alumno.setNextCertificacion(cert);
 									comboModel.addItem(new Certificacion(cert));
 								}
-								JOptionPane.showMessageDialog(c,"Has Conseguido la Certificación "+practico.getNivel());
-								
+								JOptionPane.showMessageDialog(c,
+										"Has Conseguido la Certificación "+practico.getNivel());
 							}
 						}
 					}

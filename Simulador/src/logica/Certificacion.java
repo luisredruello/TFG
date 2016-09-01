@@ -6,9 +6,7 @@ public class Certificacion {
 	private ExamenTeorico teorico;
 	private ExamenPractico practico;
 	
-	public Certificacion(){
-		
-	};
+	public Certificacion(){	};
 	
 	public Certificacion(int nivel) {
 		this.nivel = nivel;

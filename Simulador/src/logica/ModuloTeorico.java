@@ -61,11 +61,18 @@ public class ModuloTeorico {
 		return filePath;
 	}
 	
+	/**
+	 * Comprueba si el fichero que se encuentra en el path ha sido creado previamente
+	 * @return true si el fichero ya existe en el sistema, false en caso contrario
+	 */
 	public boolean existeFichero(){
 		File file = new File(this.getPath());
 		return file.exists();
 	}
 	
+	/**
+	 * Crea el fichero PDF representado por el array de bytes
+	 */
 	public void createPDFFile(){
 		if (pdf!=null){
 			try{

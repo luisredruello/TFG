@@ -30,7 +30,5 @@ public class TipoArma {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
-	
 
 }

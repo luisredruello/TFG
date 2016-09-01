@@ -108,6 +108,4 @@ public class Imagen {
 		this.id_objeto = id_objeto;
 	}
 	
-	
-
 }

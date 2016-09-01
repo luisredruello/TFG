@@ -12,16 +12,11 @@ public class PDFReader {
 
 		File pdfFile = new File(path);
 		if (pdfFile.exists()) {
+			
+			if (Desktop.isDesktopSupported())	Desktop.getDesktop().open(pdfFile);
+			else System.out.println("Awt Desktop is not supported!");
 
-			if (Desktop.isDesktopSupported()) {
-				Desktop.getDesktop().open(pdfFile);
-			} else {
-				System.out.println("Awt Desktop is not supported!");
-			}
-
-		} else {
-			System.out.println("File does not exists!");
-		}
+		} else System.out.println("File does not exists!");
 
 		System.out.println("Done");
 

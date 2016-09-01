@@ -113,7 +113,8 @@ public class ObjetoProhibido {
 	 * @return true si el punto esta dentro del cuadrado que determina un objeto prohibido, false en otro caso
 	 */
 	public boolean estaDentro(Point p){
-		return ((p.x>=posx && p.x<=posx+ancho) && (p.y>=posy && p.y<=posy+alto));
+		if (p!=null)	return ((p.x>=posx && p.x<=posx+ancho) && (p.y>=posy && p.y<=posy+alto));
+		else return false;
 	}
 	
 

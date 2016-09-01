@@ -14,9 +14,7 @@ public class ExamenTeorico{
 	private int tiempo_examen;
 	private int num_preguntas;
 	
-	public ExamenTeorico (){
-		
-	}
+	public ExamenTeorico (){	}
 	
 	public ExamenTeorico(int id, int n, String name, String desc, int t, int preg){
 		this.id_examen=id;
@@ -88,6 +86,4 @@ public class ExamenTeorico{
 		return nombre;
 	}
 	
-	
-
 }

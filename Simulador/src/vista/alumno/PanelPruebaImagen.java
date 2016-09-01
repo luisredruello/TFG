@@ -1,5 +1,6 @@
 package vista.alumno;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.GridLayout;
@@ -38,9 +39,16 @@ public class PanelPruebaImagen extends JPanel implements ActionListener{
 	private int posicion;
 	private Point click;
 	private Frame parent;
+	private boolean pulsado;
+	private ObjetoProhibido prohibido;
 	
 	public PanelPruebaImagen(Controlador c, Imagen image, int pos, Frame frame){
+		this.control=c;
+		this.imagen=image;
+		this.posicion=pos+1;
 		this.parent=frame;
+		this.pulsado=false;
+		this.tipoArma=new JLabel();
 		initWindow();
 	}
 	
@@ -60,10 +68,13 @@ public class PanelPruebaImagen extends JPanel implements ActionListener{
 			
 			@Override
 			  public void mouseClicked(MouseEvent e) {
-				Point panelPoint = e.getPoint();
-                Point imgContext = toImageContext(panelPoint);
-                System.out.println("Punto x: "+e.getX()+" Punto y: "+imgContext.y);
-			    click.setLocation(e.getX(), imgContext.y);
+				if (click==null){
+					click=new Point();
+					Point panelPoint = e.getPoint();
+	                Point imgContext = toImageContext(panelPoint);
+	                System.out.println("Punto x: "+e.getX()+" Punto y: "+imgContext.y);
+				    click.setLocation(e.getX(), imgContext.y);
+				}
 			  }
 			
 		});
@@ -108,18 +119,25 @@ public class PanelPruebaImagen extends JPanel implements ActionListener{
         panelDerecho.add(radioPanel);
         
         //Panel con los botones
-        JPanel inferiorDerecha = new JPanel();
+        JPanel inferiorDerecha = new JPanel(new BorderLayout());
         inferiorDerecha.setBorder(new TitledBorder("Opciones"));
         
         JButton limpia = new JButton("Sin Peligro");
         agregaImagenLimpia(limpia);
         JButton peligro = new JButton("Objeto Peligroso");
         agregaImagenPeligro(peligro);
-        inferiorDerecha.add(limpia);
-        inferiorDerecha.add(peligro);
-        inferiorDerecha.add(tipoArma);
         
+        JPanel panelBotones = new JPanel();
+        panelBotones.add(limpia);
+        panelBotones.add(peligro);
+        
+        inferiorDerecha.add(panelBotones,BorderLayout.NORTH);
+        
+        JPanel panelTipoArma = new JPanel();
+        panelTipoArma.add(tipoArma);
         tipoArma.setVisible(false);
+        
+        inferiorDerecha.add(panelTipoArma,BorderLayout.SOUTH);
         
         panelDerecho.add(inferiorDerecha);
         
@@ -133,17 +151,21 @@ public class PanelPruebaImagen extends JPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (imagen.getId_objeto()==0){
-					limp.setForeground(Color.GREEN);
-					((VistaPruebaPractico) parent).aumentaCorrectas();
-					JOptionPane.showMessageDialog(null,"Correcto");
+				if (!pulsado){
+					if (imagen.getId_objeto()==0){
+						limp.setForeground(Color.GREEN);
+						((VistaPruebaPractico) parent).aumentaCorrectas();
+						JOptionPane.showMessageDialog(null,"Respuesta Correcta");
+					}
+					else {
+						limp.setForeground(Color.RED);
+						JOptionPane.showMessageDialog(null,"Has fallado");
+					}
+					((VistaPruebaPractico) parent).updateNumPreguntas();
+					pulsado=true;
 				}
-				else {
-					limp.setForeground(Color.RED);
-					JOptionPane.showMessageDialog(null,"Has fallado");
-				}
-				((VistaPruebaPractico) parent).updateNumPreguntas();
-				limp.setEnabled(false);
+				else JOptionPane.showMessageDialog(null,"Ya has elegido una opción");
+				
 			}		
 		});
 		
@@ -154,27 +176,34 @@ public class PanelPruebaImagen extends JPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (imagen.getId_objeto()!=0){
-					//correcta
-					ObjetoProhibido prohibido = control.getObjetoProhibido(imagen.getId_objeto());
-					//Comprobamos si ha clickado correctamente
-					if (prohibido.estaDentro(click)){
-						pel.setForeground(Color.GREEN);
-						JOptionPane.showMessageDialog(null,"Has acertado");
-						((VistaPruebaPractico) parent).aumentaCorrectas();
-						tipoArma.setVisible(true);
-						TipoArma tipo = control.getTipoArma(prohibido.getId_arma());
-						tipoArma.setText(tipo.getDescripcion());
+				if (!pulsado){
+					if (click!=null){
+						pulsado=true;
+						if (imagen.getId_objeto()!=0){
+							//correcta
+							prohibido = control.getObjetoProhibido(imagen.getId_objeto());
+							//Comprobamos si ha clickado correctamente
+							if (prohibido.estaDentro(click)){
+								pel.setForeground(Color.GREEN);
+								JOptionPane.showMessageDialog(null,"Has acertado");
+								((VistaPruebaPractico) parent).aumentaCorrectas();
+								tipoArma.setVisible(true);
+								TipoArma tipo = control.getTipoArma(prohibido.getId_arma());
+								tipoArma.setText("El objeto prohibido es del tipo: "+tipo.getDescripcion());
+							}
+							else pel.setForeground(Color.RED);
+						}
+						else {
+							//Fallo
+							JOptionPane.showMessageDialog(null,"Has fallado");
+							pel.setForeground(Color.RED);
+						}
+						((VistaPruebaPractico) parent).updateNumPreguntas();
 					}
-					else pel.setForeground(Color.RED);
+					else JOptionPane.showMessageDialog(pel,
+							"Pulsa en el elemento prohibido y vuelve a pulsar este botón, por favor");
 				}
-				else {
-					//Fallo
-					JOptionPane.showMessageDialog(null,"Has fallado");
-					pel.setForeground(Color.RED);
-				}
-				((VistaPruebaPractico) parent).updateNumPreguntas();
-				pel.setEnabled(false);
+				else JOptionPane.showMessageDialog(null,"Ya has elegido una opción");
 			}
 			
 		});
@@ -195,7 +224,6 @@ public class PanelPruebaImagen extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		picture.setIcon(createImageIcon(((JRadioButton) e.getSource()).getActionCommand()));
-		
 	};
 	
     

@@ -96,7 +96,7 @@ public class PanelCertificadosAdmin extends JPanel{
 						is = new FileInputStream(file);
 						is.read(fileContent);
 						is.close();
-						resul = control.subeTeoria(combo.getItemAt(ind).getNivel(),maxMod,fileContent);
+						resul = control.subeTeoria(combo.getItemAt(ind).getNivel(),maxMod+1,fileContent);
 					} catch (IOException i) {
 						i.printStackTrace();
 					}
@@ -160,8 +160,6 @@ public class PanelCertificadosAdmin extends JPanel{
 			int i=0;
 			while(it.hasNext()){
 				resul[i] = it.next();
-				//resul[i].setPractico(this.control.getExamenPractico(resul[i].getNivel()));
-				//resul[i].setTeorico(this.control.getExamenTeorico(resul[i].getNivel()));
 				i++;
 			}
 			return resul;

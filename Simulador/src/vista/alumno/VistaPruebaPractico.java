@@ -37,11 +37,12 @@ public class VistaPruebaPractico extends JFrame implements ActionListener{
 	private int restantes;
 	
 	public VistaPruebaPractico(Controlador c, ExamenPractico prac){
+		this.control=c;
 		this.puntuacion=0;
 		this.practico=prac;
 		this.pagina=0;
 		this.restantes=practico.getNum_imagenes();
-		this.vistaImagenes=new JPanel();
+		this.vistaImagenes=new JPanel(new CardLayout());
 		this.panelImagen = new LinkedList<PanelPruebaImagen>();
 		this.tablaImagen = new HashMap<Integer, Imagen>();
 		this.numImagenes= new JLabel();
@@ -148,7 +149,7 @@ public class VistaPruebaPractico extends JFrame implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (restantes>0){
+				if (restantes<=0){
 					JOptionPane.showMessageDialog(c,"Esta es tu puntuación: "+puntuacion);
 					v.dispose();
 				}

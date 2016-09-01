@@ -47,7 +47,6 @@ public class Task extends SwingWorker<Void, Void> {
     	if (!isCancelled()){
     		JOptionPane.showMessageDialog(null,"Se ha acabado el tiempo");
         	frame.dispose();
-    	}    	
-        
+    	}
     }
 }

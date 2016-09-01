@@ -160,13 +160,16 @@ public class AdminWindow extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new VentanaNuevoUsuario(control,comboUsuarios);
-				
 			}
 			
 		});
 		
 	}
-
+	
+	/**
+	 * Devuelve un array de usuarios para incializar el combobox de usuarios
+	 * @return array de usuarios
+	 */
 	private Usuario[] llenaLista() {
 		this.listaUsuarios = this.control.dameListaUsuarios();
 		if (listaUsuarios != null){

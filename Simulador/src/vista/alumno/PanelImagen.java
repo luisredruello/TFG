@@ -183,7 +183,6 @@ public class PanelImagen extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		picture.setIcon(createImageIcon(((JRadioButton) e.getSource()).getActionCommand()));
-		
 	};
 	
     

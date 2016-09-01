@@ -22,5 +22,4 @@ public class Usuarios {
 		this.usuarios = usuarios;
 	}
 	
-	
 }

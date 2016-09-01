@@ -115,7 +115,6 @@ public class VentanaNuevoUsuario extends JFrame{
 					else JOptionPane.showMessageDialog(bAceptar, "El DNI ya está dado de alta");					
 				}
 				else JOptionPane.showMessageDialog(bAceptar, "Los campos están vacíos o el DNI excede los 8 dígitos");
-				
 			}
 			
 		});
@@ -127,7 +126,6 @@ public class VentanaNuevoUsuario extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				v.dispose();
-				
 			}
 			
 		});

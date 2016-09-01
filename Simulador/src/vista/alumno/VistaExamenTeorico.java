@@ -81,7 +81,6 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 		this.setTitle(this.teorico.getNombre());
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		//this.setBounds(100, 100, 1100, 600);
 		this.setSize(this.getToolkit().getScreenSize());
 		
 		//Panel Superior Datos del Examen
@@ -193,8 +192,9 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 					if (aprobado(resultado)){
 						//agregar a BBDD el aprobado
 						if (control.apruebaExamenTeorico(alumno,teorico)>0)	{
-							JOptionPane.showMessageDialog(botonResultado,"Has aprobado con un "+resultado+", Enhorabuena");
-							//El nivel 1 de Certificacion no tiene parte practica, por lo que se obtendría directamente
+							JOptionPane.showMessageDialog(botonResultado,
+									"Has aprobado con un "+resultado+", Enhorabuena");
+							//La C1 no tiene parte practica, por lo que se obtiene directamente
 							//la certificacion al aprobar el examen
 							if (teorico.getNivel()==1){
 								if (control.insertaCertificacion(alumno,teorico.getNivel())>0) {									
@@ -202,9 +202,11 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 									cert++;
 									alumno.setNextCertificacion(cert);
 									comboModel.addItem(new Certificacion(cert));
-									JOptionPane.showMessageDialog(botonResultado,"Has Conseguido la Certificación "+teorico.getNivel());
+									JOptionPane.showMessageDialog(botonResultado,
+											"Has Conseguido la Certificación "+teorico.getNivel());
 								}			
-								else JOptionPane.showMessageDialog(botonResultado,"Ha habido un error al obtener certificación");
+								else JOptionPane.showMessageDialog(botonResultado,
+										"Ha habido un error al obtener certificación");
 							}
 						}								
 						else JOptionPane.showMessageDialog(botonResultado,"Ha habido un error en tu petición");
@@ -213,7 +215,8 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 							,"Lo sentimos, has suspendido con un: "+resultado);
 					v.dispose();
 				}
-				else JOptionPane.showMessageDialog(botonResultado,"Hay Respuestas sin responder, revísalo por favor");
+				else JOptionPane.showMessageDialog(botonResultado,
+						"Hay Respuestas sin responder, revísalo por favor");
 			}
 			
 			private boolean aprobado(int r){
@@ -255,7 +258,6 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 	 * Actualiza el numero de preguntas respondidas por el usuario
 	 */
 	public void updateNumPreguntasLabel(){
-		//int num = ;
 		numPreguntas.setText("Preguntas Respondidas: "+listaRespuestasAlumno.size());
 		numPreguntas.repaint();
 	}

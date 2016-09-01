@@ -190,7 +190,7 @@ public class UserWindow extends JFrame{
 						new VistaPruebaPractico(control,p);
 					}
 					else JOptionPane.showMessageDialog(lprueba,
-							"La Certificacion C1 No Tiene Examen Práctico, Elige Otra en el Combo");
+							"La Certificacion C1 No Tiene Examen Práctico, Elije Otra en el Combo");
 				}
 				
 			}

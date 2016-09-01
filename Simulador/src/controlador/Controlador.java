@@ -52,13 +52,25 @@ public class Controlador {
 		return this.server.getExamenTeorico(l);
 	}
 	
+	/**
+	 * Devuelve un modulo teorico a la vista
+	 * @param nivel int
+	 * @param modulo int
+	 * @return String que representa el path donde esta el modulo
+	 */
 	public String getPDF(int nivel, int modulo){
 		return this.server.getPDFTeorico(nivel,modulo);
 	}
 	
+	/**
+	 * Sube un modulo teorico al sistema
+	 * @param level int nivel al que pertenece este modulo
+	 * @param idmodulo int este numero es el siguiente a insertar
+	 * @param files array de bytes
+	 * @return 1 si se ha subido correctamente el archivo
+	 */
 	public int subeTeoria(int level, int idmodulo, byte[] files){
-		int id = idmodulo+1;
-		return this.database.uploadPDFTeorico(level, id, files);
+		return this.database.uploadPDFTeorico(level, idmodulo, files);
 	}
 	
 	public ModuloTeorico getModuloTeorico(int nivel, int id){
@@ -186,7 +198,6 @@ public class Controlador {
 	 * @return devuelve el id de la pregunta insertada, 0 si no se ha podido insertar
 	 */
 	public int insertaPregunta(String pregunta, int id_examen) {
-		//return this.database.insertaPregunta(pregunta, id_examen);
 		return this.server.insertaPregunta(pregunta, id_examen);
 	}
 	

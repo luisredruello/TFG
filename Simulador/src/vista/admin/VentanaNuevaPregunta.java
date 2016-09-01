@@ -199,7 +199,6 @@ public class VentanaNuevaPregunta extends JFrame implements ActionListener{
 			case "correcta4": seleccion[3]=1; break;
 			default: seleccion[0]=1; break;
 		}
-		
 	}
 
 }

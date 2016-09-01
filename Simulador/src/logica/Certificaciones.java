@@ -21,6 +21,4 @@ public class Certificaciones {
 		this.certificados = certificados;
 	}
 	
-	
-
 }
