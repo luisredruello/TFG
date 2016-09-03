@@ -69,7 +69,7 @@ public class Controlador {
 	 * Sube un modulo teorico al sistema
 	 * @param level int nivel al que pertenece este modulo
 	 * @param idmodulo int este numero es el siguiente a insertar
-	 * @param files array de bytes
+	 * @param file File
 	 * @return 1 si se ha subido correctamente el archivo
 	 */
 	public int subeTeoria(int level, int idmodulo, File file){
@@ -233,6 +233,25 @@ public class Controlador {
 	 */
 	public TipoArma getTipoArma(int idArma){
 		return this.server.getTipoArma(idArma);
+	}
+	
+	/**
+	 * Devuelve un array de bytes a partir de un archivo
+	 * @param file File
+	 * @return byte[] o null si ha habido un error
+	 */
+	public byte[] getBytesFromFile(File file){
+		FileInputStream is;
+		byte[] fileContent = null;
+		try {
+			fileContent = new byte[(int)file.length()];
+			is = new FileInputStream(file);
+			is.read(fileContent);
+			is.close();
+		} catch (IOException i) {
+			i.printStackTrace();
+		}
+		return fileContent;
 	}
 	
 	

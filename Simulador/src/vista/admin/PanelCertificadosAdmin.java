@@ -18,6 +18,7 @@ import javax.swing.JTabbedPane;
 
 import controlador.Controlador;
 import logica.Certificacion;
+import logica.ExamenPractico;
 import logica.ExamenTeorico;
 import logica.ModuloTeorico;
 
@@ -31,6 +32,7 @@ public class PanelCertificadosAdmin extends JPanel{
 	private List<Certificacion> listaCertificados;
 	private Controlador control;
 	private JComboBox<ExamenTeorico> comboTeorico;
+	private JComboBox<ExamenPractico> comboPractico;
 	
 	public PanelCertificadosAdmin(Controlador c){
 		this.listaCertificados = null;
@@ -59,7 +61,7 @@ public class PanelCertificadosAdmin extends JPanel{
 		panelInfo.add(labelSubir);
 		panelInfo.add(botonUpload);	
 		
-		subirArchivos(botonUpload,comboCertificados);
+		subirArchivosTeoricos(botonUpload,comboCertificados);
 				
 		this.add(panelInfo,BorderLayout.NORTH);
 		
@@ -71,13 +73,95 @@ public class PanelCertificadosAdmin extends JPanel{
 		panel1.setLayout(new BorderLayout());
 		initPanelExamenTeorico(panel1);
 		
+		//Examen Practico
+		JComponent panelPractico = new JPanel();
+		panelPractico.setLayout(new BorderLayout());
+		initPanelExamenPractico(panelPractico);
+		
 		panelCertificados.add("Administración Examen Teórico", panel1);
+		panelCertificados.add("Administración Examen Práctico", panelPractico);
 				
 		this.add(panelCertificados, BorderLayout.CENTER);
 		
 	}
+	
+	/**
+	 * Inicia el panel inferior de la interfaz grafica que administra las opciones de un Examen Teorico
+	 * @param panel4 JComponent
+	 */
+	private void initPanelExamenTeorico(JComponent panel4) {
+		comboTeorico = new JComboBox<ExamenTeorico>();
+		Iterator<Certificacion> it = listaCertificados.iterator();
+		while (it.hasNext()){
+			ExamenTeorico teo = control.getExamenTeorico(it.next().getNivel());
+			comboTeorico.addItem(teo);
+		}
+		JPanel p = new JPanel();
+		JLabel labelComboTeorico = new JLabel("Elige un Examen Teorico: ");
+		p.add(labelComboTeorico);
+		p.add(comboTeorico);
+		panel4.add(p, BorderLayout.NORTH);
+		
+		JPanel panelBoton = new JPanel();
+		JButton botonPregunta = new JButton("Agregar Pregunta");
+		agregaPregunta(botonPregunta);
+		panelBoton.add(botonPregunta);
+		
+		panel4.add(panelBoton, BorderLayout.SOUTH);
+	}
+	
+	/**
+	 * Inicia la interfaz grafica que administra las opciones de un Examen Practico
+	 * @param pPractico JComponent
+	 */
+	private void initPanelExamenPractico(JComponent pPractico) {
+		comboPractico = new JComboBox<ExamenPractico>();
+		Iterator<Certificacion> it = listaCertificados.iterator();
+		while (it.hasNext()){
+			ExamenPractico prac = control.getExamenPractico(it.next().getNivel());
+			if (prac!=null)	comboPractico.addItem(prac);
+		}
+		JPanel p = new JPanel();
+		JLabel labelComboPractico = new JLabel("Elige un Examen Practico: ");
+		p.add(labelComboPractico);
+		p.add(comboPractico);
+		
+		pPractico.add(p, BorderLayout.NORTH);
+		
+		JPanel panelBoton = new JPanel();
+		JButton botonImagen = new JButton("Subir Imagen");
+		agregaImagen(botonImagen);
+		panelBoton.add(botonImagen);
+		
+		pPractico.add(panelBoton, BorderLayout.SOUTH);
+		
+	}
+	
+	private void agregaImagen(JButton botonImagen) {
+		botonImagen.addActionListener(new ActionListener(){
 
-	private void subirArchivos(final JButton botonUpload,final JComboBox<Certificacion> combo) {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int ind = comboPractico.getSelectedIndex();
+				JFileChooser seleccion=new JFileChooser();
+				if (seleccion.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && ind!=-1){
+					File file = seleccion.getSelectedFile();
+					ExamenPractico p = comboPractico.getItemAt(ind);
+					new VentanaNuevaImagen(control,p,file);
+				}
+				else JOptionPane.showMessageDialog(null,"Debes Elegir Una Imagen");
+			}
+			
+		});
+		
+	}
+
+	/**
+	 * Inicia el action listener del boton de subida de un pdf teorico
+	 * @param botonUpload JButton lanza el action listener
+	 * @param combo
+	 */
+	private void subirArchivosTeoricos(final JButton botonUpload,final JComboBox<Certificacion> combo) {
 		botonUpload.addActionListener(new ActionListener(){
 
 			@Override
@@ -112,27 +196,10 @@ public class PanelCertificadosAdmin extends JPanel{
 	}
 
 
-	private void initPanelExamenTeorico(JComponent panel4) {
-		comboTeorico = new JComboBox<ExamenTeorico>();
-		Iterator<Certificacion> it = listaCertificados.iterator();
-		while (it.hasNext()){
-			ExamenTeorico teo = control.getExamenTeorico(it.next().getNivel());
-			comboTeorico.addItem(teo);
-		}
-		JPanel p = new JPanel();
-		JLabel labelComboTeorico = new JLabel("Elige un Examen Teorico: ");
-		p.add(labelComboTeorico);
-		p.add(comboTeorico);
-		panel4.add(p, BorderLayout.NORTH);
-		
-		JPanel panelBoton = new JPanel();
-		JButton botonPregunta = new JButton("Agregar Pregunta");
-		agregaPregunta(botonPregunta);
-		panelBoton.add(botonPregunta);
-		
-		panel4.add(panelBoton, BorderLayout.SOUTH);
-	}
-
+	/**
+	 * Inicia el action listener que agrega una pregunta al sistema
+	 * @param b JButtton
+	 */
 	private void agregaPregunta(JButton b) {
 		b.addActionListener(new ActionListener(){
 
