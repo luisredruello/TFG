@@ -205,7 +205,7 @@ public class VistaExamenPractico extends JFrame implements ActionListener, Prope
 					else JOptionPane.showMessageDialog(null,"Lo sentimos, has suspendido con un: "+resultado);
 					v.dispose();
 				}
-				else JOptionPane.showMessageDialog(c,"Debes marcar todas las imágenes, por favor");
+				else JOptionPane.showMessageDialog(null,"Debes marcar todas las imágenes, por favor");
 				
 			}
 			

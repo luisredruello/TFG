@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -345,15 +346,16 @@ public class DBServer implements DBInterface{
 			
 			StringBuffer queryParam = new StringBuffer();
 	        queryParam.append("file=");
-	        queryParam.append(new String(Base64.encodeBase64(files)));
+	        queryParam.append(Base64.encodeBase64URLSafeString(files));
 	        
 	        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
 	        connection.setRequestProperty("charset","UTF-8");
 	        connection.setRequestProperty("Content-Length",Integer.toString(queryParam.toString().getBytes().length));
 	        
 	        OutputStream output = connection.getOutputStream();
-	        output.write(queryParam.toString().getBytes());
-	        output.flush();
+	        PrintWriter pw = new PrintWriter(output);
+            pw.print(queryParam.toString());
+            pw.flush();
 			
 			resul = (connection.getResponseCode()==200)?1:0;
 		}

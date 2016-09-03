@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -89,23 +87,20 @@ public class PanelCertificadosAdmin extends JPanel{
 				JFileChooser seleccion=new JFileChooser();
 				if(seleccion.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && ind != -1){
 					File file = seleccion.getSelectedFile();
-					FileInputStream is;
 					int maxMod = getNumModulos(combo.getItemAt(ind).getNivel());
-					try {
-						byte[] fileContent = new byte[(int)file.length()];
-						is = new FileInputStream(file);
-						is.read(fileContent);
-						is.close();
-						resul = control.subeTeoria(combo.getItemAt(ind).getNivel(),maxMod+1,fileContent);
-					} catch (IOException i) {
-						i.printStackTrace();
-					}
+					resul = control.subeTeoria(combo.getItemAt(ind).getNivel(),maxMod+1,file);
 					if (resul>0) JOptionPane.showMessageDialog(botonUpload, "Se ha subido correctamente el archivo");
 					else JOptionPane.showMessageDialog(botonUpload,"Ha ocurrido un error al subir el archivo");
 				}
 				else JOptionPane.showMessageDialog(botonUpload,"No se ha seleccionado ningún archivo");				
 			}
 			
+			/**
+			 * Devuelve el numero de modulos teoricos que hay en el sistema, para un determinado nivel
+			 * de Certificacion
+			 * @param nivel int
+			 * @return int el mayor numero insertado para un modulo teorico
+			 */
 			private int getNumModulos(int nivel){
 				List<ModuloTeorico> list = control.getListaModulosTeoricos(nivel);
 				if (list!=null) return list.size();
@@ -125,6 +120,8 @@ public class PanelCertificadosAdmin extends JPanel{
 			comboTeorico.addItem(teo);
 		}
 		JPanel p = new JPanel();
+		JLabel labelComboTeorico = new JLabel("Elige un Examen Teorico: ");
+		p.add(labelComboTeorico);
 		p.add(comboTeorico);
 		panel4.add(p, BorderLayout.NORTH);
 		

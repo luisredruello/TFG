@@ -215,7 +215,7 @@ public class VistaExamenTeorico extends JFrame implements PropertyChangeListener
 							,"Lo sentimos, has suspendido con un: "+resultado);
 					v.dispose();
 				}
-				else JOptionPane.showMessageDialog(botonResultado,
+				else JOptionPane.showMessageDialog(null,
 						"Hay Respuestas sin responder, revísalo por favor");
 			}
 			

@@ -83,7 +83,7 @@ public class ExamenTeorico{
 	}
 	
 	public String toString(){
-		return nombre;
+		return "Examen "+nombre+" De La C"+nivel;
 	}
 	
 }

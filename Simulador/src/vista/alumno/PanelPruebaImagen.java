@@ -41,6 +41,8 @@ public class PanelPruebaImagen extends JPanel implements ActionListener{
 	private Frame parent;
 	private boolean pulsado;
 	private ObjetoProhibido prohibido;
+	private JButton peligro;
+	private boolean pulsaImagen;
 	
 	public PanelPruebaImagen(Controlador c, Imagen image, int pos, Frame frame){
 		this.control=c;
@@ -48,6 +50,7 @@ public class PanelPruebaImagen extends JPanel implements ActionListener{
 		this.posicion=pos+1;
 		this.parent=frame;
 		this.pulsado=false;
+		this.pulsaImagen=false;
 		this.tipoArma=new JLabel();
 		initWindow();
 	}
@@ -68,12 +71,33 @@ public class PanelPruebaImagen extends JPanel implements ActionListener{
 			
 			@Override
 			  public void mouseClicked(MouseEvent e) {
-				if (click==null){
+				if (click==null && pulsaImagen){
 					click=new Point();
 					Point panelPoint = e.getPoint();
 	                Point imgContext = toImageContext(panelPoint);
 	                System.out.println("Punto x: "+e.getX()+" Punto y: "+imgContext.y);
 				    click.setLocation(e.getX(), imgContext.y);
+				    pulsado=true;
+					if (imagen.getId_objeto()!=0){
+						//correcta
+						prohibido = control.getObjetoProhibido(imagen.getId_objeto());
+						//Comprobamos si ha clickado correctamente
+						if (prohibido.estaDentro(click)){
+							peligro.setForeground(Color.GREEN);
+							JOptionPane.showMessageDialog(null,"Has acertado");
+							((VistaPruebaPractico) parent).aumentaCorrectas();
+							TipoArma tipo = control.getTipoArma(prohibido.getId_arma());
+							tipoArma.setText("El objeto prohibido es del tipo: "+tipo.getDescripcion());
+							tipoArma.setVisible(true);
+						}
+						else peligro.setForeground(Color.RED);
+					}
+					else {
+						//Fallo
+						JOptionPane.showMessageDialog(null,"Has fallado");
+						peligro.setForeground(Color.RED);
+					}
+					((VistaPruebaPractico) parent).updateNumPreguntas();
 				}
 			  }
 			
@@ -85,17 +109,17 @@ public class PanelPruebaImagen extends JPanel implements ActionListener{
 		JPanel panelDerecho = new JPanel(new GridLayout(2,1));
 		
 		//Check Button (Normal, B\N, Organico e Inorganico)
-		JRadioButton normalButton = new JRadioButton(normal);
+		JRadioButton normalButton = new JRadioButton("Constraste Normal");
 		normalButton.setActionCommand(normal);
 		normalButton.setSelected(true);
 		
-		JRadioButton bnButton = new JRadioButton(bn);
+		JRadioButton bnButton = new JRadioButton("Constraste Blanco/Negro");
         bnButton.setActionCommand(bn);
 
-        JRadioButton orgButton = new JRadioButton(organico);
+        JRadioButton orgButton = new JRadioButton("Contraste Orgánico");
         orgButton.setActionCommand(organico);
 
-        JRadioButton inorgButton = new JRadioButton(inorganico);
+        JRadioButton inorgButton = new JRadioButton("Contraste Inorgánico");
         inorgButton.setActionCommand(inorganico);
         
         normalButton.addActionListener(this);
@@ -124,8 +148,8 @@ public class PanelPruebaImagen extends JPanel implements ActionListener{
         
         JButton limpia = new JButton("Sin Peligro");
         agregaImagenLimpia(limpia);
-        JButton peligro = new JButton("Objeto Peligroso");
-        agregaImagenPeligro(peligro);
+        peligro = new JButton("Objeto Peligroso");
+        agregaImagenPeligro();
         
         JPanel panelBotones = new JPanel();
         panelBotones.add(limpia);
@@ -165,43 +189,20 @@ public class PanelPruebaImagen extends JPanel implements ActionListener{
 					pulsado=true;
 				}
 				else JOptionPane.showMessageDialog(null,"Ya has elegido una opción");
-				
 			}		
 		});
 		
 	}
 
-	private void agregaImagenPeligro(final JButton pel) {
-		pel.addActionListener(new ActionListener(){
+	private void agregaImagenPeligro() {
+		peligro.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!pulsado){
-					if (click!=null){
-						pulsado=true;
-						if (imagen.getId_objeto()!=0){
-							//correcta
-							prohibido = control.getObjetoProhibido(imagen.getId_objeto());
-							//Comprobamos si ha clickado correctamente
-							if (prohibido.estaDentro(click)){
-								pel.setForeground(Color.GREEN);
-								JOptionPane.showMessageDialog(null,"Has acertado");
-								((VistaPruebaPractico) parent).aumentaCorrectas();
-								tipoArma.setVisible(true);
-								TipoArma tipo = control.getTipoArma(prohibido.getId_arma());
-								tipoArma.setText("El objeto prohibido es del tipo: "+tipo.getDescripcion());
-							}
-							else pel.setForeground(Color.RED);
-						}
-						else {
-							//Fallo
-							JOptionPane.showMessageDialog(null,"Has fallado");
-							pel.setForeground(Color.RED);
-						}
-						((VistaPruebaPractico) parent).updateNumPreguntas();
-					}
-					else JOptionPane.showMessageDialog(pel,
-							"Pulsa en el elemento prohibido y vuelve a pulsar este botón, por favor");
+					pulsaImagen=true;
+					JOptionPane.showMessageDialog(null,
+							"Pulsa en el elemento prohibido en la imagen, por favor");
 				}
 				else JOptionPane.showMessageDialog(null,"Ya has elegido una opción");
 			}

@@ -86,17 +86,17 @@ public class VentanaNuevaPregunta extends JFrame implements ActionListener{
 		contenedor.add(scrollRespuesta4);
 		
 		//Panel Derecho CheckButtons
-        option1 = new JRadioButton("correcta1");
+        option1 = new JRadioButton("Selecciona si correcta es la 1");
         option1.setActionCommand("correcta1");
         option1.setSelected(true);
 
-        option2 = new JRadioButton("correcta2");
+        option2 = new JRadioButton("Selecciona si correcta es la 2");
         option2.setActionCommand("correcta2");
 
-        option3 = new JRadioButton("correcta3");
+        option3 = new JRadioButton("Selecciona si correcta es la 3");
         option3.setActionCommand("correcta3");
 
-        option4 = new JRadioButton("correcta4");
+        option4 = new JRadioButton("Selecciona si correcta es la 4");
         option4.setActionCommand("correcta4");
 
         //Group the radio buttons.
@@ -117,7 +117,7 @@ public class VentanaNuevaPregunta extends JFrame implements ActionListener{
         radioPanel.add(option2);
         radioPanel.add(option3);
         radioPanel.add(option4);        
-        radioPanel.setBounds(500, 160, 100, 450);
+        radioPanel.setBounds(500, 160, 200, 450);
         
         //Botones Inferiores
         JButton bAceptar = new JButton("Insertar");
@@ -170,7 +170,6 @@ public class VentanaNuevaPregunta extends JFrame implements ActionListener{
 					else JOptionPane.showMessageDialog(b, "Ha habido un error en la inserción de la pregunta"); 
 				}
 				else JOptionPane.showMessageDialog(b, "Inserta los Datos");
-				
 			}
 			
 		});

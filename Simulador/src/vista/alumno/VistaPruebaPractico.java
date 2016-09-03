@@ -153,7 +153,7 @@ public class VistaPruebaPractico extends JFrame implements ActionListener{
 					JOptionPane.showMessageDialog(c,"Esta es tu puntuación: "+puntuacion);
 					v.dispose();
 				}
-				else JOptionPane.showMessageDialog(c,"Debes marcar todas las imágenes, por favor");	
+				else JOptionPane.showMessageDialog(null,"Debes marcar todas las imágenes, por favor");	
 			}
 			
 		});

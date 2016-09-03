@@ -1,5 +1,8 @@
 package controlador;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 import database.DBLocal;
 import database.DBServer;
@@ -69,8 +72,19 @@ public class Controlador {
 	 * @param files array de bytes
 	 * @return 1 si se ha subido correctamente el archivo
 	 */
-	public int subeTeoria(int level, int idmodulo, byte[] files){
-		return this.database.uploadPDFTeorico(level, idmodulo, files);
+	public int subeTeoria(int level, int idmodulo, File file){
+		FileInputStream is;
+		byte[] fileContent = null;
+		try {
+			fileContent = new byte[(int)file.length()];
+			is = new FileInputStream(file);
+			is.read(fileContent);
+			is.close();
+			return this.server.uploadPDFTeorico(level, idmodulo, fileContent);
+		} catch (IOException i) {
+			i.printStackTrace();
+		}
+		return 0;
 	}
 	
 	public ModuloTeorico getModuloTeorico(int nivel, int id){

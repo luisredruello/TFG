@@ -44,7 +44,6 @@ public class PanelImagen extends JPanel implements ActionListener{
 		this.control=c;
 		this.imagen=im;
 		this.posicion = pos+1;
-		this.click = new Point();
 		this.parent=padre;
 		initWindow();
 	}
@@ -65,10 +64,12 @@ public class PanelImagen extends JPanel implements ActionListener{
 			
 			@Override
 			  public void mouseClicked(MouseEvent e) {
-				Point panelPoint = e.getPoint();
-                Point imgContext = toImageContext(panelPoint);
-                System.out.println("Punto x: "+e.getX()+" Punto y: "+imgContext.y);
-			    click.setLocation(e.getX(), imgContext.y);
+				if (click!=null){
+					Point panelPoint = e.getPoint();
+	                Point imgContext = toImageContext(panelPoint);
+	                System.out.println("Punto x: "+e.getX()+" Punto y: "+imgContext.y);
+				    click.setLocation(e.getX(), imgContext.y);
+				}
 			  }
 			
 		});
@@ -79,17 +80,17 @@ public class PanelImagen extends JPanel implements ActionListener{
 		JPanel panelDerecho = new JPanel(new GridLayout(2,1));
 		
 		//Check Button (Normal, B\N, Organico e Inorganico)
-		JRadioButton normalButton = new JRadioButton(normal);
+		JRadioButton normalButton = new JRadioButton("Contraste Normal");
 		normalButton.setActionCommand(normal);
 		normalButton.setSelected(true);
 		
-		JRadioButton bnButton = new JRadioButton(bn);
+		JRadioButton bnButton = new JRadioButton("Contraste Blanco/Negro");
         bnButton.setActionCommand(bn);
 
-        JRadioButton orgButton = new JRadioButton(organico);
+        JRadioButton orgButton = new JRadioButton("Contraste Orgánico");
         orgButton.setActionCommand(organico);
 
-        JRadioButton inorgButton = new JRadioButton(inorganico);
+        JRadioButton inorgButton = new JRadioButton("Contraste Inorgánico");
         inorgButton.setActionCommand(inorganico);
         
         normalButton.addActionListener(this);
@@ -155,6 +156,7 @@ public class PanelImagen extends JPanel implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				HashMap<Integer, Point> tablaPuntos = ((VistaExamenPractico) parent).getImagenPuntos();
 				if (!tablaPuntos.containsKey(imagen.getId_imagen())){
+					click = new Point();
 					JOptionPane.showMessageDialog(pel,"Pulsa en el elemento prohibido, por favor");
 					System.out.println("La imagen es "+imagen.getId_imagen());
 					tablaPuntos.put(imagen.getId_imagen(), click);
