@@ -142,6 +142,7 @@ public class PanelCertificadosAdmin extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Elige la imagen sin contrastes, por favor");
 				int ind = comboPractico.getSelectedIndex();
 				JFileChooser seleccion=new JFileChooser();
 				if (seleccion.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && ind!=-1){

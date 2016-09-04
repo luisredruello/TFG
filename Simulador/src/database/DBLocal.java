@@ -647,6 +647,22 @@ public class DBLocal implements DBInterface{
 		return null;
 	}
 
+	@Override
+	public List<TipoArma> getListaTipoArma() {
+		return null;
+	}
+
+	@Override
+	public int insertaImagenLimpia(int idExamenPractico, byte[] normal, byte[] bn, byte[] organ, byte[] inorgan) {
+		return 0;
+	}
+
+	@Override
+	public int insertaImagenProhibido(int idPractico, byte[] normal, byte[] bn, byte[] organ, byte[] inorgan, int x,
+			int y, int ancho, int alto, int idTipoArma) {
+		return 0;
+	}
+
 	
 
 }

@@ -3,9 +3,12 @@ package vista.admin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,6 +18,8 @@ import javax.swing.border.TitledBorder;
 
 import controlador.Controlador;
 import logica.ExamenPractico;
+import logica.ObjetoProhibido;
+import logica.TipoArma;
 
 public class VentanaNuevaImagen extends JFrame implements ActionListener{
 
@@ -25,13 +30,19 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 	private Controlador control;
 	private ExamenPractico practico;
 	private boolean limpia;
-	private File file;
+	private File fileNormal;
+	private byte[] arrayNormal;
+	private byte[] arrayBN;
+	private byte[] arrayOrganico;
+	private byte[] arrayInorganico;
+	private DibujaPanel panelImagen;
+	private JComboBox<TipoArma> comboTipo;
 	
 	public VentanaNuevaImagen(Controlador c, ExamenPractico p, File f){
 		this.control=c;
 		this.practico=p;
 		this.limpia=true;
-		this.file=f;
+		this.fileNormal=f;
 		initWindow();
 	}
 
@@ -62,9 +73,9 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 		contenedor.add(panelBotonesImagenes);
 		
 		//Panel donde se muestra la imagen normal, para seleccionar el objeto prohibido
-		byte[] array = control.getBytesFromFile(file);
+		arrayNormal = control.getBytesFromFile(fileNormal);
 		
-		DibujaPanel panelImagen = new DibujaPanel(array);
+		panelImagen = new DibujaPanel(arrayNormal);
 		panelImagen.setBounds(10, 80, 715, 500);
 		
 		contenedor.add(panelImagen);
@@ -83,10 +94,15 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 
         option1.addActionListener(this);
         option2.addActionListener(this);
+        
+        TipoArma[] tipo = iniciaComboTipoArma();
+        if (tipo!=null) comboTipo = new JComboBox<TipoArma>(tipo);
+        else comboTipo = new JComboBox<TipoArma>();
 
         JPanel radioPanel = new JPanel();
         radioPanel.add(option1);
-        radioPanel.add(option2);     
+        radioPanel.add(option2);
+        radioPanel.add(comboTipo);
         radioPanel.setBounds(220, 600, 350, 100);
 		
 		//Botones de aceptar y cancelar
@@ -94,7 +110,7 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 		bAceptar.setBounds(240, 680, 150, 25);
 		contenedor.add(bAceptar);
 		
-		//subirImagen(bAceptar);
+		subirImagenAlSistema(bAceptar, this);
 				
 		JButton bCancelar = new JButton("Cancelar");		
 		bCancelar.setBounds(420, 680, 100, 25);
@@ -105,6 +121,44 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
         contenedor.add(radioPanel);
 		
 		this.setVisible(true);
+		
+	}
+
+	private void subirImagenAlSistema(JButton bAceptar, final JFrame v) {
+		bAceptar.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (arrayNormal!=null && arrayBN != null && arrayOrganico!=null && arrayInorganico!=null){
+					int resul = 0;
+					if (limpia){
+						resul = control.subeImagenLimpia(practico.getId_examen(),arrayNormal
+								,arrayBN,arrayOrganico,arrayInorganico);
+					}
+					else {
+						ObjetoProhibido prohibido = new ObjetoProhibido();
+						int ind = comboTipo.getSelectedIndex();
+						if (panelImagen.getPosx()>=0 && panelImagen.getPosy()>=0
+								&& panelImagen.getAlto()>=0 && panelImagen.getAncho()>=0 && ind!=-1){
+							TipoArma tt = comboTipo.getItemAt(ind);
+							prohibido.setPosx(panelImagen.getPosx());
+							prohibido.setPosy(panelImagen.getPosy());
+							prohibido.setAlto(panelImagen.getAlto());
+							prohibido.setAncho(panelImagen.getAncho());
+							resul = control.subeImagenProhibido(practico.getId_examen(),arrayNormal,
+									arrayBN,arrayOrganico,arrayInorganico,prohibido,tt.getId_arma());
+						}
+						else JOptionPane.showMessageDialog(null, "Debes seleccionar el area donde se encuentra"
+								+ "el objeto prohibido");
+					}
+					if (resul>0) JOptionPane.showMessageDialog(null, "Se han subido correctamente los archivos");
+					else JOptionPane.showMessageDialog(null, "Ha habido un error al subir los archivos");
+					v.dispose();
+				}
+				else JOptionPane.showMessageDialog(null, "Debes subir las 4 imágenes, primero");
+			}
+			
+		});
 		
 	}
 
@@ -128,10 +182,10 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser seleccion=new JFileChooser();
 				if (seleccion.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
-					
+					File file = seleccion.getSelectedFile();
+					arrayBN = control.getBytesFromFile(file);
 				}
 				else JOptionPane.showMessageDialog(null,"No se ha seleccionado ningún archivo");
-				
 			}
 			
 		});
@@ -145,10 +199,10 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser seleccion=new JFileChooser();
 				if (seleccion.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
-					
+					File file = seleccion.getSelectedFile();
+					arrayOrganico = control.getBytesFromFile(file);
 				}
 				else JOptionPane.showMessageDialog(null,"No se ha seleccionado ningún archivo");
-				
 			}
 			
 		});
@@ -162,13 +216,32 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser seleccion=new JFileChooser();
 				if (seleccion.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
-					
+					File file = seleccion.getSelectedFile();
+					arrayInorganico = control.getBytesFromFile(file);
 				}
 				else JOptionPane.showMessageDialog(null,"No se ha seleccionado ningún archivo");
-				
 			}
 			
 		});
+	}
+	
+	/**
+	 * Devuelve un array de TipoArma
+	 * @return TipoArma[]
+	 */
+	private TipoArma[] iniciaComboTipoArma(){
+		List<TipoArma> list = control.getListaTipoArma();
+		if (list!=null){
+			TipoArma[] tipos = new TipoArma[list.size()];
+			Iterator<TipoArma> it = list.iterator();
+			int i=0;
+			while(it.hasNext()){
+				tipos[i] = it.next();
+				i++;
+			}
+			return tipos;
+		}
+		else return null;
 	}
 
 	@Override
@@ -179,7 +252,6 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 			case "prohibido": limpia=false; break;
 			default: limpia=false; break;
 		}
-		
 	}
 
 }

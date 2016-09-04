@@ -203,5 +203,39 @@ public interface DBInterface {
 	 * @return objeto TipoArma
 	 */
 	public TipoArma getTipoArma(int idArma);
+	
+	/**
+	 * Devuelve una lista con todos los tipos de armas de la BBDD
+	 * @return List<TipoArma>
+	 */
+	public List<TipoArma> getListaTipoArma();
+	
+	/**
+	 * Inserta una nueva imagen sin objeto prohibido en la BBDD
+	 * @param idExamenPractico int
+	 * @param normal byte[]
+	 * @param bn byte[]
+	 * @param organ byte[]
+	 * @param inorgan byte[]
+	 * @return 1 si se ha insertado correctamente
+	 */
+	public int insertaImagenLimpia(int idExamenPractico, byte[] normal, byte[] bn, byte[] organ, byte[] inorgan);
+	
+	/**
+	 * Inserta una nueva imagen con objeto peligroso en la BBDD
+	 * @param idPractico int id del examen practico
+	 * @param normal byte[]
+	 * @param bn byte[]
+	 * @param organ byte[]
+	 * @param inorgan byte[]
+	 * @param x int posicion del objeto prohibido
+	 * @param y int posiscion del objeto prohibido
+	 * @param ancho int tam del objeto prohibido
+	 * @param alto int tam del objeto prohibido
+	 * @param idTipoArma int id del tipo de objeto prohibido
+	 * @return 1 si se ha insertado correctamente, 0 en otro caso
+	 */
+	public int insertaImagenProhibido(int idPractico, byte[] normal, byte[] bn, byte[] organ, byte[] inorgan,
+			int x, int y, int ancho, int alto, int idTipoArma);
 
 }

@@ -783,6 +783,118 @@ public class DBServer implements DBInterface{
 			System.err.println("Esta certificación no tiene examen práctico");
 		}
 		return arma;
+	}
+
+	@Override
+	public List<TipoArma> getListaTipoArma() {
+		TiposArmas tipos = null;
+		String uri = URLPATH+"tipoarma/list";
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+			
+			JAXBContext jc = JAXBContext.newInstance(TiposArmas.class);
+			InputStream xml = connection.getInputStream();
+			
+			tipos = (TiposArmas) jc.createUnmarshaller().unmarshal(xml);
+			
+			connection.disconnect();
+		}
+		catch(IOException | JAXBException e){
+			e.printStackTrace();
+		}
+		return tipos.getTipos();
+	}
+
+	@Override
+	public int insertaImagenLimpia(int idExamenPractico, byte[] normal, byte[] bn, byte[] organ, byte[] inorgan) {
+		String uri = URLPATH+"imagen/limpia/insert";
+		int resul = 0;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			
+			StringBuffer queryParam = new StringBuffer();
+			queryParam.append("id=");
+			queryParam.append(idExamenPractico);
+	        queryParam.append("normal=");
+	        queryParam.append(Base64.encodeBase64URLSafeString(normal));
+	        queryParam.append("bn=");
+	        queryParam.append(Base64.encodeBase64URLSafeString(bn));
+	        queryParam.append("organico=");
+	        queryParam.append(Base64.encodeBase64URLSafeString(organ));
+	        queryParam.append("inorganico=");
+	        queryParam.append(Base64.encodeBase64URLSafeString(inorgan));
+	        
+	        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+	        connection.setRequestProperty("charset","UTF-8");
+	        connection.setRequestProperty("Content-Length",Integer.toString(queryParam.toString().getBytes().length));
+	        
+	        OutputStream output = connection.getOutputStream();
+	        PrintWriter pw = new PrintWriter(output);
+            pw.print(queryParam.toString());
+            pw.flush();
+			
+			resul = (connection.getResponseCode()==200)?1:0;
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return resul;
+	}
+
+	@Override
+	public int insertaImagenProhibido(int idPractico, byte[] normal, byte[] bn, byte[] organ, byte[] inorgan, int x,
+			int y, int ancho, int alto, int idTipoArma) {
+		String uri = URLPATH+"imagen/prohibido/insert";
+		int resul = 0;
+		try{
+			URL url = new URL(uri);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			
+			StringBuffer queryParam = new StringBuffer();
+			queryParam.append("id=");
+			queryParam.append(idPractico);
+	        queryParam.append("normal=");
+	        queryParam.append(Base64.encodeBase64URLSafeString(normal));
+	        queryParam.append("bn=");
+	        queryParam.append(Base64.encodeBase64URLSafeString(bn));
+	        queryParam.append("organico=");
+	        queryParam.append(Base64.encodeBase64URLSafeString(organ));
+	        queryParam.append("inorganico=");
+	        queryParam.append(Base64.encodeBase64URLSafeString(inorgan));
+	        queryParam.append("x=");
+	        queryParam.append(x);
+	        queryParam.append("y=");
+	        queryParam.append(y);
+	        queryParam.append("ancho=");
+	        queryParam.append(ancho);
+	        queryParam.append("alto=");
+	        queryParam.append(alto);
+	        queryParam.append("tipoarma=");
+	        queryParam.append(idTipoArma);
+	        
+	        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+	        connection.setRequestProperty("charset","UTF-8");
+	        connection.setRequestProperty("Content-Length",Integer.toString(queryParam.toString().getBytes().length));
+	        
+	        OutputStream output = connection.getOutputStream();
+	        PrintWriter pw = new PrintWriter(output);
+            pw.print(queryParam.toString());
+            pw.flush();
+			
+			resul = (connection.getResponseCode()==200)?1:0;
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return resul;
 	}	
 
 }

@@ -31,6 +31,10 @@ public class DibujaPanel extends JPanel{
 	
 	public DibujaPanel(byte[] b) {
 		dibujando = false;
+		this.posx=-1;
+		this.posy=-1;
+		this.alto=-1;
+		this.ancho=-1;
 		
 		try{
 			InputStream in = new ByteArrayInputStream(b);

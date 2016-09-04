@@ -236,6 +236,14 @@ public class Controlador {
 	}
 	
 	/**
+	 * Devuelve una lista con todos los tipos de objeto prohibido del sistema
+	 * @return List<TipoArma>
+	 */
+	public List<TipoArma> getListaTipoArma() {
+		return this.server.getListaTipoArma();
+	}
+	
+	/**
 	 * Devuelve un array de bytes a partir de un archivo
 	 * @param file File
 	 * @return byte[] o null si ha habido un error
@@ -253,6 +261,16 @@ public class Controlador {
 		}
 		return fileContent;
 	}
-	
+
+	public int subeImagenLimpia(int id_examen, byte[] arrayNormal, byte[] arrayBN, byte[] arrayOrganico,
+			byte[] arrayInorganico) {
+		return this.server.insertaImagenLimpia(id_examen, arrayNormal, arrayBN, arrayOrganico, arrayInorganico);
+	}
+
+	public int subeImagenProhibido(int id_examen, byte[] arrayNormal, byte[] arrayBN, byte[] arrayOrganico,
+			byte[] arrayInorganico, ObjetoProhibido prohibido, int idTipoArma) {
+		return this.server.insertaImagenProhibido(id_examen, arrayNormal, arrayBN, arrayOrganico, arrayInorganico
+				, prohibido.getPosx(), prohibido.getPosy(), prohibido.getAncho(), prohibido.getAncho(), idTipoArma);
+	}	
 	
 }
