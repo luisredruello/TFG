@@ -1,5 +1,6 @@
 package vista.admin;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -103,7 +104,7 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
         radioPanel.add(option1);
         radioPanel.add(option2);
         radioPanel.add(comboTipo);
-        radioPanel.setBounds(220, 600, 350, 100);
+        radioPanel.setBounds(150, 600, 450, 100);
 		
 		//Botones de aceptar y cancelar
         JButton bAceptar = new JButton("Subir Imagen");
@@ -155,7 +156,7 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 					else JOptionPane.showMessageDialog(null, "Ha habido un error al subir los archivos");
 					v.dispose();
 				}
-				else JOptionPane.showMessageDialog(null, "Debes subir las 4 imágenes, primero");
+				else JOptionPane.showMessageDialog(null, "Debes subir las 3 imágenes, primero");
 			}
 			
 		});
@@ -175,7 +176,7 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 	}
 	
 	
-	private void subeImagenBlancoNegro(JButton b){
+	private void subeImagenBlancoNegro(final JButton b){
 		b.addActionListener(new ActionListener(){
 
 			@Override
@@ -184,6 +185,7 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 				if (seleccion.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
 					File file = seleccion.getSelectedFile();
 					arrayBN = control.getBytesFromFile(file);
+					b.setForeground(Color.BLUE);
 				}
 				else JOptionPane.showMessageDialog(null,"No se ha seleccionado ningún archivo");
 			}
@@ -192,7 +194,7 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 	}
 	
 	
-	private void subeImagenOrganico(JButton b){
+	private void subeImagenOrganico(final JButton b){
 		b.addActionListener(new ActionListener(){
 
 			@Override
@@ -201,6 +203,7 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 				if (seleccion.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
 					File file = seleccion.getSelectedFile();
 					arrayOrganico = control.getBytesFromFile(file);
+					b.setForeground(Color.BLUE);
 				}
 				else JOptionPane.showMessageDialog(null,"No se ha seleccionado ningún archivo");
 			}
@@ -209,7 +212,7 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 	}
 	
 	
-	private void subeImagenInorganico(JButton b){
+	private void subeImagenInorganico(final JButton b){
 		b.addActionListener(new ActionListener(){
 
 			@Override
@@ -218,6 +221,7 @@ public class VentanaNuevaImagen extends JFrame implements ActionListener{
 				if (seleccion.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
 					File file = seleccion.getSelectedFile();
 					arrayInorganico = control.getBytesFromFile(file);
+					b.setForeground(Color.BLUE);
 				}
 				else JOptionPane.showMessageDialog(null,"No se ha seleccionado ningún archivo");
 			}

@@ -261,16 +261,36 @@ public class Controlador {
 		}
 		return fileContent;
 	}
-
+	
+	/**
+	 * Envia a la clase encargada de llamar al web service una nueva imagen sin objeto prohibido
+	 * @param id_examen int
+	 * @param arrayNormal byte[]
+	 * @param arrayBN byte[]
+	 * @param arrayOrganico byte[]
+	 * @param arrayInorganico byte[]
+	 * @return int 1 si se ha insertado correctao, 0 en otro caso
+	 */
 	public int subeImagenLimpia(int id_examen, byte[] arrayNormal, byte[] arrayBN, byte[] arrayOrganico,
 			byte[] arrayInorganico) {
 		return this.server.insertaImagenLimpia(id_examen, arrayNormal, arrayBN, arrayOrganico, arrayInorganico);
 	}
-
+	
+	/**
+	 * Envia a la clase encargada de llamar al WebService una imagen con ObjetoProhibido
+	 * @param id_examen int id del examen practico asociado
+	 * @param arrayNormal byte[]
+	 * @param arrayBN byte[]
+	 * @param arrayOrganico byte[]
+	 * @param arrayInorganico byte[]
+	 * @param prohibido byte[]
+	 * @param idTipoArma byte[]
+	 * @return int 1 si se ha insertado correctamente, 0 en otro caso
+	 */
 	public int subeImagenProhibido(int id_examen, byte[] arrayNormal, byte[] arrayBN, byte[] arrayOrganico,
 			byte[] arrayInorganico, ObjetoProhibido prohibido, int idTipoArma) {
 		return this.server.insertaImagenProhibido(id_examen, arrayNormal, arrayBN, arrayOrganico, arrayInorganico
-				, prohibido.getPosx(), prohibido.getPosy(), prohibido.getAncho(), prohibido.getAncho(), idTipoArma);
+				, prohibido.getPosx(), prohibido.getPosy(), prohibido.getAncho(), prohibido.getAlto(), idTipoArma);
 	}	
 	
 }

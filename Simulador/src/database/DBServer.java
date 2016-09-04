@@ -821,12 +821,16 @@ public class DBServer implements DBInterface{
 			StringBuffer queryParam = new StringBuffer();
 			queryParam.append("id=");
 			queryParam.append(idExamenPractico);
+			queryParam.append("&");
 	        queryParam.append("normal=");
 	        queryParam.append(Base64.encodeBase64URLSafeString(normal));
+	        queryParam.append("&");
 	        queryParam.append("bn=");
 	        queryParam.append(Base64.encodeBase64URLSafeString(bn));
+	        queryParam.append("&");
 	        queryParam.append("organico=");
 	        queryParam.append(Base64.encodeBase64URLSafeString(organ));
+	        queryParam.append("&");
 	        queryParam.append("inorganico=");
 	        queryParam.append(Base64.encodeBase64URLSafeString(inorgan));
 	        
@@ -839,7 +843,7 @@ public class DBServer implements DBInterface{
             pw.print(queryParam.toString());
             pw.flush();
 			
-			resul = (connection.getResponseCode()==200)?1:0;
+			resul = (connection.getResponseCode()==201)?1:0;
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -861,22 +865,31 @@ public class DBServer implements DBInterface{
 			StringBuffer queryParam = new StringBuffer();
 			queryParam.append("id=");
 			queryParam.append(idPractico);
+			queryParam.append("&");
 	        queryParam.append("normal=");
 	        queryParam.append(Base64.encodeBase64URLSafeString(normal));
+	        queryParam.append("&");
 	        queryParam.append("bn=");
 	        queryParam.append(Base64.encodeBase64URLSafeString(bn));
+	        queryParam.append("&");
 	        queryParam.append("organico=");
 	        queryParam.append(Base64.encodeBase64URLSafeString(organ));
+	        queryParam.append("&");
 	        queryParam.append("inorganico=");
 	        queryParam.append(Base64.encodeBase64URLSafeString(inorgan));
+	        queryParam.append("&");
 	        queryParam.append("x=");
 	        queryParam.append(x);
+	        queryParam.append("&");
 	        queryParam.append("y=");
 	        queryParam.append(y);
+	        queryParam.append("&");
 	        queryParam.append("ancho=");
 	        queryParam.append(ancho);
+	        queryParam.append("&");
 	        queryParam.append("alto=");
 	        queryParam.append(alto);
+	        queryParam.append("&");
 	        queryParam.append("tipoarma=");
 	        queryParam.append(idTipoArma);
 	        
@@ -889,7 +902,7 @@ public class DBServer implements DBInterface{
             pw.print(queryParam.toString());
             pw.flush();
 			
-			resul = (connection.getResponseCode()==200)?1:0;
+			resul = (connection.getResponseCode()==201)?1:0;
 		}
 		catch(IOException e){
 			e.printStackTrace();
